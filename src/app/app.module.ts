@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { ShopComponent } from './components/test/shop/shop.component';
+import { ShopModule } from './shop/shop.module';
 import { LoginComponent } from './components/test/login/login.component';
 import { RegistrationComponent } from './components/test/registration/registration.component';
 
@@ -16,7 +16,6 @@ import { RegistrationComponent } from './components/test/registration/registrati
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    ShopComponent,
     LoginComponent,
     RegistrationComponent
   ],
@@ -24,6 +23,7 @@ import { RegistrationComponent } from './components/test/registration/registrati
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
+    ShopModule,
     AppRoutingModule
   ],
   providers: [],
