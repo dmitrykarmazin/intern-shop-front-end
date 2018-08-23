@@ -1,6 +1,22 @@
+.title-self,
+.title {
+  font-weight: 500;
+}
+
+.title {
+  margin-bottom: 25px;
+  border-bottom: 2px solid darkgrey;
+  padding-bottom: 5px;
+}
+
+.title-self {
+  margin-bottom: 5px;
+}
+
 .side-form {
   min-width: 150px;
   max-width: 500px;
+  margin-bottom: 10px;
   display: flex;
   justify-content: space-around;
 }

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Category} from '../../../shared/models/category.model';
 
 @Component({
@@ -6,14 +6,16 @@ import {Category} from '../../../shared/models/category.model';
   templateUrl: './side-nav.component.html',
   styleUrls: ['./side-nav.component.css']
 })
-export class SideNavComponent implements OnInit {
+export class SideNavComponent {
 
+  @Output() categoryFilter: EventEmitter<string> = new EventEmitter();
   @Input() categories: Category[];
 
   constructor() {
   }
 
-  ngOnInit() {
+  getCategoryId(id: string) {
+    this.categoryFilter.emit(id);
   }
 
 }
