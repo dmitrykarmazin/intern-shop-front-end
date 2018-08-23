@@ -3,10 +3,10 @@
 <h4 class="title-self">Price: </h4>
 <form class="side-form">
   <mat-form-field class="half-width">
-    <input matInput placeholder="From" value="0">
+    <input matInput placeholder="From" #From>
   </mat-form-field>
   <mat-form-field class="half-width">
-    <input matInput placeholder="To" value="1000">
+    <input matInput placeholder="To" #To (keydown.enter)="onSubmit(From.value, To.value)">
   </mat-form-field>
 </form>
 

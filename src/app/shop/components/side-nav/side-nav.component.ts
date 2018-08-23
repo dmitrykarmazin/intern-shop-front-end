@@ -18,4 +18,8 @@ export class SideNavComponent {
     this.categoryFilter.emit(id);
   }
 
+  onSubmit(from: string, to: string) {
+    console.log(`${from} - ${to}`);
+  }
+
 }
