@@ -1,0 +1,14 @@
+.side-form {
+  min-width: 150px;
+  max-width: 500px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.half-width {
+  width: 48%;
+}

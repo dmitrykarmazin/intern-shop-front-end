@@ -1,0 +1,20 @@
+<h3>Filters: </h3>
+
+<h4>Price: </h4>
+<form class="side-form">
+  <mat-form-field class="half-width">
+    <input matInput placeholder="From" value="0">
+  </mat-form-field>
+  <mat-form-field class="half-width">
+    <input matInput placeholder="To" value="1000">
+  </mat-form-field>
+</form>
+
+<h4>Category: </h4>
+<mat-form-field>
+  <mat-select placeholder="Category">
+    <mat-option *ngFor="let category of categories" [value]="category.id">
+      {{category.title}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

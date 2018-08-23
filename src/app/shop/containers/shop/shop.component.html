@@ -1,0 +1,8 @@
+<mat-drawer-container class="shop-container">
+  <mat-drawer mode="side" opened>
+    <app-side-nav [categories]="categories"></app-side-nav>
+  </mat-drawer>
+  <mat-drawer-content>
+    <app-products-view [products]="products"></app-products-view>
+  </mat-drawer-content>
+</mat-drawer-container>

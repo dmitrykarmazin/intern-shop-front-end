@@ -1,0 +1,14 @@
+.shop-container {
+  height: 100%;
+}
+
+mat-drawer {
+  min-width: 100px;
+  width: 220px;
+  max-width: 500px;
+  background: #f9f9f9;
+  padding: 20px;
+  border-right: 1px solid #f2f2f2;
+}
+
+mat-drawer-content {}
