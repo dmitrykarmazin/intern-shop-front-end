@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 
 import { Product } from '../../../shared/models/product.model';
 import { Category } from '../../../shared/models/category.model';
-import { Filters } from './../../components/side-nav/side-nav.component';
+import { Filters } from '../../components/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-shop',
-  templateUrl: './shop.component.html',
-  styleUrls: ['./shop.component.css']
+  templateUrl: './shop-page.component.html',
+  styleUrls: ['./shop-page.component.css']
 })
-export class ShopComponent implements OnInit {
+export class ShopPageComponent implements OnInit {
 
   products: Product[];
   categories: Category[];

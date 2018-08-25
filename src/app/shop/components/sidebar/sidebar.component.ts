@@ -12,11 +12,11 @@ export interface Filters {
 }
 
 @Component({
-  selector: 'app-side-nav',
-  templateUrl: './side-nav.component.html',
-  styleUrls: ['./side-nav.component.css']
+  selector: 'app-sidebar',
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.css']
 })
-export class SideNavComponent {
+export class SidebarComponent {
   categoryId: string = '';
   price: FilterPrice = { from: '0', to: '10000' };
 

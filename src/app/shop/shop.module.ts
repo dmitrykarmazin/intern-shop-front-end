@@ -1,9 +1,9 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {SideNavComponent} from './components/side-nav/side-nav.component';
-import {ProductsViewComponent} from './containers/products-view/products-view.component';
-import {ShopComponent} from './containers/shop/shop.component';
-import {MaterialModule} from '../material/material.module';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { ProductsViewComponent } from './containers/products-view/products-view.component';
+import { ShopPageComponent } from './containers/shop-page/shop-page.component';
+import { MaterialModule } from '../material/material.module';
 
 @NgModule({
   imports: [
@@ -11,14 +11,14 @@ import {MaterialModule} from '../material/material.module';
     MaterialModule
   ],
   declarations: [
-    SideNavComponent,
+    SidebarComponent,
     ProductsViewComponent,
-    ShopComponent
+    ShopPageComponent
   ],
   exports: [
-    SideNavComponent,
+    SidebarComponent,
     ProductsViewComponent,
-    ShopComponent
+    ShopPageComponent
   ]
 })
 export class ShopModule {
