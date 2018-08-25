@@ -24,7 +24,6 @@ export class SidebarComponent {
   @Input() categories: Category[];
 
   constructor() {
-    // ...
   }
 
   getCategoryId(id: string): void {
@@ -38,7 +37,7 @@ export class SidebarComponent {
     };
   }
 
-  getFilters(): void {
+  onFiltersChange(): void {
     this.filters.emit({
       price: this.price,
       category: this.categoryId
