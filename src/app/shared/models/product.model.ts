@@ -8,6 +8,5 @@ export class Product {
     public price: string,
     public stock: number
   ) {
-
   }
 }

@@ -13,6 +13,10 @@
   margin-bottom: 5px;
 }
 
+.title-self span {
+  color: #999;
+}
+
 .side-form {
   min-width: 150px;
   max-width: 500px;

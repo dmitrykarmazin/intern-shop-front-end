@@ -11,9 +11,11 @@ export class ProductsViewComponent implements OnInit {
   @Input() products: Product[];
 
   constructor() {
+    // ...
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    // ...
   }
 
 }

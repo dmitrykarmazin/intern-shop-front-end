@@ -1,5 +1,15 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Category} from '../../../shared/models/category.model';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Category } from '../../../shared/models/category.model';
+
+interface FilterPrice {
+  from: string;
+  to: string;
+}
+
+export interface Filters {
+  price: FilterPrice;
+  category: string;
+}
 
 @Component({
   selector: 'app-side-nav',
@@ -7,19 +17,31 @@ import {Category} from '../../../shared/models/category.model';
   styleUrls: ['./side-nav.component.css']
 })
 export class SideNavComponent {
+  categoryId: string = '';
+  price: FilterPrice = { from: '0', to: '10000' };
 
-  @Output() categoryFilter: EventEmitter<string> = new EventEmitter();
+  @Output() filters: EventEmitter<Filters> = new EventEmitter();
   @Input() categories: Category[];
 
   constructor() {
+    // ...
   }
 
-  getCategoryId(id: string) {
-    this.categoryFilter.emit(id);
+  getCategoryId(id: string): void {
+    this.categoryId = id;
   }
 
-  onSubmit(from: string, to: string) {
-    console.log(`${from} - ${to}`);
+  getPrice(from: string, to: string): void {
+    this.price = {
+      from,
+      to
+    };
   }
 
+  getFilters(): void {
+    this.filters.emit({
+      price: this.price,
+      category: this.categoryId
+    });
+  }
 }

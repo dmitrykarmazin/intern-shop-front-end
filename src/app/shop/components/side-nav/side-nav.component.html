@@ -6,7 +6,7 @@
     <input matInput placeholder="From" #From>
   </mat-form-field>
   <mat-form-field class="half-width">
-    <input matInput placeholder="To" #To (keydown.enter)="onSubmit(From.value, To.value)">
+    <input matInput placeholder="To (press enter)" #To (keydown.enter)="getPrice(From.value, To.value)">
   </mat-form-field>
 </form>
 
@@ -18,3 +18,5 @@
     </mat-option>
   </mat-select>
 </mat-form-field>
+
+  <button (click)="getFilters()">Submit</button>
