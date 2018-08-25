@@ -23,38 +23,48 @@ export class ProductListComponent {
      this.viewMode$ = from('list');
      this.products$ = of([
        {
+         id: '111',
          title: 'my test product',
          description: `my very first testing product my very first testing product my very first testing product
             my very first testing product my very first testing product my very first testing product`,
+         category_id: '3',
          category_title: 'test',
          price: 99.99,
          stock: 15
        },
        {
+        id: '222',
          title: 'my test product',
          description: `my very first testing product my very first testing product my very
             first testing product my very first testing product my very first testing product`,
+         category_id: '3',
          category_title: 'test',
          price: 99.99,
          stock: 10
        },
        {
+        id: '333',
          title: 'my test product',
          description: 'my very first testing product',
+         category_id: '3',
          category_title: 'test',
          price: 99.99,
          stock: 0
        },
        {
+        id: '444',
         title: 'my test product',
         description: 'my very first testing product',
+        category_id: '3',
         category_title: 'test',
         price: 99.99,
         stock: 18
       },
       {
+        id: '555',
         title: 'my test product',
         description: 'my very first testing product',
+        category_id: '3',
         category_title: 'test',
         price: 99.99,
         stock: 33

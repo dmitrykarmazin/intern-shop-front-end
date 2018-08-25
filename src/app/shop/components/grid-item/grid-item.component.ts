@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import BasicItem from '../basic-item/basic-item';
 import Product from '../../models/product';
 
 @Component({
@@ -7,8 +8,6 @@ import Product from '../../models/product';
   templateUrl: './grid-item.component.html',
   styleUrls: ['./grid-item.component.css']
 })
-export class GridItemComponent {
-
-  @Input() product: Product;
+export class GridItemComponent extends BasicItem {
 
 }

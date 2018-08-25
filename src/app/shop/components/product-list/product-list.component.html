@@ -1,7 +1,9 @@
 <div *ngIf="isListType; else listtype" class="app-product-list__grid-container">
   <mat-grid-list cols="4" rowHeight="300px" gutterSize="50px">
-    <mat-grid-tile *ngFor="let product of (products$ | async)">          
-      <app-grid-item [product]="product"></app-grid-item>
+    <mat-grid-tile *ngFor="let product of (products$ | async)"> 
+      <!-- <a [routerLink]="['/cars', product.id]" class="app-product-list__link"> -->        
+        <app-grid-item [product]="product"></app-grid-item>
+      <!-- </a> --> 
     </mat-grid-tile>
   </mat-grid-list>
 </div>
@@ -9,7 +11,9 @@
 <ng-template #listtype> 
   <ul>
     <li *ngFor="let product of (products$ | async)">
-      <app-list-item [product]="product"></app-list-item>
+      <!-- <a [routerLink]="['/cars', product.id]" class="app-product-list__link"> --> 
+        <app-list-item [product]="product"></app-list-item>
+      <!-- </a> --> 
     </li>
   </ul>
 </ng-template>
