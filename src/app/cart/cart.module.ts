@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../material/material.module';
 import { HttpClientModule } from '@angular/common/http';
 
-import { CartPageComponent } from './cart-page/cart-page.component';
+import { CartPageComponent } from './containers/cart-page/cart-page.component';
 import { CartItemsComponent } from './components/cart-items/cart-items.component';
 import { CartTotalComponent } from './components/cart-total/cart-total.component';
 

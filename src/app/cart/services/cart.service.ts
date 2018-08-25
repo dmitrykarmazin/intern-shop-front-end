@@ -13,6 +13,6 @@ export class ProductsService {
   }
 
   getProductsToCart(): Observable<Product[]> {
-      return this.http.get<Product[]>('../../../assets/db.json');
+      return this.http.get<Product[]>('../../../assets/cart-products.json');
   }
 }
