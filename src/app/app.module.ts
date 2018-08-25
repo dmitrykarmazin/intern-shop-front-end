@@ -12,6 +12,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { LoginComponent } from './components/test/login/login.component';
 import { RegistrationComponent } from './components/test/registration/registration.component';
 import { AuthModule } from './auth/auth.module';
+import { CartModule } from './cart/cart.module';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AuthModule } from './auth/auth.module';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    AuthModule
+    AuthModule,
+    CartModule
   ],
   providers: [],
   bootstrap: [

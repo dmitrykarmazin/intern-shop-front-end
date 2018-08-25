@@ -1,0 +1,25 @@
+<mat-toolbar *ngFor="let product of products; let i = index;">
+<div class="cart-img-wrap">
+<img src="{{product.thumbnail}}" alt="Photo of a Shiba Inu">
+</div>
+<div class="cart-info">
+<div class="cart-top-line mat-line">
+    <h4><strong>{{product.title}}</strong></h4>
+    <span class="cart-price">{{product.price | number: '1.2'}} $</span>
+    <input
+        matInput
+        #quantity
+        type="number"
+        id="count"
+        min="1"
+        [value]="1"
+    />
+    <span class="cart-item-total-price">
+        <strong>${{product.price*quantity.value | number: '1.2'}}</strong>
+    </span>
+</div>
+<div class="cart-bottom-line mat-line">
+    <button mat-button color="primary" (click)="remove(i)">Remove from cart</button>
+</div>
+</div>      
+</mat-toolbar>
