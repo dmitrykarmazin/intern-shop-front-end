@@ -1,0 +1,35 @@
+<div class="product-containner">
+  <div class="product-details">
+    <div class="product-image">
+      <img [src]="product.thumbnail" class="main-image">
+    </div>
+    <div class="details-avalible">
+      <div class="addtocard">
+        <div class="quantity">Quantity:</div>
+        <div class="count-blosk">
+          <button mat-button (click)="decrease()">-</button>
+          <mat-form-field>
+            <input [(ngModel)]="count" matInput type="text">
+          </mat-form-field>
+          <button mat-button (click)="increase()">+</button>
+        </div>
+        <div>
+          <p class="stock-details">
+            <span class="stock-mount"> Stock: {{ product.stock }}</span>
+          </p>
+        </div>
+        <div class="btn-wrapper">
+          <button mat-button color="accent">
+            <i class="material-icons">shopping_cart</i>
+            Add to Basket
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="description">
+      <p>
+        {{product.description}}
+      </p>
+    </div>
+  </div>
+</div>

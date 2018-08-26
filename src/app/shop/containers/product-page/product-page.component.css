@@ -1,0 +1,49 @@
+.product-details {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 100vh;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+}
+.product-image {
+  background-color: lightgray;
+  flex: 0 0 50%;
+  height: 500px;
+  margin: 0 auto;
+  
+}
+
+.product-image>img {
+  height: 500px;
+  margin: 0 auto;
+  object-fit: scale-down;
+}
+.details-avalible {
+  flex: 0 0 50%;
+  padding-top: 50px;
+  padding: 0 auto;
+}
+.addtocard{
+  width: 250px;
+  text-align: center;
+  margin: 0 auto;
+  padding: 20px 0;
+  border: 1px solid darkgray;
+  border-radius: 7px;
+}
+.stock-details {
+  text-align: center;
+  margin-top: 10px;
+  padding: 0 15px;
+  font-size: 0.8em;
+  color: darkgray;
+  margin-bottom: 20px;
+}
+.mat-form-field-flex{
+  width:70px !important;
+  text-align: center !important;
+}
+.mat-form-field-infix {
+  width: 50px;
+}
