@@ -16,10 +16,14 @@ export class ShopPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.products = [
-      { id: '1', title: 'Title1', description: 'Description1', category_id: '1', category_title: 'Mobile', price: '15000', stock: 38 },
-      { id: '2', title: 'Title2', description: 'Description2', category_id: '2', category_title: 'Mobile', price: '1500', stock: 64 },
-      { id: '3', title: 'Title3', description: 'Description3', category_id: '3', category_title: 'Mobile', price: '25000', stock: 32 },
-      { id: '4', title: 'Title4', description: 'Description4', category_id: '4', category_title: 'Mobile', price: '13500', stock: 2 }
+      { id: '1', title: 'Title1', description: 'Description1', 'thumbnail': '',
+      category_id: '1', category_title: 'Mobile', price: '15000', stock: 38 },
+      { id: '2', title: 'Title2', description: 'Description2',
+        'thumbnail': '', category_id: '2', category_title: 'Mobile', price: '1500', stock: 64 },
+      { id: '3', title: 'Title3', description: 'Description3', category_id: '3', category_title: 'Mobile',
+        'thumbnail': '', price: '25000', stock: 32 },
+      { id: '4', title: 'Title4', description: 'Description4',
+        'thumbnail': '', category_id: '4', category_title: 'Mobile', price: '13500', stock: 2 }
     ];
     this.categories = [
       { id: '1', title: 'Phones', description: 'description1' },
