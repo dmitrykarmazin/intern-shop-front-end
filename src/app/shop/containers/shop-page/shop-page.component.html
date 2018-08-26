@@ -4,5 +4,6 @@
   </mat-drawer>
   <mat-drawer-content>
     <app-product-list [products$]="products$" [viewMode$]="viewMode$" (emitAddToCart)="addToCart($event)"></app-product-list>
+    <app-products-view [products$]="products$"></app-products-view>
   </mat-drawer-content>
 </mat-drawer-container>

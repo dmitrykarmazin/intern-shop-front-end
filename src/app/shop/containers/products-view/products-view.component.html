@@ -1,0 +1,10 @@
+<div *ngIf="!((products$ | async)?.length)">No any products</div>
+<div *ngFor="let product of (products$ | async)">
+  {{product.id}}
+  {{product.title}}
+  {{product.price}}
+  {{product.category_id}}
+  {{product.category_title}}
+  {{product.description}}
+  {{product.stock}}
+</div>
