@@ -16,16 +16,13 @@ import { CartModule } from './cart/cart.module';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-import {ProductPageComponent} from './shop/containers/product-page/product-page.component';
-
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
     LoginComponent,
-    RegistrationComponent,
-    ProductPageComponent
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
