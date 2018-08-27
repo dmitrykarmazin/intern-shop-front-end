@@ -13,6 +13,8 @@ import { LoginComponent } from './components/test/login/login.component';
 import { RegistrationComponent } from './components/test/registration/registration.component';
 import { AuthModule } from './auth/auth.module';
 import { CartModule } from './cart/cart.module';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import {ProductPageComponent} from './shop/containers/product-page/product-page.component';
 
@@ -34,7 +36,11 @@ import {ProductPageComponent} from './shop/containers/product-page/product-page.
     FormsModule,
     ReactiveFormsModule,
     AuthModule,
-    CartModule
+    CartModule,
+    StoreModule.forRoot({}),
+    StoreDevtoolsModule.instrument({
+      maxAge: 10
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

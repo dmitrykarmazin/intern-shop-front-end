@@ -8,13 +8,16 @@ import { CartPageComponent } from './containers/cart-page/cart-page.component';
 import { CartItemsComponent } from './components/cart-items/cart-items.component';
 import { CartTotalComponent } from './components/cart-total/cart-total.component';
 
+import { StoreModule } from '@ngrx/store';
+import { cartReducer } from './store/reducers/cart.reducer';
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forFeature('cart', cartReducer)
   ],
   declarations: [
     CartPageComponent,
