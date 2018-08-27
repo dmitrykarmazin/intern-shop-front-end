@@ -3,7 +3,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { ShopModule } from './shop/shop.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 
 import { MaterialModule } from './material/material.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -35,11 +34,7 @@ import {ProductPageComponent} from './shop/containers/product-page/product-page.
     FormsModule,
     ReactiveFormsModule,
     AuthModule,
-<<<<<<< e6d299709c715d3b8fdfb81293d2561c35a92ea7
     CartModule
-=======
-    HttpClientModule
->>>>>>> add product-page, update module
   ],
   providers: [],
   bootstrap: [AppComponent]
