@@ -6,45 +6,39 @@ import {
 } from '../actions';
 import { Params } from '@angular/router';
 
-export class StoreRouterConfig {
-  public stateKey?: string;
-}
-
 export class RouterStateUrl {
   public url: string;
   public queryParams: Params;
-  public params: any;
+  public params: Params;
 }
 
 export const initialRouterStateUrl: RouterStateUrl = {
   url: '',
-  queryParams: {
-    stateKey: ''
-  },
-  params: ''
+  queryParams: {},
+  params: {}
 };
 
-export function routerReducer(state: RouterStateUrl = initialRouterStateUrl, action: RouterActions): RouterStateUrl {
+export function routerReducer(
+  state: RouterStateUrl = initialRouterStateUrl,
+  action: RouterActions
+): RouterStateUrl {
   switch (action.type) {
     case ACTIVATE_SHOP: {
       return {
         ...state,
-        url: 'shop',
-        // ?
+        url: 'shop'
       };
     }
     case ACTIVATE_LOGIN: {
       return {
         ...state,
-        url: 'login',
-        // ?
+        url: 'login'
       };
     }
     case ACTIVATE_REGISTER: {
       return {
         ...state,
-        url: 'register',
-        // ?
+        url: 'register'
       };
     }
     default: {
