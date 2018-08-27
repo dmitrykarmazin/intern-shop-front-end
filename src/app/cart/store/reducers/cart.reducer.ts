@@ -6,13 +6,17 @@ export interface CardItem {
     quantity: number;
 }
 export interface CartState {
+    isEmpty: boolean;
     products: CardItem[];
-    total: number;
+    totalCount: number;
+    totalSum: string|number;
 }
 
 export const initialCartState: CartState = {
+    isEmpty: true,
     products: [],
-    total: 0
+    totalCount: 0,
+    totalSum: 0
 };
 
 export function cartReducer( state: CartState = initialCartState, action: fromCart.Actions): CartState {
