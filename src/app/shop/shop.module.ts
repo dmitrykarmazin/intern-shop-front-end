@@ -5,6 +5,10 @@ import { ProductsViewComponent } from './containers/products-view/products-view.
 import { ShopPageComponent } from './containers/shop-page/shop-page.component';
 import { MaterialModule } from '../material/material.module';
 
+import { ProductListComponent } from './components/product-list/product-list.component';
+import { ListItemComponent } from './components/list-item/list-item.component';
+import { GridItemComponent } from './components/grid-item/grid-item.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -18,7 +22,10 @@ import { MaterialModule } from '../material/material.module';
   exports: [
     SidebarComponent,
     ProductsViewComponent,
-    ShopPageComponent
+    ShopPageComponent,
+    ProductListComponent,
+    ListItemComponent,
+    GridItemComponent
   ]
 })
 export class ShopModule {

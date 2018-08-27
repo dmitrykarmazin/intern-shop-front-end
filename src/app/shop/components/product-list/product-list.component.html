@@ -1,0 +1,15 @@
+<div *ngIf="isListType; else listtype" class="app-product-list__grid-container">
+  <mat-grid-list cols="4" rowHeight="300px" gutterSize="50px">
+    <mat-grid-tile *ngFor="let product of (products$ | async)">          
+      <app-grid-item [product]="product"></app-grid-item>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+
+<ng-template #listtype> 
+  <ul>
+    <li *ngFor="let product of (products$ | async)">
+      <app-list-item [product]="product"></app-list-item>
+    </li>
+  </ul>
+</ng-template>
