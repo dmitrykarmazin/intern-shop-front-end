@@ -33,10 +33,13 @@ export function reducer(
     }
 
     case fromProducts.LOAD_PRODUCTS_SUCCESS: {
+      const products = action.payload;
+      
       return {
         ...state,
         loading: false,
         loaded: true,
+        products,
       };
     }
 

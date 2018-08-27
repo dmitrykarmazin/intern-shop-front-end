@@ -25,6 +25,11 @@ export class ShopPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.products$ = this.store.select(fromProductsSelectors.getAllProducts);
+    this.categories$ = this.store.select(fromCategoriesSelectors.getAllCategories);
+    this.viewMode$ = this.store.select(fromProductsSelectors.getProductsViewMode);
+
+    this.store.dispatch(new fromStore.LoadProducts());
   }
 
   filters(filters: Filters): void {

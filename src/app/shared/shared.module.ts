@@ -1,3 +1,4 @@
+import { ProductsService } from './services/products.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -5,6 +6,9 @@ import { CommonModule } from '@angular/common';
   imports: [
     CommonModule
   ],
-  declarations: []
+  declarations: [],
+  providers: [
+    ProductsService
+  ]
 })
 export class SharedModule { }

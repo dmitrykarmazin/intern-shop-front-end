@@ -1,18 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
 import { MaterialModule } from '../material/material.module';
+import { ShopRoutingModule } from './shop-routing.module';
 
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ShopPageComponent } from './containers/shop-page/shop-page.component';
-import { FormsModule } from '@angular/forms';
-
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ListItemComponent } from './components/list-item/list-item.component';
 import { GridItemComponent } from './components/grid-item/grid-item.component';
-import { ShopRoutingModule } from './shop-routing.module';
 import { ProductPageComponent } from './containers/product-page/product-page.component';
+
 import { StoreModule } from '@ngrx/store';
-import { reducers } from '../shop/store';
+import { EffectsModule } from '@ngrx/effects';
+
+import { ProductsEffects } from './store/effects/products.effect';
+import { reducers, effects } from '../shop/store';
 
 @NgModule({
   imports: [
@@ -20,7 +24,8 @@ import { reducers } from '../shop/store';
     MaterialModule,
     ShopRoutingModule,
     FormsModule,
-    StoreModule.forFeature('shop', reducers)
+    StoreModule.forFeature('shop', reducers),
+    EffectsModule.forFeature(effects)
   ],
   declarations: [
     ProductListComponent,
@@ -37,6 +42,9 @@ import { reducers } from '../shop/store';
     ListItemComponent,
     GridItemComponent,
     ProductPageComponent
+  ],
+  providers: [
+    ProductsEffects
   ]
 })
 export class ShopModule {
