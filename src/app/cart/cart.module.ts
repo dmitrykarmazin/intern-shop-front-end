@@ -9,7 +9,7 @@ import { CartItemsComponent } from './components/cart-items/cart-items.component
 import { CartTotalComponent } from './components/cart-total/cart-total.component';
 
 import { StoreModule } from '@ngrx/store';
-import { cartReducer } from './store/reducers/cart.reducer';
+import { cartReducer } from './store/reducers';
 
 @NgModule({
   imports: [

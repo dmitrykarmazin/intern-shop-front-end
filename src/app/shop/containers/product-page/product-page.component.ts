@@ -1,14 +1,13 @@
-import { AddToCart } from './../../../cart/store/actions/cart.actions';
-import { cartState } from './../../../cart/store/selectors/cart.selectors';
 import { Component, OnInit , OnDestroy } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+
+import { ActivatedRoute, ParamMap, Params } from '@angular/router';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { Product } from '../../../shared/models/product.model';
-import { HttpParamsOptions } from '@angular/common/http/src/params';
+
 import { Store } from '@ngrx/store';
-import * as cartActions from '../../../cart/store/actions/cart.actions';
-import { CartState } from '../../../cart/store/reducers/cart.reducer';
+import { CartState } from '../../../cart/store/reducers';
+import { AddToCart } from './../../../cart/store/actions';
+import { Product } from '../../../shared/models/product.model';
+
 @Component({
   selector: 'app-product-page',
   templateUrl: './product-page.component.html',
@@ -43,12 +42,21 @@ export class ProductPageComponent implements OnInit, OnDestroy {
   private countSubj: BehaviorSubject<number> = new BehaviorSubject<number>(1);
   count$: Observable<number> = this.countSubj.asObservable();
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private store: Store<CartState>) {}
+  constructor(private route: ActivatedRoute,
+             private store: Store<CartState>,
+            //  private productSrore: Store<ProductState>
+            ) {}
 
   ngOnInit(): void {
-
     this.sub = this.count$.subscribe((quantity: number) => {
       this.count = quantity;
+    });
+  }
+
+  getProduct(): void {
+    this.route.params.subscribe( (params: Params) => {
+      const id: string  = params['id'];
+      //  this.product = productSrore.select(getProduct(id));
     });
   }
 
