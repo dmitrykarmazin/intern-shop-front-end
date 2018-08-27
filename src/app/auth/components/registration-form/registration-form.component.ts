@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
+import { User } from '../../models/user';
+import { Store } from '@ngrx/store';
+import { AuthState } from '../../store/reducers/auth.reducers';
+import { SignUpAction } from '../../store/actions/auth.actions';
 
 @Component({
   selector: 'app-registration-form',
@@ -11,13 +15,20 @@ export class RegistrationFormComponent implements OnInit {
     login: new FormControl(''),
     password: new FormControl('')
   });
-  constructor() { }
+
+  user: User = new User();
+
+  constructor(private store: Store<AuthState>) { }
 
   ngOnInit() {
   }
 
-  onSubmit() {
-    // check
-    console.log(this.registrationForm.value);
+  onSubmit(): void {
+    const payload = {
+      login: this.registrationForm.value.login,
+      password: this.registrationForm.value.password
+    };
+    console.log(payload);
+    this.store.dispatch(new SignUpAction(payload));
   }
 }

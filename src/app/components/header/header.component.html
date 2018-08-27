@@ -10,5 +10,8 @@
     <a class="btn-container" routerLink="/register">
       <button class="header-btn" mat-button>Sing Up</button>
     </a>
+    <a *ngIf="(isAuthorized | async)" class="btn-container" (click)="signOut()">
+      <button class="header-btn" mat-button>Sing Out</button>
+    </a>
   </mat-toolbar-row>
 </mat-toolbar>
