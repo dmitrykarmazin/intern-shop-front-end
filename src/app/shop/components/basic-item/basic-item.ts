@@ -6,10 +6,9 @@ export default class BasicItem {
 
     @Input() product: Product;
 
-    @Output() emitAddToCard: EventEmitter<string> = new EventEmitter<string>();
+    @Output() emitAddToCart: EventEmitter<string> = new EventEmitter<string>();
 
-    private addToCard(): void {
-        console.log('Buy me!!!. My id:', this.product.id);
-        this.emitAddToCard.emit(this.product.id);
+    private addToCart(): void {
+        this.emitAddToCart.emit(this.product.id);
     }
 }

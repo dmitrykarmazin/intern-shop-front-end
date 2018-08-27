@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of, from } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { Product } from '../../../shared/models/product.model';
 import { Category } from '../../../shared/models/category.model';
@@ -17,7 +17,7 @@ export class ShopPageComponent implements OnInit {
   categories: Category[];
 
   ngOnInit(): void {
-    this.viewMode$ = from('grid');
+    this.viewMode$ = of('grid');
     this.products$ = of([
       { id: '1', title: 'Title1', description: 'Description1', category_id: '1', category_title: 'Mobile', price: '15000', stock: 38 },
       { id: '2', title: 'Title2', description: 'Description2', category_id: '2', category_title: 'Mobile', price: '1500', stock: 64 },
@@ -33,11 +33,11 @@ export class ShopPageComponent implements OnInit {
   }
 
   filters(filters: Filters): void {
-    console.log(filters);
+    // TODO dispatch to store
   }
 
-  private addToCard($event: string): void {
-    console.log('dispatch to card me!!!. My id:', $event);
-    // dispatch to card
+  private addToCart($event: string): void {
+    // TODO dispatch to card
+    // event - id
   }
 }

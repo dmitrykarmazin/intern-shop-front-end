@@ -13,7 +13,7 @@ export class ProductListComponent {
   @Input() viewMode$: Observable<string>;
   @Input() products$: Observable<Product[]>;
 
-  @Output() emitAddToCard: EventEmitter<string> = new EventEmitter<string>();
+  @Output() emitAddToCart: EventEmitter<string> = new EventEmitter<string>();
 
   private isListType: boolean = true;
 
@@ -23,8 +23,7 @@ export class ProductListComponent {
 
   }
 
-  private addToCard($event: string): void {
-    console.log('Buy me!!!. My id:', $event);
-    this.emitAddToCard.emit($event);
+  private addToCart($event: string): void {
+    this.emitAddToCart.emit($event);
   }
 }
