@@ -1,8 +1,9 @@
 import { Component, OnInit , OnDestroy } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { Product } from '../../../shared/models/product.model';
+import { HttpParamsOptions } from '@angular/common/http/src/params';
 
 @Component({
   selector: 'app-product-page',
@@ -21,7 +22,17 @@ export class ProductPageComponent implements OnInit, OnDestroy {
     category_title: 'phone',
     stock: 77,
     description:
-      'Est officia nisi culpa Lorem dolor in irure voluptate enim excepteur ad. Voluptate pariatur ea eslagjgkjdjkgleagq[eiusmod'
+      `Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum repellat
+      molestias illo expedita placeat aut. Rerum distinctio aut, id optio ipsam
+      provident libero, quam dolorem sequi iste impedit harum quod aspernatur
+      saepe. Architecto totam ratione modi pariatur placeat minus vitae
+      voluptatem enim repellendus necessitatibus officia recusandae eligendi
+      quos esse, non veniam harum adipisci aliquam rerum sit illum tenetur
+      qui magni! Itaque, accusamus, quod autem maxime quasi amet modi in
+      culpa tenetur aliquam rerum sed quam voluptatibus error nemo dolor.
+      Illo dignissimos facere tempora quaerat sed quo expedita sequi totam.
+      Temporibus id a corporis sit commodi necessitatibus voluptatum,
+      incidunt nesciunt sint?`
   };
   sub: Subscription;
   id: string;
@@ -32,7 +43,7 @@ export class ProductPageComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.getProduct();
+
     this.sub = this.count$.subscribe((quantity: number) => {
       this.count = quantity;
     });
@@ -49,11 +60,7 @@ export class ProductPageComponent implements OnInit, OnDestroy {
       this.countSubj.next(this.count - 1);
     }
   }
-  getProduct(): void {
-    this.id = this.route.params['id'];
-    // this.http.get<Product>(`http://localhost:8080/products/${this.id}`)
-    // .subscribe((data: any) => this.product = data.product);
-  }
+
   addToCard(): void {}
 
   ngOnDestroy(): void {
