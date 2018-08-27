@@ -16,11 +16,10 @@ import { CartState } from '../../../cart/store/reducers/cart.reducer';
 })
 export class ProductPageComponent implements OnInit, OnDestroy {
   count: number = 1;
+  thumbnailURL: string = 'https://upload.wikimedia.org/wikipedia/commons/4/44/Samsung_Galaxy_S9%2B.png';
   product: Product = {
     id: '5b82dba680a7ce48203557da',
     title: 'Google pixel 2',
-    thumbnail:
-      'https://upload.wikimedia.org/wikipedia/commons/4/44/Samsung_Galaxy_S9%2B.png',
     price: '$799.99',
     category_id: '1',
     category_title: 'phone',

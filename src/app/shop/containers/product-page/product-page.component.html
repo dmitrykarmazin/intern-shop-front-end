@@ -1,7 +1,7 @@
 <div class="product-containner">
   <div class="product-details">
-    <div *ngIf="product && product.thumbnail" class="product-image">
-      <img [src]="product.thumbnail" class="main-image">
+    <div *ngIf="thumbnailURL" class="product-image">
+      <img [src]="thumbnailURL" class="main-image">
     </div>
     <div class="details-avalible">
       <div class="addtocard">
@@ -30,7 +30,6 @@
     <div *ngIf="product && product.description" class="description-wrapper">
       <p>
         {{product.description}}
-
       </p>
     </div>
   </div>
