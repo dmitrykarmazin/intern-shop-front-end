@@ -40,9 +40,4 @@ export class ShopPageComponent implements OnInit {
     // TODO dispatch to card
     // event - id
   }
-
-  private addToCard($event: string): void {
-    console.log('dispatch to card me!!!. My id:', $event);
-    // dispatch to card
-  }
 }
