@@ -1,0 +1,21 @@
+<h3 class="title">Filters: </h3>
+
+<h4 class="title-self">Price: </h4>
+<form class="side-form">
+  <mat-form-field class="half-width">
+    <input matInput placeholder="From" #From>
+  </mat-form-field>
+  <mat-form-field class="half-width">
+    <input matInput placeholder="To (press enter)" #To (keydown.enter)="getPrice(From.value, To.value)">
+  </mat-form-field>
+</form>
+
+<h4 class="title-self">Category: </h4>
+<mat-form-field>
+  <mat-select placeholder="Category">
+    <mat-option *ngFor="let category of categories" (click)="getCategoryId(category.id)" [value]="category.id">
+      {{category.title}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<button (click)="onFiltersChange()">Submit</button>

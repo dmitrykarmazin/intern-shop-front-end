@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { ShopPageComponent } from './containers/shop-page/shop-page.component';
 import { MaterialModule } from '../material/material.module';
-import { ShopComponent } from '../components/test/shop/shop.component';
+
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ListItemComponent } from './components/list-item/list-item.component';
 import { GridItemComponent } from './components/grid-item/grid-item.component';
@@ -13,10 +14,16 @@ import { GridItemComponent } from './components/grid-item/grid-item.component';
     MaterialModule
   ],
   declarations: [
-    ShopComponent,
     ProductListComponent,
     ListItemComponent,
-    GridItemComponent
+    GridItemComponent,
+    SidebarComponent,
+    ShopPageComponent
+  ],
+  exports: [
+    SidebarComponent,
+    ShopPageComponent
   ]
 })
-export class ShopModule { }
+export class ShopModule {
+}

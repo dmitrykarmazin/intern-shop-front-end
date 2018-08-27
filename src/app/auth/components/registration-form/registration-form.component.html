@@ -1,0 +1,29 @@
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+  <mat-grid-list cols="1" rowHeight="5em">
+    <mat-grid-tile>
+      Sign Up
+    </mat-grid-tile>
+    <!--Login field-->
+    <mat-grid-tile>
+      <mat-form-field>
+        <input matInput formControlName="login"  required placeholder="Login" autocorrect="off" autocapitalize="off" spellcheck="off" >
+      </mat-form-field>
+    </mat-grid-tile>
+    <!--Password field-->
+    <mat-grid-tile>
+      <mat-form-field>
+        <input matInput formControlName="password" required type="password" placeholder="Password" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="off" >
+      </mat-form-field>
+    </mat-grid-tile>
+    <!--Confirm password field-->
+    <mat-grid-tile>
+      <mat-form-field>
+        <input matInput required type="password" placeholder="Confirm password" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="off" >
+      </mat-form-field>
+    </mat-grid-tile>
+    <!--Button field-->
+    <mat-grid-tile>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!registrationForm.valid">Sign up</button>
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>
