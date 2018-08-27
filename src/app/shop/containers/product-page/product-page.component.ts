@@ -39,36 +39,26 @@ export class ProductPageComponent implements OnInit, OnDestroy {
   sub: Subscription;
   id: string;
 
-  private countSubj: BehaviorSubject<number> = new BehaviorSubject<number>(1);
-  count$: Observable<number> = this.countSubj.asObservable();
-
-  constructor(private route: ActivatedRoute,
-             private store: Store<CartState>,
-            //  private productSrore: Store<ProductState>
-            ) {}
+  constructor(private route: ActivatedRoute, private store: Store<CartState>) {}
 
   ngOnInit(): void {
-    this.sub = this.count$.subscribe((quantity: number) => {
-      this.count = quantity;
-    });
   }
 
   getProduct(): void {
     this.route.params.subscribe( (params: Params) => {
       const id: string  = params['id'];
-      //  this.product = productSrore.select(getProduct(id));
     });
   }
 
   increase(): void {
     if (this.count < this.product.stock) {
-      this.countSubj.next(this.count + 1);
+      this.count += 1;
     }
   }
 
   decrease(): void {
     if (this.count > 1) {
-      this.countSubj.next(this.count - 1);
+      this.count -= 1;
     }
   }
 
