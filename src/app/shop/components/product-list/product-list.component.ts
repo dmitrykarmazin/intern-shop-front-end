@@ -17,12 +17,6 @@ export class ProductListComponent {
 
   private isListType: boolean = true;
 
-  constructor() {
-
-    // this.viewMode$.subscribe((data: string) => this.isListType = data === 'list' ? true : false);
-
-  }
-
   private addToCart($event: string): void {
     this.emitAddToCart.emit($event);
   }

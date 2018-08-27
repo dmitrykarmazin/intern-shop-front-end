@@ -12,11 +12,7 @@
   <ul>
     <li *ngFor="let product of (products$ | async)">
       <!-- <a [routerLink]="['/cars', product.id]" class="app-product-list__link"> --> 
-<<<<<<< HEAD
-        <app-list-item [product]="product" (emitAddToCard)="addToCard($event)"></app-list-item>
-=======
         <app-list-item [product]="product" (emitAddToCart)="addToCart($event)"></app-list-item>
->>>>>>> IS-product-item2
       <!-- </a> --> 
     </li>
   </ul>
