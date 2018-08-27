@@ -11,9 +11,6 @@ const routes: Routes = [
   imports: [
     RouterModule.forChild(routes)
   ],
-  declarations: [
-    ProductPageComponent
-  ],
   exports: [
     RouterModule
   ]
