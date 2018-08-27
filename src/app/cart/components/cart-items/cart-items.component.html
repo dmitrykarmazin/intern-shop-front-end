@@ -8,14 +8,14 @@
     <span class="cart-price">{{product.price | number: '1.2'}} $</span>
     <input
         matInput
-        #quantity
+        [(ngModel)]="product.quantity"
         type="number"
         id="count"
         min="1"
         [value]="1"
     />
     <span class="cart-item-total-price">
-        <strong>${{product.price*quantity.value | number: '1.2'}}</strong>
+        <strong>${{product.price*product.quantity | number: '1.2'}}</strong>
     </span>
 </div>
 <div class="cart-bottom-line mat-line">
