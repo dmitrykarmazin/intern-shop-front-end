@@ -4,6 +4,10 @@ import { CartState } from '../reducers/cart.reducer';
 
 export const cartState: any = createFeatureSelector<CartState>('cart');
 
-export const getTotal: any = createSelector(cartState, (state: CartState) => state.total);
+export const getTotal: any = createSelector(cartState, (state: CartState) => state.totalSum);
+
+export const getTotalCount: any = createSelector(cartState, (state: CartState) => state.totalCount);
+
+export const isEmpty: any = createSelector(cartState, (state: CartState) => state.isEmpty);
 
 export const getCartList: any = createSelector(cartState, (state: CartState) => state.products);
