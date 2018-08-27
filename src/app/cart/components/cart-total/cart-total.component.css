@@ -1,0 +1,11 @@
+.total-price {
+    padding-right: 30px;
+    height: auto;
+}
+
+.total-price > p {
+    width: 100%;
+    text-align: right;
+    border-top: 1px solid rgba(28, 28, 28, 0.14);
+    padding: 20px 0;
+}
