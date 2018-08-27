@@ -23,9 +23,6 @@ export class SidebarComponent {
   @Output() filters: EventEmitter<Filters> = new EventEmitter();
   @Input() categories: Category[];
 
-  constructor() {
-  }
-
   getCategoryId(id: string): void {
     this.categoryId = id;
   }

@@ -3,6 +3,10 @@
     <app-sidebar (filters)="filters($event)" [categories]="categories"></app-sidebar>
   </mat-drawer>
   <mat-drawer-content>
+<<<<<<< HEAD
     <app-product-list [products$]="products$" [viewMode$]="viewMode$" (emitAddToCard)="addToCard($event)"></app-product-list>
+=======
+    <app-product-list [products$]="products$" [viewMode$]="viewMode$" (emitAddToCart)="addToCart($event)"></app-product-list>
+>>>>>>> IS-product-item2
   </mat-drawer-content>
 </mat-drawer-container>

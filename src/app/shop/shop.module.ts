@@ -18,11 +18,17 @@ import { GridItemComponent } from './components/grid-item/grid-item.component';
     ListItemComponent,
     GridItemComponent,
     SidebarComponent,
-    ShopPageComponent
+    ShopPageComponent,
+    ProductListComponent,
+    ListItemComponent,
+    GridItemComponent
   ],
   exports: [
     SidebarComponent,
-    ShopPageComponent
+    ShopPageComponent,
+    ProductListComponent,
+    ListItemComponent,
+    GridItemComponent
   ]
 })
 export class ShopModule {
