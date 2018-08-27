@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { Observable } from 'rxjs';
+
 import { Product } from '../../../shared/models/product';
 
 @Component({
@@ -7,10 +9,10 @@ import { Product } from '../../../shared/models/product';
   styleUrls: ['./cart-items.component.css']
 })
 export class CartItemsComponent {
-  @Input() products: Product[] = [];
+  @Input() products: Observable<Product[]>;
 
   remove(no: number): void {
-    (this.products).splice(no, 1);
+    // (this.products).splice(no, 1);
   }
 
 }

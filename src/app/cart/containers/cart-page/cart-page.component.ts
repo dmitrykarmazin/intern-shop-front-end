@@ -1,5 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import * as fromStore from '../../store';
 
 import { ProductsService } from '../../services/cart.service';
 import { Product } from '../../../shared/models/product';
@@ -10,25 +13,22 @@ import { Product } from '../../../shared/models/product';
   styleUrls: ['./cart-page.component.css']
 })
 export class CartPageComponent implements OnInit, OnDestroy {
-  public products: Product[] = [];
+  public products$: Observable<Product[]>;
   subs: Subscription;
-  public isLoaded: boolean = false;
 
-  constructor(private productsService: ProductsService) { }
+  constructor(private store: Store<fromStore.ProductsState>) { }
 
   ngOnInit(): void {
-    this.subs = this.productsService.getProductsToCart()
-      .subscribe((data: Product[]) => this.products = data);
-    this.isLoaded = true;
+    this.products$ = this.store.select(fromStore.getAllItems);
   }
 
-  getCountIsEmpty(): number {
-    return this.products.reduce((total: number, e: Product) => {
-      total += e.price;
+  // getCountIsEmpty(): number {
+  //   return this.products.reduce((total: number, e: Product) => {
+  //     total += e.price;
 
-      return total;
-    }, 0);
-  }
+  //     return total;
+  //   }, 0);
+  // }
 
   ngOnDestroy(): void {
     if (this.subs) {

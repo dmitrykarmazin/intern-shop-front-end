@@ -1,4 +1,4 @@
-<mat-toolbar *ngFor="let product of products; let i = index;">
+<mat-toolbar *ngFor="let product of (products | async); let i = index;">
 <div class="cart-img-wrap">
 <img src="{{product.thumbnail}}" alt="Photo of a Shiba Inu">
 </div>
