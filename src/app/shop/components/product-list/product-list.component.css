@@ -1,3 +1,7 @@
 .app-product-list__grid-container{
     padding: 0 30px;
 }
+
+.app-product-list__link{
+    text-decoration: none;
+}

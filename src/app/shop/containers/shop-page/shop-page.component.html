@@ -3,6 +3,6 @@
     <app-sidebar (filters)="filters($event)" [categories]="categories"></app-sidebar>
   </mat-drawer>
   <mat-drawer-content>
-    <app-products-view [products]="products"></app-products-view>
+    <app-product-list [products$]="products$" [viewMode$]="viewMode$" (emitAddToCard)="addToCard($event)"></app-product-list>
   </mat-drawer-content>
 </mat-drawer-container>

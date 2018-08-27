@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable, of, from } from 'rxjs';
 
 import Product from '../../models/product';
@@ -13,53 +13,18 @@ export class ProductListComponent {
   @Input() viewMode$: Observable<string>;
   @Input() products$: Observable<Product[]>;
 
-  private isListType: boolean = false;
+  @Output() emitAddToCard: EventEmitter<string> = new EventEmitter<string>();
+
+  private isListType: boolean = true;
 
   constructor() {
-     /* TODO include before work  */
-     // this.viewMode$.subscribe((listType: string) => this.isListType = (listType === 'list'));
 
-     // TODO - only for testing
-     this.viewMode$ = from('list');
-     this.products$ = of([
-       {
-         title: 'my test product',
-         description: `my very first testing product my very first testing product my very first testing product
-            my very first testing product my very first testing product my very first testing product`,
-         category_title: 'test',
-         price: 99.99,
-         stock: 15
-       },
-       {
-         title: 'my test product',
-         description: `my very first testing product my very first testing product my very
-            first testing product my very first testing product my very first testing product`,
-         category_title: 'test',
-         price: 99.99,
-         stock: 10
-       },
-       {
-         title: 'my test product',
-         description: 'my very first testing product',
-         category_title: 'test',
-         price: 99.99,
-         stock: 0
-       },
-       {
-        title: 'my test product',
-        description: 'my very first testing product',
-        category_title: 'test',
-        price: 99.99,
-        stock: 18
-      },
-      {
-        title: 'my test product',
-        description: 'my very first testing product',
-        category_title: 'test',
-        price: 99.99,
-        stock: 33
-      }
-     ]);
-     // End temp data
+    // this.viewMode$.subscribe((data: string) => this.isListType = data === 'list' ? true : false);
+
+  }
+
+  private addToCard($event: string): void {
+    console.log('Buy me!!!. My id:', $event);
+    this.emitAddToCard.emit($event);
   }
 }

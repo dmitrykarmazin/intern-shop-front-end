@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import BasicItem from '../basic-item/basic-item';
 import Product from '../../models/product';
 
 @Component({
@@ -7,8 +8,6 @@ import Product from '../../models/product';
   templateUrl: './list-item.component.html',
   styleUrls: ['./list-item.component.css']
 })
-export class ListItemComponent {
-
-  @Input() product: Product;
+export class ListItemComponent extends BasicItem {
 
 }
