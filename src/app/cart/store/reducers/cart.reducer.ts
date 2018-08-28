@@ -1,25 +1,27 @@
 
 import { Product } from '../../../shared/models/product.model';
 import * as fromCart from './../actions';
-export interface CardItem {
+export interface CartItem {
     product: Product;
     quantity: number;
 }
 export interface CartState {
     isEmpty: boolean;
-    products: { [id: string]: CardItem };
+    ids: string[];
+    products: { [id: string]: CartItem };
     totalCount: number;
     totalSum: number;
 }
 
 export const initialCartState: CartState = {
     isEmpty: true,
+    ids: [],
     products: {},
     totalCount: 0,
     totalSum: 0
 };
 
-export function cartReducer( state: CartState = initialCartState, action: fromCart.Actions): CartState {
+export function reducer( state: CartState = initialCartState, action: fromCart.Actions): CartState {
     switch (action.type) {
         case fromCart.ADD_TO_CART: {
             const id: string = action.payload.product.id;
@@ -30,6 +32,7 @@ export function cartReducer( state: CartState = initialCartState, action: fromCa
 
             return {
                 ...state,
+                ids: [...state.ids, id],
                 products: {
                     [id]: {
                         ...state.products[id],

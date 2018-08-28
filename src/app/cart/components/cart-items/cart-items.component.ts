@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { Product } from '../../../shared/models/product';
+import { CartItem } from '../../store/reducers/cart.reducer';
 
 @Component({
   selector: 'app-cart-items',
@@ -8,11 +9,26 @@ import { Product } from '../../../shared/models/product';
   styleUrls: ['./cart-items.component.css']
 })
 export class CartItemsComponent {
-  @Input() products: Product[] = [];
-  quantity: number;
+  @Input() products$: Observable<{[key: string]: CartItem}>;
+  @Input() ids$: Observable<string[]>
+
+  @Output() quantityChange: EventEmitter<any> = new EventEmitter();
 
   remove(no: number): void {
     // (this.products).splice(no, 1);
   }
 
+  increase(id: string): void {
+    this.quantityChange.emit({
+      id,
+      action: 'increase'
+    })
+  }
+
+  decrease(id: string): void {
+    this.quantityChange.emit({
+      id,
+      action: 'decrease'
+    })
+  }
 }
