@@ -7,14 +7,14 @@ export interface CardItem {
 }
 export interface CartState {
     isEmpty: boolean;
-    products: CardItem[];
+    products: { [id: string]: CardItem };
     totalCount: number;
-    totalSum: string|number;
+    totalSum: number;
 }
 
 export const initialCartState: CartState = {
     isEmpty: true,
-    products: [],
+    products: {},
     totalCount: 0,
     totalSum: 0
 };
@@ -22,18 +22,24 @@ export const initialCartState: CartState = {
 export function cartReducer( state: CartState = initialCartState, action: fromCart.Actions): CartState {
     switch (action.type) {
         case fromCart.ADD_TO_CART: {
-            const index: number = state.products.map((i: CardItem) => i.product.id).indexOf(action.payload.product.id);
-            if (index >= 0) {
-               const updated: CardItem[] = [
-                    ...state.products.slice(0, index),
-                    action.payload,
-                    ...state.products.slice(index + 1)
-                ];
+            const id: string = action.payload.product.id;
+            const prevQuantity: number = state.products[id] ? state.products[id].quantity : 0;
+            const newQuantity: number = prevQuantity + action.payload.quantity;
 
-                return {...state, products: updated };
-            }
+            const additionalSum: number = action.payload.quantity * Number(action.payload.product.price);
 
-            return {...state, products: [...state.products, action.payload] };
+            return {
+                ...state,
+                products: {
+                    [id]: {
+                        ...state.products[id],
+                        product: action.payload.product,
+                        quantity: newQuantity
+                    }
+                },
+                totalCount: state.totalCount + action.payload.quantity,
+                totalSum: state.totalSum + additionalSum
+            };
         }
         default:
             return state;

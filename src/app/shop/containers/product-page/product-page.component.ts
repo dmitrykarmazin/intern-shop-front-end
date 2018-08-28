@@ -13,13 +13,13 @@ import { Product } from '../../../shared/models/product.model';
   templateUrl: './product-page.component.html',
   styleUrls: ['./product-page.component.css']
 })
-export class ProductPageComponent implements OnInit, OnDestroy {
+export class ProductPageComponent implements OnInit {
   count: number = 1;
   thumbnailURL: string = 'https://upload.wikimedia.org/wikipedia/commons/4/44/Samsung_Galaxy_S9%2B.png';
   product: Product = {
     id: '5b82dba680a7ce48203557da',
     title: 'Google pixel 2',
-    price: '$799.99',
+    price: '799.99',
     category_id: '1',
     category_title: 'phone',
     stock: 77,
@@ -42,6 +42,7 @@ export class ProductPageComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, private store: Store<CartState>) {}
 
   ngOnInit(): void {
+    // TODO:
   }
 
   getProduct(): void {
@@ -69,7 +70,4 @@ export class ProductPageComponent implements OnInit, OnDestroy {
     }));
   }
 
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
-  }
 }
