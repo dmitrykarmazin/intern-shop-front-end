@@ -1,27 +1,27 @@
 import { Action } from '@ngrx/store';
+import { NavigationExtras } from '@angular/router';
 
-import { RouterStateUrl } from '../reducers';
+export const GO: string = '[Router] Go';
+export const BACK: string = '[Router] Back';
+export const FORWARD: string = '[Router] Forward';
 
-export const ACTIVATE_SHOP: string = 'ACTIVATE_SHOP';
-export const ACTIVATE_LOGIN: string = 'ACTIVATE_LOGIN';
-export const ACTIVATE_REGISTER: string = 'ACTIVATE_REGISTER';
-
-export class ActivateShop implements Action {
-  readonly type: string = ACTIVATE_SHOP;
-
-  constructor(public payload: RouterStateUrl) {}
+export class Go implements Action {
+  readonly type: string = GO;
+  constructor(
+    public payload: {
+      path: any[];
+      query?: object;
+      extras?: NavigationExtras;
+    }
+  ) {}
 }
 
-export class ActivateLogin implements Action {
-  readonly type: string = ACTIVATE_LOGIN;
-
-  constructor(public payload: RouterStateUrl) {}
+export class Back implements Action {
+  readonly type: string = BACK;
 }
 
-export class ActivateRegister implements Action {
-  readonly type: string = ACTIVATE_REGISTER;
-
-  constructor(public payload: RouterStateUrl) {}
+export class Forward implements Action {
+  readonly type: string = FORWARD;
 }
 
-export type RouterActions = ActivateShop | ActivateLogin | ActivateRegister;
+export type Actions = Go | Back | Forward;

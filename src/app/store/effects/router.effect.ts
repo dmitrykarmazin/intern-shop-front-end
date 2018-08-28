@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
-import { Effect, Actions, ofType } from '@ngrx/effects';
+import { Effect, Actions } from '@ngrx/effects';
 import * as RouterActions from '../actions/router.action';
 
 import { tap, map } from 'rxjs/operators';
@@ -10,36 +11,25 @@ import { tap, map } from 'rxjs/operators';
 export class RouterEffects {
   constructor(
     private actions$: Actions,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {}
 
   @Effect({ dispatch: false })
-  navigateShop$: any = this.actions$
-    .pipe(
-      ofType(RouterActions.ACTIVATE_SHOP),
-      map((action: RouterActions.ActivateShop) => action.payload),
-      tap(({ path, queryParams, params }: any) => {
-        this.router.navigate(path, { queryParams, ...params });
-      })
-    );
+  navigate$: any = this.actions$.ofType(RouterActions.GO).pipe(
+    map((action: RouterActions.Go) => action.payload),
+    tap(({ path, query: queryParams, extras }: any) => {
+      this.router.navigate(path, { queryParams, ...extras });
+    })
+  );
 
   @Effect({ dispatch: false })
-  navigateLogin$: any = this.actions$
-    .pipe(
-      ofType(RouterActions.ACTIVATE_LOGIN),
-      map((action: RouterActions.ActivateLogin) => action.payload),
-      tap(({ path, queryParams, params }: any) => {
-        this.router.navigate(path, { queryParams, ...params });
-      })
-    );
+  navigateBack$: any = this.actions$
+    .ofType(RouterActions.BACK)
+    .pipe(tap(() => this.location.back()));
 
   @Effect({ dispatch: false })
-  navigateRegister$: any = this.actions$
-    .pipe(
-      ofType(RouterActions.ACTIVATE_REGISTER),
-      map((action: RouterActions.ActivateRegister) => action.payload),
-      tap(({ path, queryParams, params }: any) => {
-        this.router.navigate(path, { queryParams, ...params });
-      })
-    );
+  navigateForward$: any = this.actions$
+    .ofType(RouterActions.FORWARD)
+    .pipe(tap(() => this.location.forward()));
 }

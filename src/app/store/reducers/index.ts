@@ -1,41 +1,42 @@
+import {
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  Params,
+} from '@angular/router';
+import { createFeatureSelector, ActionReducerMap } from '@ngrx/store';
+
 import * as fromRouter from '@ngrx/router-store';
-import { Params, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
-import { createFeatureSelector } from '@ngrx/store';
 
-export class RouterStateUrl {
-  constructor(
-    public url: string,
-    public queryParams: Params,
-    public params: Params
-  ) {}
+export interface RouterStateUrl {
+  url: string;
+  queryParams: Params;
+  params: Params;
 }
 
-export class CustomRouterSerializer implements fromRouter.RouterStateSerializer<RouterStateUrl> {
-  serialize(routerState: RouterStateSnapshot): RouterStateUrl {
-    let childRoute: ActivatedRouteSnapshot = routerState.root;
-    while (childRoute.firstChild) {
-      childRoute = childRoute.firstChild;
-    }
-    const url: string = childRoute.data['url'];
-    const queryParams: Params = childRoute.data['queryParams'];
-    const params: Params = childRoute.data['params'];
-
-    return {
-      url,
-      queryParams,
-      params
-    };
-  }
+export interface State {
+  routerReducer: fromRouter.RouterReducerState<RouterStateUrl>;
 }
 
-export class State {
-  router: fromRouter.RouterReducerState<RouterStateUrl>;
-}
-
-export const reducers: any = {
-  router: fromRouter.routerReducer
+export const reducers: ActionReducerMap<State> = {
+  routerReducer: fromRouter.routerReducer,
 };
 
-export const getRouterState: any = createFeatureSelector<fromRouter.RouterReducerState<RouterStateUrl>>('router');
+export const getRouterState: any = createFeatureSelector<
+  fromRouter.RouterReducerState<RouterStateUrl>
+>('routerReducer');
 
-export * from './router.reducer';
+export class CustomSerializer
+  implements fromRouter.RouterStateSerializer<RouterStateUrl> {
+  serialize(routerState: RouterStateSnapshot): RouterStateUrl {
+    const { url } = routerState;
+    const { queryParams } = routerState.root;
+
+    let state: ActivatedRouteSnapshot = routerState.root;
+    while (state.firstChild) {
+      state = state.firstChild;
+    }
+    const { params } = state;
+
+    return { url, queryParams, params };
+  }
+}
