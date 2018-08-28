@@ -1,19 +1,18 @@
 import { Action } from '@ngrx/store';
-import { AppNotification } from '../../notification/models/notification';
 
-export const NOTIFICATION_NEW: string = 'NEW_NOTIFICATION';
-export const NOTIFICATION_SELECTED: string = 'NOTIFICATION_SELECTED';
+export const NOTIFICATION_NEW: string = 'NOTIFICATION_NEW';
+export const NOTIFICATION_NEW_ERROR: string = 'NOTIFICATION_NEW_ERROR';
 
-export class AppNotificationNew implements Action {
+export class AppNotification implements Action {
     type: string = NOTIFICATION_NEW;
-    constructor ( public payload: AppNotification ) { }
+    constructor ( public payload: string ) { }
 }
 
-export class AppNotificationSelected implements Action {
-    type: string = NOTIFICATION_SELECTED;
-    constructor ( public payload: Action ) { }
+export class AppNotificationError implements Action {
+    type: string = NOTIFICATION_NEW_ERROR;
+    constructor ( public payload: string ) { }
 }
 
 export type AppNotificationTypes =
-  AppNotificationNew
-| AppNotificationSelected;
+  AppNotification
+| AppNotificationError;

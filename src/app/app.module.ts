@@ -1,9 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { NotificationModule } from './notification/notification.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
@@ -15,10 +13,10 @@ import { reducers, effects, CustomSerializer } from './store';
 import { ShopModule } from './shop/shop.module';
 import { AuthModule } from './auth/auth.module';
 import { CartModule } from './cart/cart.module';
-
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { NotificationService } from './shared/services/notification';
 
 @NgModule({
   declarations: [
@@ -31,7 +29,6 @@ import { FooterComponent } from './components/footer/footer.component';
     ShopModule,
     BrowserAnimationsModule,
     MaterialModule,
-    NotificationModule,
     AppRoutingModule,
     EffectsModule.forRoot(effects),
     StoreModule.forRoot(reducers),
@@ -43,7 +40,8 @@ import { FooterComponent } from './components/footer/footer.component';
     CartModule
   ],
   providers: [
-    { provide: RouterStateSerializer, useClass: CustomSerializer }
+    { provide: RouterStateSerializer, useClass: CustomSerializer },
+    NotificationService
   ],
   bootstrap: [
     AppComponent

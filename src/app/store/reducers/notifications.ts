@@ -1,14 +1,15 @@
-import { AppNotification } from '../../notification/models/notification';
 import * as notificationActions from '../actions/notifications';
 
 export interface NotificationState {
-    notification: any;
+    message: string;
     timeLastNotification: Date;
+    isError: boolean;
 }
 
 const initialState: NotificationState = {
-    notification: null,
-    timeLastNotification: null
+    message: '',
+    timeLastNotification: null,
+    isError: false
 };
 
 export function notificationReducer
@@ -16,8 +17,16 @@ export function notificationReducer
         switch (action.type) {
             case notificationActions.NOTIFICATION_NEW:
                 return {
-                    notification: action.payload,
-                    timeLastNotification: new Date()
+                    message: action.payload,
+                    timeLastNotification: new Date(),
+                    isError: false
+                };
+
+            case notificationActions.NOTIFICATION_NEW_ERROR:
+                return {
+                    message: action.payload,
+                    timeLastNotification: new Date(),
+                    isError: true
                 };
 
             default:
@@ -25,10 +34,14 @@ export function notificationReducer
         }
 }
 
-export function getNotification (state: NotificationState): AppNotification {
-    return state.notification;
+export function getNotificationMessage (state: NotificationState): string {
+    return state.message;
 }
 
 export function getNotificationDate (state: NotificationState): Date {
     return state.timeLastNotification;
+}
+
+export function getNotificationIsError (state: NotificationState): boolean {
+    return state.isError;
 }
