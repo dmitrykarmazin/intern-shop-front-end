@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import { CardItem } from './../reducers';
+import { CardItem } from './../reducers/cart.reducer';
 
 export const ADD_TO_CART: string = '[ADD] product to cart';
 

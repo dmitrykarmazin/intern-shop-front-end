@@ -9,7 +9,7 @@ import { CartItemsComponent } from './components/cart-items/cart-items.component
 import { CartTotalComponent } from './components/cart-total/cart-total.component';
 
 import { StoreModule } from '@ngrx/store';
-import { cartReducer } from './store/reducers';
+import { reducers } from './store/reducers';
 
 @NgModule({
   imports: [
@@ -17,7 +17,7 @@ import { cartReducer } from './store/reducers';
     MaterialModule,
     FormsModule,
     HttpClientModule,
-    StoreModule.forFeature('cart', cartReducer)
+    StoreModule.forFeature('cart', reducers)
   ],
   declarations: [
     CartPageComponent,
