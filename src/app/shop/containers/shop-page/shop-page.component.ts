@@ -8,7 +8,8 @@ import { FiltersObject } from './../../../shared/models/filters.model';
 import { Store } from '@ngrx/store';
 
 import * as fromStore from '../../store';
-import * as fromSelectors from '../../store/selectors/products.selector';
+import * as fromProductsSelectors from '../../store/selectors/products.selector';
+import * as fromCategoriesSelectors from '../../store/selectors/categories.selector';
 
 @Component({
   selector: 'app-shop',
@@ -19,7 +20,6 @@ export class ShopPageComponent implements OnInit {
 
   viewModeValue: boolean = false;
   products$: Observable<Product[]>;
-  viewMode: string;
   viewMode$: Observable<string>;
   categories$: Observable<Category[]>;
 

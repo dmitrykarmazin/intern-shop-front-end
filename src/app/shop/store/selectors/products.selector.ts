@@ -1,11 +1,10 @@
-import { ProductsState } from './../reducers';
+import { ShopState, getShopState } from './../reducers';
 import { createSelector } from '@ngrx/store';
-import { getProductsState } from '../reducers';
 import * as fromProducts from '../reducers/products.reducer';
 
 export const getProducts = createSelector(
-  getProductsState,
-  (state: ProductsState) => state.products
+  getShopState,
+  (state: ShopState) => state.products
 );
 
 export const getAllProducts = createSelector(
