@@ -22,10 +22,6 @@ import { routerReducer, effects } from './store';
     AppComponent,
     HeaderComponent,
     FooterComponent
-<<<<<<< 0f385fa4a8f3446b1d3584ef6d6ec7f6d70787c4
-
-=======
->>>>>>> clear garbage
   ],
   imports: [
     BrowserModule,
