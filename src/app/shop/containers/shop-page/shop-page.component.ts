@@ -5,13 +5,6 @@ import { Product } from '../../../shared/models/product.model';
 import { Category } from '../../../shared/models/category.model';
 import { Filters } from '../../components/sidebar/sidebar.component';
 
-// Test data
-import { Store, select } from '@ngrx/store';
-import * as notificationActions from '../../../store/actions/notifications';
-import * as routerActions from '../../../store/actions/router.action';
-import * as reducer from '../../../store/reducers';
-import { AppNotificationType } from '../../../notification/models/notification';
-
 @Component({
   selector: 'app-shop',
   templateUrl: './shop-page.component.html',
@@ -23,26 +16,7 @@ export class ShopPageComponent implements OnInit {
   viewMode$: Observable<string>;
   categories: Category[];
 
-  // Test data
-  constructor(private store: Store<reducer.State>) {
-
-   }
-
   ngOnInit(): void {
-
-    setTimeout( () =>
-      this.store.dispatch(new notificationActions.AppNotificationNew(
-        {
-          messageDescription: 'Warning user',
-          messageAction: 'Click me',
-          type: AppNotificationType.Notification,
-          selectAction: new routerActions.Back()
-        }
-      )
-    ), 1000);
-
-    // End test
-
     this.viewMode$ = of('grid');
     this.products$ = of([
       { id: '1', title: 'Title1', description: 'Description1', category_id: '1', category_title: 'Mobile', price: '15000', stock: 38 },
