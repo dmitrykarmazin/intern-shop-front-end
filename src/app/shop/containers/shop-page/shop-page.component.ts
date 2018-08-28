@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 
 import { Product } from '../../../shared/models/product.model';
 import { Category } from '../../../shared/models/category.model';
-import { Filters } from '../../components/sidebar/sidebar.component';
+import { FiltersObject } from './../../../shared/models/filters.model';
 
 import { Store } from '@ngrx/store';
 
@@ -19,6 +19,7 @@ export class ShopPageComponent implements OnInit {
 
   products$: Observable<Product[]>;
   viewMode$: Observable<string>;
+  categories$: Observable<Category[]>;
 
   constructor(private store: Store<fromStore.ProductsState>) {
     this.products$ = this.store.select(fromSelectors.getAllProducts);
@@ -30,10 +31,11 @@ export class ShopPageComponent implements OnInit {
     this.viewMode$ = this.store.select(fromProductsSelectors.getProductsViewMode);
 
     this.store.dispatch(new fromStore.LoadProducts());
+    this.store.dispatch(new fromStore.LoadCategories());
   }
 
-  filters(filters: Filters): void {
-    // TODO dispatch to store
+  filters(filters: FiltersObject): void {
+    this.store.dispatch(new fromStore.ApplyFilters(filters));
   }
 
   private addToCart($event: string): void {

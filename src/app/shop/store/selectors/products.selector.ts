@@ -30,5 +30,5 @@ export const getProductsViewMode = createSelector(
 
 export const getProductsCurrentFilters = createSelector(
   getProducts,
-  fromProducts.getProductsCurrentFilters
+  fromProducts.getProductsFilters
 );

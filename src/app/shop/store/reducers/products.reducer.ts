@@ -7,7 +7,7 @@ export interface ProductsState {
   loaded: boolean;
   products: Product[];
   viewMode: string; // 'grid' | 'list'
-  currentFilters: FiltersObject;
+  filters: FiltersObject;
 }
 
 export const initialState: ProductsState = {
@@ -15,8 +15,10 @@ export const initialState: ProductsState = {
   loaded: false,
   products: [],
   viewMode: 'grid',
-  currentFilters: {
-    category: ''
+  filters: {
+    price: null,
+    stock: null,
+    category: null,
   }
 };
 
@@ -43,7 +45,17 @@ export function reducer(
       };
     }
 
-    case fromProducts.LOAD_PRODUCTS_SUCCESS: {
+    case fromProducts.APPLY_FILTERS: {
+      console.log(action.payload);
+      
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+      };
+    }
+
+    case fromProducts.LOAD_PRODUCTS_FAIL: {
       return {
         ...state,
         loading: false,
@@ -59,4 +71,4 @@ export const getProducts = (state: ProductsState) => state.products;
 export const getProductsLoaded = (state: ProductsState) => state.loaded;
 export const getProductsLoading = (state: ProductsState) => state.loading;
 export const getProductsViewMode = (state: ProductsState) => state.viewMode;
-export const getProductsCurrentFilters = (state: ProductsState) => state.currentFilters;
+export const getProductsFilters = (state: ProductsState) => state.filters;

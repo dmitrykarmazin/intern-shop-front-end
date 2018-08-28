@@ -22,7 +22,8 @@
   max-width: 500px;
   margin-bottom: 10px;
   display: flex;
-  justify-content: space-around;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
 .full-width {

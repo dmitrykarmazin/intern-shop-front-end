@@ -1,4 +1,3 @@
-import { ProductsActions } from './../actions/products.action';
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 

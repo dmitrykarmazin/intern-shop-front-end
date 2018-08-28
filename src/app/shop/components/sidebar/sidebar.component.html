@@ -6,16 +6,22 @@
     <input matInput placeholder="From" #From>
   </mat-form-field>
   <mat-form-field class="half-width">
-    <input matInput placeholder="To (press enter)" #To (keydown.enter)="getPrice(From.value, To.value)">
+    <input matInput placeholder="To (press enter)" #To>
   </mat-form-field>
-</form>
 
-<h4 class="title-self">Category: </h4>
-<mat-form-field>
-  <mat-select placeholder="Category">
-    <mat-option *ngFor="let category of categories" (click)="getCategoryId(category.id)" [value]="category.id">
-      {{category.title}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
-<button (click)="onFiltersChange()">Submit</button>
+  <h4 class="title-self">Category: </h4>
+  <mat-form-field>
+    <mat-select placeholder="Category" *ngIf="!!(categories?.length | async)">
+      <mat-option>
+        No any categories
+      </mat-option>
+    </mat-select>
+      <mat-select placeholder="Category">
+      <mat-option *ngFor="let category of (categories$ | async)" (click)="getCategoryId(category.id)" [value]="category.id">
+        {{category.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button class="submit" type="button" (click)="onFiltersChange(From.value, To.value)">Submit</button>
+</form>

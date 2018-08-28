@@ -1,3 +1,4 @@
+import { FiltersObject } from './../../../shared/models/filters.model';
 import { Action } from '@ngrx/store';
 import { Product } from '../../../shared/models/product.model';
 
@@ -19,4 +20,9 @@ export class LoadProductsSuccess implements Action {
   constructor(public payload: Product[]) { }
 }
 
-export type ProductsActions = LoadProducts | LoadProductsFail | LoadProductsSuccess;
+export class ApplyFilters implements Action {
+  readonly type = APPLY_FILTERS;
+  constructor(public payload: FiltersObject) { }
+}
+
+export type ProductsActions = LoadProducts | LoadProductsFail | LoadProductsSuccess | ApplyFilters;
