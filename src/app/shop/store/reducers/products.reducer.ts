@@ -46,12 +46,20 @@ export function reducer(
     }
 
     case fromProducts.APPLY_FILTERS: {
-      console.log(action.payload);
+      const filters = action.payload;
       
       return {
         ...state,
-        loading: false,
-        loaded: false,
+        filters
+      };
+    }
+
+    case fromProducts.CHANGE_VIEW_MODE: {
+      const viewMode = action.payload;
+      
+      return {
+        ...state,
+        viewMode
       };
     }
 

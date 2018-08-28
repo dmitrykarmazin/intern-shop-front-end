@@ -3,7 +3,21 @@
     <app-sidebar (filters)="filters($event)" [categories]="categories"></app-sidebar>
   </mat-drawer>
   <mat-drawer-content>
-    <app-product-list [products$]="products$" [viewMode$]="viewMode$" (emitAddToCart)="addToCart($event)"></app-product-list>
-    <app-products-view [products$]="products$"></app-products-view>
+    <div class="view-mode">
+        <span class="spacer"></span>
+        <span>
+            <i 
+              class="fa fa-th"
+              [ngClass]="{'active': !viewModeValue}"
+              (click)="chooseViewMode('grid')"
+            ></i>
+            <i 
+              class="fa fa-th-list"
+              [ngClass]="{'active': viewModeValue}"
+              (click)="chooseViewMode('list')"
+            ></i>
+        </span>
+    </div>
+    <app-product-list [products$]="products$" [viewMode$]="viewMode$" (emitAddToCart)="addToCart($event)"></app-product-list>    
   </mat-drawer-content>
 </mat-drawer-container>

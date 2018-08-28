@@ -17,21 +17,30 @@ import * as fromSelectors from '../../store/selectors/products.selector';
 })
 export class ShopPageComponent implements OnInit {
 
+  viewModeValue: boolean = false;
   products$: Observable<Product[]>;
+  viewMode: string;
   viewMode$: Observable<string>;
   categories$: Observable<Category[]>;
 
-  constructor(private store: Store<fromStore.ProductsState>) {
-    this.products$ = this.store.select(fromSelectors.getAllProducts);
-  }
-
-  ngOnInit(): void {
+  constructor(private store: Store<fromStore.ShopState>) {
     this.products$ = this.store.select(fromProductsSelectors.getAllProducts);
     this.categories$ = this.store.select(fromCategoriesSelectors.getAllCategories);
     this.viewMode$ = this.store.select(fromProductsSelectors.getProductsViewMode);
+  }
 
+  ngOnInit(): void {
     this.store.dispatch(new fromStore.LoadProducts());
     this.store.dispatch(new fromStore.LoadCategories());
+  }
+
+  chooseViewMode(viewMode: string): void {
+    if (viewMode === 'grid') {
+      this.viewModeValue = false;
+    } else {
+      this.viewModeValue = true;
+    }
+    this.store.dispatch(new fromStore.ChangeViewMode(viewMode));
   }
 
   filters(filters: FiltersObject): void {

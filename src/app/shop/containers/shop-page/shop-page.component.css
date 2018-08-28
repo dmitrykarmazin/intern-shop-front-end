@@ -14,3 +14,29 @@ mat-drawer {
   background: #f9f9f9;
   border-right: 1px solid #f2f2f2;
 }
+
+.view-mode {
+  display: flex;
+  align-items: center;
+}
+
+.view-mode mat-slide-toggle {
+  margin-left: 5px;
+}
+
+.fa {
+  font-size: 20px;
+}
+
+.fa:hover, .fa.active {
+  color: blue;
+  cursor: pointer;
+}
+
+.fa-th {
+  margin: 0 5px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}

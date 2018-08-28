@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -25,7 +26,8 @@ import { reducers, effects } from '../shop/store';
     ShopRoutingModule,
     FormsModule,
     StoreModule.forFeature('shop', reducers),
-    EffectsModule.forFeature(effects)
+    EffectsModule.forFeature(effects),
+    FormsModule
   ],
   declarations: [
     ProductListComponent,
@@ -37,6 +39,7 @@ import { reducers, effects } from '../shop/store';
   ],
   exports: [
     SidebarComponent,
+    FormsModule,
     ShopPageComponent,
     ProductListComponent,
     ListItemComponent,
