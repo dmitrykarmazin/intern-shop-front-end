@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { ShopModule } from './shop/shop.module';
+import { NotificationModule } from './notification/notification.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MaterialModule } from './material/material.module';
@@ -27,6 +28,7 @@ import { CartModule } from './cart/cart.module';
     ShopModule,
     BrowserAnimationsModule,
     MaterialModule,
+    NotificationModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
