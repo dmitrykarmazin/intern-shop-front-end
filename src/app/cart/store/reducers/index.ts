@@ -14,9 +14,13 @@ export const getProductsState = createFeatureSelector<ProductsState>(
     'products'
 );
 
-export const getItemState = createSelector(
+export const getItemState: any = createSelector(
     getProductsState, 
     (state: ProductsState) => state.products
 );
 
+<<<<<<< HEAD
 export const getAllItems = createSelector(getItemState, fromItems.getItems);
+=======
+export const getAllItems: any = createSelector(getItemState, fromItems.getItems);
+>>>>>>> Create store in cart module

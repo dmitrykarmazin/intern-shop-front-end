@@ -17,4 +17,8 @@ export class CartTotalComponent {
     }, 0);
   }
 
+  onClick() {
+    console.log(this.products);
+  }
+
 }

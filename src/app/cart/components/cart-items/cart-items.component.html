@@ -1,25 +1,25 @@
 <mat-toolbar *ngFor="let product of (products | async); let i = index;">
 <div class="cart-img-wrap">
-<img src="{{product.thumbnail}}" alt="Photo of a Shiba Inu">
+<img src="{{product.product.thumbnail}}" alt="Photo of a Shiba Inu">
 </div>
 <div class="cart-info">
 <div class="cart-top-line mat-line">
-    <h4><strong>{{product.title}}</strong></h4>
-    <span class="cart-price">{{product.price | number: '1.2'}} $</span>
+    <h4><strong>{{product.product.title}}</strong></h4>
+    <span class="cart-price">{{product.product.price | number: '1.2'}} $</span>
     <input
         matInput
-        [(ngModel)]="product.quantity"
+        [(ngModel)]="product.product.quantity"
         type="number"
         id="count"
         min="1"
         [value]="1"
     />
     <span class="cart-item-total-price">
-        <strong>${{product.price*product.quantity | number: '1.2'}}</strong>
+        <strong>${{product.product.price*product.product.quantity | number: '1.2'}}</strong>
     </span>
 </div>
 <div class="cart-bottom-line mat-line">
     <button mat-button color="primary" (click)="remove(i)">Remove from cart</button>
 </div>
-</div>      
+</div>    
 </mat-toolbar>

@@ -7,9 +7,9 @@
       <app-cart-items class="cart-items-wrap" [products]="products$"></app-cart-items>
       <!-- <p class="empty-cart" *ngIf="getCountIsEmpty() === 0">Your cart is empty</p> -->
     </mat-toolbar-row>
-    <!-- <mat-toolbar-row class="total-row" *ngIf="getCountIsEmpty() > 0">
-        <app-cart-total class="total" [products]="products"></app-cart-total>
-    </mat-toolbar-row> -->
+    <mat-toolbar-row class="total-row">
+        <app-cart-total class="total" [products]="products$"></app-cart-total>
+    </mat-toolbar-row>
     <mat-toolbar-row class="checkout">
         <button mat-raised-button color="primary">Checkout</button>
     </mat-toolbar-row>

@@ -1,5 +1,4 @@
 import { Action } from '@ngrx/store';
-import { Product } from '../../../shared/models/product';
 
 export const LOAD_PRODUCTS = '[Products] Load Products';
 
