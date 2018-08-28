@@ -9,4 +9,4 @@ export const reducers: ActionReducerMap<State> = {
   users: users.reducer
 };
 
-export const getAuthFeatureState = createFeatureSelector<State>('auth');
+export const getAuthFeatureState: any = createFeatureSelector<State>('auth');

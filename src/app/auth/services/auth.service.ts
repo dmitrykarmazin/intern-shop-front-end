@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { User } from '../models/user';
 
 import { environment } from 'src/environments/environment';
@@ -21,20 +21,15 @@ export class AuthService {
   getUser (token: string): Observable<any> {
     localStorage.setItem('token', token);
 
-    let headers: HttpHeaders = new HttpHeaders({
+    const headers: HttpHeaders = new HttpHeaders({
       'Authorization': `Bearer ${this.getToken()}`
     });
 
     return this.http.get(`${this.endpoint}/user`, {headers});
   }
 
-  deleteToken (): void {
-    localStorage.removeItem('token');
-  }
-
   logIn(login: string, password: string): Observable<User> {
     const url: string = `${this.endpoint}/login`;
-    // this.isAuthenticated = true;
 
     return this.http.post<User>(url, {login, password});
   }
@@ -43,9 +38,5 @@ export class AuthService {
     const url: string = `${this.endpoint}/auth`;
 
     return this.http.post<User>(url, {login, password});
-  }
-
-  public signOut(): Observable<boolean> {
-    return of(true);
   }
 }

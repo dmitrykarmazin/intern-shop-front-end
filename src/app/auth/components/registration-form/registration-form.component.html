@@ -1,4 +1,4 @@
-<form [formGroup]="registrationForm" (ngSubmit)="onRegister.emit(registrationForm.value)">
+<form [formGroup]="registrationForm" (ngSubmit)="register.emit(registrationForm.value)">
   <mat-grid-list cols="1" rowHeight="5em">
     <mat-grid-tile>
       Sign Up

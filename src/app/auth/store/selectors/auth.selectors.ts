@@ -1,14 +1,13 @@
 import { createSelector } from '@ngrx/store';
-import * as users from '../reducers/auth.reducers';
-import {getAuthFeatureState, State} from '../reducers';
+import { getAuthFeatureState, State } from '../reducers';
 
-export const getAuthState = createSelector(
+export const getAuthState: any = createSelector(
   getAuthFeatureState,
-  (state: State) => state.users
+  (state: State) => state
 );
 
-export const getAuthenticatedUser = createSelector(getAuthFeatureState, users.getAuthenticatedUser);
-export const getIsAuthenticated = createSelector(getAuthFeatureState, (state) => state.users.isAuthorized);
-export const getIsAuthenticatedLoaded = createSelector(getAuthFeatureState, users.getIsAuthenticatedLoaded);
-export const getIsAuthenticationLoading = createSelector(getAuthFeatureState, users.getIsLoading);
-export const getAuthenticationError = createSelector(getAuthFeatureState, users.getAuthenticationError);
+export const getAuthenticatedUser: any = createSelector(getAuthState, (state: State) => state.users.currentUser);
+export const getIsAuthenticated: any = createSelector(getAuthState, (state: State) => state.users.isAuthorized);
+export const getIsAuthenticatedLoaded: any = createSelector(getAuthState, (state: State) => state.users.loaded);
+export const getIsAuthenticationLoading: any = createSelector(getAuthState, (state: State) => state.users.loading);
+export const getAuthenticationError: any = createSelector(getAuthState, (state: State) => state.users.error);

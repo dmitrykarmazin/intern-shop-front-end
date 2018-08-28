@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
@@ -6,17 +6,15 @@ import { FormControl, FormGroup } from '@angular/forms';
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.css']
 })
-export class LoginFormComponent implements OnInit {
+export class LoginFormComponent {
 
-  loginForm: FormGroup = new FormGroup ({
-    login: new FormControl(''),
-    password: new FormControl('')
-  });
+  loginForm: FormGroup;
+  @Output('login') login: any = new EventEmitter<{login: string, password: string}>();
 
-  @Output('onLogin')
-  onLogin: any = new EventEmitter<{login: string, password: string}>();
-
-  constructor() {}
-
-  ngOnInit(): void {}
+  constructor() {
+    this.loginForm = new FormGroup ({
+      login: new FormControl(''),
+      password: new FormControl('')
+    });
+  }
 }

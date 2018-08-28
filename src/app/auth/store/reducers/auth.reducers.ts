@@ -31,7 +31,7 @@ export function reducer(state: AuthState = initialState, action: Actions): AuthS
       return <AuthState>{
         ...state,
         isAuthorized: false,
-        error: action.payload.error,
+        error: action['payload'].error,
         loading: false
       };
 
@@ -41,51 +41,9 @@ export function reducer(state: AuthState = initialState, action: Actions): AuthS
         isAuthorized: true,
         loading: false,
         currentUser: {
-          token: action.payload.token
+          token: action['payload'].token
         },
         error: null
-      };
-
-    case fromActions.SIGN_UP_ERROR:
-      return <AuthState>{
-        ...state,
-          isAuthorized: false,
-          error: action.payload.error,
-          loading: false
-      };
-
-    case fromActions.SIGN_UP_SUCCESS:
-      const user: User = action.payload.user;
-
-      // verify user is not null
-      if (user === null) {
-        return state;
-      }
-
-      return <AuthState>{
-        ...state,
-        isAuthorized: true,
-          loading: false,
-          currentUser: {
-            token: action.payload.token
-          },
-          error: null
-      };
-
-    case fromActions.SIGN_OUT_ERROR:
-      return <AuthState>{
-        ...state,
-          isAuthorized: true,
-          error: action.payload.error.message,
-          currentUser: undefined
-      };
-
-    case fromActions.SIGN_OUT_SUCCESS:
-      return <AuthState>{
-        ...state,
-          isAuthorized: false,
-          error: undefined,
-          currentUser: undefined
       };
 
     case fromActions.SIGN_UP:
@@ -95,6 +53,19 @@ export function reducer(state: AuthState = initialState, action: Actions): AuthS
         error: undefined,
         loading: true
       };
+
+    case fromActions.SIGN_OUT: {
+      localStorage.clear();
+
+      return <AuthState>{
+        ...state,
+        currentUser: null,
+        loading: false,
+        loaded: false,
+        isAuthorized: false,
+        error: null
+      };
+    }
 
     case fromActions.GET_USER_INFO: {
       return <AuthState>{
@@ -107,6 +78,7 @@ export function reducer(state: AuthState = initialState, action: Actions): AuthS
       return <AuthState>{
         ...state,
         loading: false,
+        currentUser: null,
         error: action['payload']
       };
     }
@@ -115,7 +87,8 @@ export function reducer(state: AuthState = initialState, action: Actions): AuthS
       return <AuthState>{
         ...state,
         loading: false,
-        currentUser: action.payload
+        currentUser: action['payload'],
+        isAuthorized: true
       };
     }
 
