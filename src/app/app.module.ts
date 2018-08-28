@@ -9,18 +9,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { LoginComponent } from './components/test/login/login.component';
-import { RegistrationComponent } from './components/test/registration/registration.component';
 import { AuthModule } from './auth/auth.module';
 import { CartModule } from './cart/cart.module';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    FooterComponent,
-    LoginComponent,
-    RegistrationComponent
+    FooterComponent
+
   ],
   imports: [
     BrowserModule,
@@ -31,12 +30,13 @@ import { CartModule } from './cart/cart.module';
     FormsModule,
     ReactiveFormsModule,
     AuthModule,
-    CartModule
+    CartModule,
+    StoreModule.forRoot({}),
+    StoreDevtoolsModule.instrument({
+      maxAge: 10
+    })
   ],
   providers: [],
-  bootstrap: [
-    AppComponent
-  ]
+  bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule {}

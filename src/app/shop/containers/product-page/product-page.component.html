@@ -1,0 +1,36 @@
+<div class="product-containner">
+  <div class="product-details">
+    <div *ngIf="thumbnailURL" class="product-image">
+      <img [src]="thumbnailURL" class="main-image">
+    </div>
+    <div class="details-avalible">
+      <div class="addtocard">
+        <div class="quantity">Quantity:</div>
+        <div class="count-block">
+          <button mat-button (click)="decrease()">-</button>
+          <mat-form-field class="count-wrapper">
+            <input [(ngModel)]="count" matInput type="text">
+          </mat-form-field>
+          <button mat-button (click)="increase()">+</button>
+        </div>
+        <div *ngIf="product && product.stock">
+          <p class="stock-details">
+            <span class="stock-mount"> Stock: {{ product.stock }}</span>
+          </p>
+        </div>
+        <div class="btn-wrapper">
+          <button mat-button color="accent" (click)="addToCard()">
+            <i class="material-icons">shopping_cart</i>
+            Add to Card
+          </button>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div *ngIf="product && product.description" class="description-wrapper">
+      <p>
+        {{product.description}}
+      </p>
+    </div>
+  </div>
+</div>
