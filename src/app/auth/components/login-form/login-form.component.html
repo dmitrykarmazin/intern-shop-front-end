@@ -1,5 +1,5 @@
 <div *ngIf="error | async" class="error">{{ error | async }}</div>
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="loginForm" (ngSubmit)=onLogin.emit(loginForm.value)>
   <mat-grid-list cols="1" rowHeight="5em">
     <mat-grid-tile>
       Sign In

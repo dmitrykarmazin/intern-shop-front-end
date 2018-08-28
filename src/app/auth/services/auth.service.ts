@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
 import { User } from '../models/user';
+
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private endpoint: string = 'http://localhost:8000';
-  private isAuthenticated: boolean = false;
+  private endpoint: string = environment.api_url;
 
   constructor(private http: HttpClient) { }
 
@@ -17,9 +18,23 @@ export class AuthService {
     return <string>localStorage.getItem('token');
   }
 
+  getUser (token: string): Observable<any> {
+    localStorage.setItem('token', token);
+
+    let headers: HttpHeaders = new HttpHeaders({
+      'Authorization': `Bearer ${this.getToken()}`
+    });
+
+    return this.http.get(`${this.endpoint}/user`, {headers});
+  }
+
+  deleteToken (): void {
+    localStorage.removeItem('token');
+  }
+
   logIn(login: string, password: string): Observable<User> {
     const url: string = `${this.endpoint}/login`;
-    this.isAuthenticated = true;
+    // this.isAuthenticated = true;
 
     return this.http.post<User>(url, {login, password});
   }
@@ -31,8 +46,6 @@ export class AuthService {
   }
 
   public signOut(): Observable<boolean> {
-    // localStorage.removeItem('token');
-
     return of(true);
   }
 }

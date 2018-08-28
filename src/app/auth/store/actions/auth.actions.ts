@@ -1,18 +1,17 @@
 import { Action } from '@ngrx/store';
-import { User } from '../../models/user';
 
-export const AUTHENTICATE: string = '[users] AUTHENTICATE';
-export const AUTHENTICATE_ERROR: string = '[users] AUTHENTICATE_ERROR';
-export const AUTHENTICATE_SUCCESS: string = '[users] AUTHENTICATE_SUCCESS';
-export const AUTHENTICATED: string = '[users] AUTHENTICATED';
-export const AUTHENTICATED_ERROR: string = '[users] AUTHENTICATED_ERROR';
-export const AUTHENTICATED_SUCCESS: string = '[users] AUTHENTICATED_SUCCESS';
-export const SIGN_OUT: string = '[users] SIGN_OUT';
-export const SIGN_OUT_ERROR: string = '[users] SIGN_OUT_ERROR';
-export const SIGN_OUT_SUCCESS: string = '[users] SIGN_OUT_SUCCESS';
-export const SIGN_UP: string = '[users] SIGN_UP';
-export const SIGN_UP_ERROR: string = '[users] SIGN_UP_ERROR';
-export const SIGN_UP_SUCCESS: string = '[users] SIGN_UP_SUCCESS';
+export const AUTHENTICATE: string = '[AUTH] Authenticate';
+export const AUTHENTICATE_ERROR: string = '[AUTH] Authenticate Error';
+export const AUTHENTICATE_SUCCESS: string = '[AUTH] Authenticate Success';
+export const SIGN_OUT: string = '[AUTH] Sign Out';
+export const SIGN_OUT_ERROR: string = '[AUTH] Sign Out Error';
+export const SIGN_OUT_SUCCESS: string = '[AUTH] Sign Out Success';
+export const SIGN_UP: string = '[AUTH] Sign Up';
+export const SIGN_UP_ERROR: string = '[AUTH] Sign Up Error';
+export const SIGN_UP_SUCCESS: string = '[AUTH] Sign Up Success';
+export const GET_USER_INFO: string = '[AUTH] Get User Info';
+export const GET_USER_INFO_SUCCESS: string  = '[AUTH] Get User Info Success';
+export const GET_USER_INFO_FAIL: string = '[AUTH] Get User Info Fail';
 
 export class AuthenticateAction implements Action {
   readonly type: string = AUTHENTICATE;
@@ -20,30 +19,10 @@ export class AuthenticateAction implements Action {
   constructor(public payload: {login: string, password: string}) {}
 }
 
-export class AuthenticatedAction implements Action {
-  readonly type: string = AUTHENTICATED;
-
-  constructor(public payload: {authenticated: boolean, user: User}) {}
-}
-
-export class AuthenticatedSuccessAction implements Action {
-  readonly type: string = AUTHENTICATED_SUCCESS;
-
-  constructor(public payload: {authenticated: boolean, user: User}) {}
-}
-
-export class AuthenticatedErrorAction implements Action {
-  readonly type: string = AUTHENTICATED_ERROR;
-
-  constructor(public payload?: any) {}
-}
-
 export class AuthenticationErrorAction implements Action {
   readonly type: string = AUTHENTICATE_ERROR;
 
-  constructor(public payload?: any) {
-    console.log(payload);
-  }
+  constructor(public payload?: any) {}
 }
 
 export class AuthenticationSuccessAction implements Action {
@@ -88,5 +67,24 @@ export class SignUpSuccessAction implements Action {
   constructor(public payload: any) {}
 }
 
-export type Actions = AuthenticateAction | AuthenticatedAction | AuthenticatedErrorAction | AuthenticatedSuccessAction
-  | AuthenticationErrorAction | AuthenticationSuccessAction | SignUpAction | SignUpErrorAction | SignUpSuccessAction;
+export class GetUserInfoAction implements Action {
+  readonly type: string = GET_USER_INFO;
+
+  constructor(public payload: any) { }
+}
+
+export class GetUserInfoSuccessAction implements Action {
+  readonly type: string = GET_USER_INFO_SUCCESS;
+
+  constructor(public payload: any) { }
+}
+
+export class GetUserInfoFailAction implements Action {
+  readonly type: string = GET_USER_INFO_FAIL;
+
+  constructor(public payload: any) { }
+}
+
+export type Actions = AuthenticateAction | AuthenticationErrorAction | AuthenticationSuccessAction
+  | SignUpAction | SignUpErrorAction | SignUpSuccessAction
+  | GetUserInfoAction | GetUserInfoSuccessAction | GetUserInfoFailAction;

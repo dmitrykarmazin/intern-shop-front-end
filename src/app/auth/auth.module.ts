@@ -6,10 +6,12 @@ import { RegistrationFormComponent } from './components/registration-form/regist
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './services/auth.service';
 import { AuthEffects } from './store/effects/auth.effects';
-import { reducers } from './store/selectors/auth.selectors';
+import { reducers } from './store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginViewComponent } from './containers/login-view/login-view.component';
+import { RegistrationViewComponent } from './containers/registration-view/registration-view.component';
 
 @NgModule({
   imports: [
@@ -27,7 +29,9 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   declarations: [
     LoginFormComponent,
-    RegistrationFormComponent
+    RegistrationFormComponent,
+    LoginViewComponent,
+    RegistrationViewComponent
   ],
   providers: [AuthService],
 })
