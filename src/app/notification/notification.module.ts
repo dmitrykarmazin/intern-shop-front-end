@@ -5,13 +5,15 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { MaterialModule } from '../material/material.module';
 import { NotificationComponent } from './containers/notification/notification.component';
+import { reducers } from './store/reducers';
+import { NotificationsEffects } from './store/effects/notification';
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
-    StoreModule.forFeature('shop', { /* reducer */ }),
-    EffectsModule.forFeature([]),
+    StoreModule.forFeature('notification', reducers ),
+    EffectsModule.forFeature([NotificationsEffects]),
   ],
   declarations: [
     NotificationComponent
