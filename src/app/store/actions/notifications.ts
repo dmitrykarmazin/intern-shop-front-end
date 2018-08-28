@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { AppNotification } from '../../models/notification';
+import { AppNotification } from '../../notification/models/notification';
 
 export const NOTIFICATION_NEW: string = 'NEW_NOTIFICATION';
 export const NOTIFICATION_SELECTED: string = 'NOTIFICATION_SELECTED';

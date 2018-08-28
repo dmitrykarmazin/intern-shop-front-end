@@ -3,9 +3,14 @@ import {
   RouterStateSnapshot,
   Params,
 } from '@angular/router';
-import { createFeatureSelector, ActionReducerMap } from '@ngrx/store';
+import {
+  createFeatureSelector,
+  ActionReducerMap,
+  MemoizedSelector
+} from '@ngrx/store';
 
 import * as fromRouter from '@ngrx/router-store';
+import * as fromNotification from './notifications';
 
 export interface RouterStateUrl {
   url: string;
@@ -15,15 +20,20 @@ export interface RouterStateUrl {
 
 export interface State {
   routerReducer: fromRouter.RouterReducerState<RouterStateUrl>;
+  notification: fromNotification.NotificationState;
 }
 
 export const reducers: ActionReducerMap<State> = {
   routerReducer: fromRouter.routerReducer,
+  notification: fromNotification.notificationReducer
 };
 
 export const getRouterState: any = createFeatureSelector<
   fromRouter.RouterReducerState<RouterStateUrl>
 >('routerReducer');
+
+export const getNotificationState: MemoizedSelector<object, fromNotification.NotificationState> =
+  createFeatureSelector<fromNotification.NotificationState>('notification');
 
 export class CustomSerializer
   implements fromRouter.RouterStateSerializer<RouterStateUrl> {

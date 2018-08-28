@@ -1,4 +1,4 @@
-import { AppNotification } from '../../models/notification';
+import { AppNotification } from '../../notification/models/notification';
 import * as notificationActions from '../actions/notifications';
 
 export interface NotificationState {

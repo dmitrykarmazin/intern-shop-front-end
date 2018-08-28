@@ -40,11 +40,7 @@ import { FooterComponent } from './components/footer/footer.component';
     FormsModule,
     ReactiveFormsModule,
     AuthModule,
-    CartModule,
-    StoreModule.forRoot({}),
-    StoreDevtoolsModule.instrument({
-      maxAge: 10
-    })
+    CartModule
   ],
   providers: [
     { provide: RouterStateSerializer, useClass: CustomSerializer }

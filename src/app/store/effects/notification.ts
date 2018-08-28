@@ -4,7 +4,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import * as notificationActions from '../actions/notifications';
-import { AppNotification } from '../../models/notification';
+import { AppNotification } from '../../notification/models/notification';
 
 @Injectable()
 export class NotificationsEffects {
