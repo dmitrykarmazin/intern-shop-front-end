@@ -1,12 +1,15 @@
+
 import { Component, OnInit , OnDestroy } from '@angular/core';
 
 import { ActivatedRoute, ParamMap, Params } from '@angular/router';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 import { Store } from '@ngrx/store';
-import { CartState } from '../../../cart/store/reducers';
+import { CartFeatureState } from '../../../cart/store/reducers';
 import { AddToCart } from './../../../cart/store/actions';
 import { Product } from '../../../shared/models/product.model';
+import * as selectors from '../../../cart/store/selectors';
 
 @Component({
   selector: 'app-product-page',
@@ -15,7 +18,9 @@ import { Product } from '../../../shared/models/product.model';
 })
 export class ProductPageComponent implements OnInit {
   count: number = 1;
+  id: number;
   thumbnailURL: string = 'https://upload.wikimedia.org/wikipedia/commons/4/44/Samsung_Galaxy_S9%2B.png';
+  // products$: Observable<CartItem[]>;
   product: Product = {
     id: '5b82dba680a7ce48203557da',
     title: 'Google pixel 2',
@@ -37,18 +42,16 @@ export class ProductPageComponent implements OnInit {
       incidunt nesciunt sint?`
   };
   sub: Subscription;
-  id: string;
+  // id: string;
 
-  constructor(private route: ActivatedRoute, private store: Store<CartState>) {}
+  constructor(private route: ActivatedRoute, private store: Store<CartFeatureState>) {}
 
   ngOnInit(): void {
     // TODO:
   }
 
   getProduct(): void {
-    this.route.params.subscribe( (params: Params) => {
-      const id: string  = params['id'];
-    });
+    const id: any = this.route.snapshot.params['id'];
   }
 
   increase(): void {
@@ -68,6 +71,8 @@ export class ProductPageComponent implements OnInit {
       product: this.product,
       quantity: this.count
     }));
+    this.store.select(selectors.getCartProducts).subscribe((i: any) => console.log(i));
+    this.store.select(selectors.getTotalSum).subscribe((sum: any) => console.log(sum));
   }
 
 }

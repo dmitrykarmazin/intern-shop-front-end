@@ -7,6 +7,7 @@ export interface CardItem {
 }
 export interface CartState {
     isEmpty: boolean;
+    ids: string[];
     products: { [id: string]: CardItem };
     totalCount: number;
     totalSum: number;
@@ -14,12 +15,13 @@ export interface CartState {
 
 export const initialCartState: CartState = {
     isEmpty: true,
+    ids: [],
     products: {},
     totalCount: 0,
     totalSum: 0
 };
 
-export function cartReducer( state: CartState = initialCartState, action: fromCart.Actions): CartState {
+export function reducer( state: CartState = initialCartState, action: fromCart.Actions): CartState {
     switch (action.type) {
         case fromCart.ADD_TO_CART: {
             const id: string = action.payload.product.id;
