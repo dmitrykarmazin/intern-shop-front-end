@@ -1,20 +1,19 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import * as fromStore from '../../store';
-import { CartState, CartItem } from '../../store/reducers/cart.reducer'
+import { CartState, CartItem } from '../../store/reducers/cart.reducer';
 import * as cartSelectors from '../../store/selectors/cart.selector';
-import { Product } from '../../../shared/models/product';
+import * as cartActions from '../../store/actions';
 
 @Component({
   selector: 'app-cart-page',
   templateUrl: './cart-page.component.html',
   styleUrls: ['./cart-page.component.css']
 })
-export class CartPageComponent implements OnInit, OnDestroy {
-  products$: Observable<{[key:string]: CartItem}>;
-  ids$: Observable<string[]>;
+export class CartPageComponent implements OnInit {
+  products$: Observable<{[key: string]: CartItem}>;
+  ids$: Observable< string[] >;
   subs: Subscription;
 
   constructor(private store: Store<CartState>) { }
@@ -24,22 +23,20 @@ export class CartPageComponent implements OnInit, OnDestroy {
     this.ids$ = this.store.select(cartSelectors.getCartList);
   }
 
-  quantityChange(event): void {
-    debugger;
+  quantityChange(event: any): void {
+    if (event.type === 'decrease') {
+      this.store.dispatch(new cartActions.Decrease(event.id));
+    } else if (event.type === 'increase') {
+      this.store.dispatch(new cartActions.Increase(event.id));
+    }
   }
 
-  // getCountIsEmpty(): number {
-  //   return this.products.reduce((total: number, e: Product) => {
-  //     total += e.price;
+  removeFromCart(event: any): void {
+    this.store.dispatch(new cartActions.RemoveProductFromCart(event.id));
+  }
 
-  //     return total;
-  //   }, 0);
-  // }
-
-  ngOnDestroy(): void {
-    if (this.subs) {
-      this.subs.unsubscribe();
-    }
+  clearCart(): void {
+    this.store.dispatch(new cartActions.ClearCart());
   }
 
 }

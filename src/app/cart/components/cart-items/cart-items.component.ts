@@ -10,25 +10,26 @@ import { CartItem } from '../../store/reducers/cart.reducer';
 })
 export class CartItemsComponent {
   @Input() products$: Observable<{[key: string]: CartItem}>;
-  @Input() ids$: Observable<string[]>
+  @Input() ids$: Observable<string[]>;
 
   @Output() quantityChange: EventEmitter<any> = new EventEmitter();
-
-  remove(no: number): void {
-    // (this.products).splice(no, 1);
-  }
+  @Output() removeFromCart: EventEmitter<any> = new EventEmitter();
 
   increase(id: string): void {
     this.quantityChange.emit({
       id,
-      action: 'increase'
-    })
+      type: 'increase'
+    });
   }
 
   decrease(id: string): void {
     this.quantityChange.emit({
       id,
-      action: 'decrease'
-    })
+      type: 'decrease'
+    });
+  }
+
+  remove(id: string): void {
+    this.removeFromCart.emit({id});
   }
 }

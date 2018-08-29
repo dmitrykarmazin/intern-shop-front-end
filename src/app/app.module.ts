@@ -41,7 +41,7 @@ import { FooterComponent } from './components/footer/footer.component';
     CartModule,
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument({
-      maxAge: 10
+      maxAge: 20
     })
   ],
   providers: [

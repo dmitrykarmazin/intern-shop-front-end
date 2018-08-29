@@ -3,7 +3,7 @@ import { createSelector } from '@ngrx/store';
 import { CartState } from '../reducers/cart.reducer';
 import { getCartFeatureState, CartFeatureState } from '../reducers';
 
-export const getCartState: any = createSelector(getCartFeatureState, (state: CartFeatureState): any => state.cart)
+export const getCartState: any = createSelector(getCartFeatureState, (state: CartFeatureState): any => state.cart);
 
 export const getTotalSum: any = createSelector(getCartState, (state: CartState) => state.totalSum);
 
