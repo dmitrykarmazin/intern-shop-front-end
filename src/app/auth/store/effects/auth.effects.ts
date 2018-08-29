@@ -26,7 +26,7 @@ export class AuthEffects {
 
             return new AuthenticationSuccessAction({token: user.token});
           }),
-          catchError((error) => {
+          catchError((error: any) => {
             return of(new AuthenticationErrorAction(error));
           })
         );
@@ -44,7 +44,7 @@ export class AuthEffects {
 
             return new AuthenticationSuccessAction({token: user.token});
           }),
-          catchError((error) => {
+          catchError((error: any) => {
             return of(new AuthenticationErrorAction({error: error}));
           })
         );
@@ -58,7 +58,7 @@ export class AuthEffects {
 
       return this.authService.getUser(action['payload'].token).pipe(
         map((user: User) => new GetUserInfoSuccessAction(user)),
-        catchError((error) => of(new GetUserInfoFailAction(error)))
+        catchError((error: any) => of(new GetUserInfoFailAction(error)))
       );
     })
   );
@@ -73,14 +73,14 @@ export class AuthEffects {
 
       return this.authService.getUser(action.payload).pipe(
         map((user: User) => new GetUserInfoSuccessAction(user)),
-        catchError(error => of(new GetUserInfoFailAction({error: error})))
+        catchError((error: any) => of(new GetUserInfoFailAction({error: error})))
       );
     })
   );
 
   @Effect() onFail$: Observable<Action> = this.actions$.pipe(
     ofType(authActions.GET_USER_INFO_FAIL, authActions.AUTHENTICATE_ERROR),
-    map((error) => {
+    map((error: any) => {
       // debugger;
       console.log(error['payload']);
 

@@ -27,6 +27,6 @@ export class ResponseInterceptor implements HttpInterceptor {
        this.store.dispatch(new SignOutAction());
     }
 
-    return throwError(err);
+    return throwError({message: err.message , code: err.status , error: err});
   }
 }

@@ -1,3 +1,4 @@
+import { reducers } from './../../../cart/store/reducers/index';
 
 import { Component, OnInit } from '@angular/core';
 
@@ -7,7 +8,7 @@ import { Store } from '@ngrx/store';
 import { CartFeatureState } from '../../../cart/store/reducers';
 import { AddToCart } from './../../../cart/store/actions';
 import { Product } from '../../../shared/models/product.model';
-// import { productById } from '../../../shop/store/selectors';
+//  import { productById } from '../../../shop/reducers';
 
 @Component({
   selector: 'app-product-page',

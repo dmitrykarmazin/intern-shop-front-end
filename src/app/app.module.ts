@@ -43,8 +43,7 @@ import { NotificationService } from './shared/services/notification';
     FormsModule,
     ReactiveFormsModule,
     AuthModule,
-    CartModule,
-    StoreModule.forRoot({}),
+    CartModule
   ],
   providers: [
     { provide: RouterStateSerializer, useClass: CustomSerializer },
