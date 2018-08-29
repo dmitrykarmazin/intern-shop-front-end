@@ -36,10 +36,12 @@ export class ShopPageComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(new fromStore.LoadProducts());
     this.store.dispatch(new fromStore.LoadCategories());
-    this.store.select(fromProductsSelectors.getProductsCurrentFilters)
-      .subscribe((payload) => {
-        console.log(payload);
-      });
+    // this.store.select(fromProductsSelectors.getProductsCurrentFilters)
+    //   .subscribe((payload) => {
+    //     console.log(payload);
+    //   });
+
+    localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViODY5MzU1YTc0NmYwM2M3ZmFjYjFkMSIsImxvZ2luIjoiRWx2aW4iLCJwYXNzd29yZCI6IiQyYiQxMiQ4dVFFelRCb0V0SUlueGdBWkRsSnNlS1p3OXBOamtSSXQ1UFhHdVJ0S2sxcFFkczRJWEhXaSIsImlhdCI6MTUzNTU0NjI5NCwiZXhwIjoxNTM1NTQ4OTk0fQ.o67Soe6-j_0XVNwTz25twPXOFkNny718sSplZ6XTBGQ')
   }
 
   chooseViewMode(viewMode: string): void {
@@ -54,7 +56,6 @@ export class ShopPageComponent implements OnInit {
 
   filters(filters: FiltersObject): void {
     this.store.dispatch(new fromStore.ApplyFilters(filters));
-    this.store.dispatch(new fromStore.LoadProducts());
   }
 
   private addToCart($event: string): void {

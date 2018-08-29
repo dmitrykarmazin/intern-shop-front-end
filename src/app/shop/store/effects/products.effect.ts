@@ -1,4 +1,4 @@
-import { Actions, Effect } from '@ngrx/effects';
+import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 
 import { map, switchMap, catchError } from 'rxjs/operators';
@@ -15,16 +15,31 @@ export class ProductsEffects {
   ) {}
 
   @Effect()
-  loadProducts$ = this.actions$.ofType(productsActions.LOAD_PRODUCTS || productsActions.APPLY_FILTERS).pipe(
-      switchMap((action: productsActions.LoadProducts | productsActions.ApplyFilters) => {
-        debugger;
+  loadProducts$ = this.actions$.ofType(productsActions.LOAD_PRODUCTS).pipe(
+      switchMap((action: productsActions.LoadProducts) => {
+
+        return this.productsService
+          .getProducts()
+          .pipe(
+            map(products => {
+
+              return new productsActions.LoadProductsSuccess(products['products']);
+            }),
+            catchError(error => of(new productsActions.LoadProductsFail(error)))
+          )
+      })
+    )
+  
+  @Effect()
+  applyFilters$ = this.actions$.pipe(
+      ofType(productsActions.APPLY_FILTERS),
+      switchMap((action: productsActions.ApplyFilters) => {
 
         return this.productsService
           .getProducts(action['payload'])
           .pipe(
             map(products => {
-
-              return new productsActions.LoadProductsSuccess(products);
+              return new productsActions.LoadProductsSuccess(products['products']);
             }),
             catchError(error => of(new productsActions.LoadProductsFail(error)))
           )
