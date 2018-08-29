@@ -1,14 +1,12 @@
-import { reducers } from './../../../cart/store/reducers/index';
-
 import { Component, OnInit } from '@angular/core';
-
 import { ActivatedRoute } from '@angular/router';
-
 import { Store } from '@ngrx/store';
 import { CartFeatureState } from '../../../cart/store/reducers';
 import { AddToCart } from './../../../cart/store/actions';
 import { Product } from '../../../shared/models/product.model';
-//  import { productById } from '../../../shop/reducers';
+import { CartItem } from '../../../cart/store/reducers/cart.reducer';
+import { Observable } from 'rxjs';
+// import { productById } from '../../../shop/reducers';
 
 @Component({
   selector: 'app-product-page',
@@ -16,11 +14,9 @@ import { Product } from '../../../shared/models/product.model';
   styleUrls: ['./product-page.component.css']
 })
 export class ProductPageComponent implements OnInit {
-  count: number = 1;
   id: string;
-  private regex: RegExp = new RegExp(/^[0-9]+$/g);
-
-  // products$: Observable<CartItem[]>;
+  count: number = 1;
+  product$: Observable<CartItem>;
   product: Product = {
     id: '5b82dba680a7ce48203557da',
     title: 'Google pixel 2',
@@ -46,13 +42,12 @@ export class ProductPageComponent implements OnInit {
   constructor(private route: ActivatedRoute, private store: Store<CartFeatureState>) {}
 
   ngOnInit(): void {
-    // TODO:
-    this.id = this.route.snapshot.params.id;
-    // this.product = this.store.select(productById(id));
+    this.getProduct();
   }
 
   getProduct(): void {
-    const id: any = this.route.snapshot.params['id'];
+    this.id = this.route.snapshot.params.id;
+    // this.product = this.store.select(productById(id));
   }
 
   increase(): void {
@@ -74,8 +69,9 @@ export class ProductPageComponent implements OnInit {
     }));
   }
   numberOnly(event: KeyboardEvent): any {
+    const regex: RegExp = new RegExp(/^[0-9]+$/g);
     const currMount: string = this.count + event.key;
-    if (!currMount.match(this.regex)) {
+    if (!currMount.match(regex)) {
       event.preventDefault();
     }
   }
