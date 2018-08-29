@@ -6,8 +6,6 @@ export const NOTIFICATION_SUCCESS: string = 'NOTIFICATION_SUCCESS';
 export class AppNotificationParams {
     message: string;
     isError: boolean;
-    callbackMessage: string;
-    callbackAction: Action;
 }
 
 export class AppNotificationShow implements Action {

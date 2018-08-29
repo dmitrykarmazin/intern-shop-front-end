@@ -4,6 +4,7 @@ import { MatSnackBar, MatSnackBarConfig, MatSnackBarRef, SimpleSnackBar } from '
 
 import { AppNotificationTypes } from '../../store/actions/notification.action';
 import { State } from '../../store/reducers';
+import { Observable, of } from 'rxjs';
 
 @Injectable()
 export class NotificationService {
@@ -20,27 +21,28 @@ export class NotificationService {
 
     private snackBarRef: MatSnackBarRef<SimpleSnackBar>;
 
-    constructor( private store: Store<State>, public snackBar: MatSnackBar) { }
+    constructor(public snackBar: MatSnackBar) { }
 
     public showNotification (
       message: string = '',
-      isError: boolean = false,
-      actionText: string = '',
-      clickAction: Action = null
-    ): void {
+      isError: boolean = false
+    ): Observable<any> {
 
       const config: MatSnackBarConfig = isError ? this.barConfigError : this.barConfig;
+      Promise.resolve(true)
+        .then(() => {
+          this.snackBarRef = this.snackBar.open(
+            message,
+            null,
+            config
+          );
+        });
 
-        this.snackBarRef = this.snackBar.open(
-          message,
-          actionText,
-          config
-        );
+      return of({
+        message,
+        isError
+      });
 
-        if (clickAction !== null) {
-          this.snackBarRef.onAction().subscribe(() => {
-            this.store.dispatch(clickAction);
-          });
-        }
     }
+
 }

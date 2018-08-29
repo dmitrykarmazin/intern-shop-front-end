@@ -5,7 +5,6 @@ import { Store } from '@ngrx/store';
 import { Product } from '../../../shared/models/product.model';
 import { Category } from '../../../shared/models/category.model';
 import { Filters } from '../../components/sidebar/sidebar.component';
-import * as notificationAction from '../../../store/actions/notification.action';
 
 @Component({
   selector: 'app-shop',
@@ -23,12 +22,6 @@ export class ShopPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(new notificationAction.AppNotificationShow({
-      message: 'SOMETHIN',
-      isError: false,
-      callbackAction: null,
-      callbackMessage: ''
-    }));
 
     this.viewMode$ = of('grid');
     this.products$ = of([

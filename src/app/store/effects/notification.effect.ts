@@ -10,20 +10,19 @@ import { State } from '../../store/reducers';
 
 @Injectable()
 export class NotificationsEffects {
-   constructor( private actions$: Actions, private service: NotificationService, private store: Store<State>) { }
+    constructor( private actions$: Actions, private service: NotificationService, private store: Store<State>) { }
 
     @Effect()
     notificate$: Observable<Action> = this.actions$
         .ofType(notificationActions.NOTIFICATION_NEW)
-        .pipe(map((notification: notificationActions.AppNotificationTypes) => {
-            const params: notificationActions.AppNotificationParams = notification.payload;
-            setTimeout((): void => this.service.showNotification(
-                params.message,
-                params.isError,
-                params.callbackMessage,
-                params.callbackAction
-            ), 0);
-
-            return new notificationActions.AppNotificationToState (notification.payload);
-        } ));
+        .pipe(
+            switchMap((action: notificationActions.AppNotificationShow): any => {
+                return this.service.showNotification(
+                    action.payload.message,
+                    action.payload.isError
+                ).pipe(
+                    map((payloadToDispatch: any) => new notificationActions.AppNotificationToState(payloadToDispatch))
+                );
+            })
+        );
 }
