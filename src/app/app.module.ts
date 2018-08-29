@@ -7,14 +7,12 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-
 import { MaterialModule } from './material/material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { reducers, effects, CustomSerializer } from './store';
 import { ShopModule } from './shop/shop.module';
 import { AuthModule } from './auth/auth.module';
 import { CartModule } from './cart/cart.module';
-
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -38,11 +36,7 @@ import { FooterComponent } from './components/footer/footer.component';
     FormsModule,
     ReactiveFormsModule,
     AuthModule,
-    CartModule,
-    StoreModule.forRoot({}),
-    StoreDevtoolsModule.instrument({
-      maxAge: 20
-    })
+    CartModule
   ],
   providers: [
     { provide: RouterStateSerializer, useClass: CustomSerializer }
