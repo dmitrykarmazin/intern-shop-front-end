@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, Action } from '@ngrx/store';
 import { MatSnackBar, MatSnackBarConfig, MatSnackBarRef, SimpleSnackBar } from '@angular/material';
 
 import { AppNotification, AppNotificationError, AppNotificationTypes } from '../../store/actions/notifications';
@@ -14,17 +14,28 @@ export class NotificationService {
 
     constructor( private store: Store<State>, public snackBar: MatSnackBar) { }
 
-    public showNotification (message: string = '', isError: boolean = false): void {
+    public showNotification (
+      message: string = '',
+      isError: boolean = false,
+      actionText: string = '',
+      clickAction: Action = null
+    ): void {
 
-              this.snackBar.open(
-                message,
-                '',
-                this.barConfig
-              );
+        const snackBarRef: MatSnackBarRef<SimpleSnackBar> = this.snackBar.open(
+          message,
+          actionText,
+          this.barConfig
+        );
 
-              const action: AppNotificationTypes =
-                isError ? (new AppNotificationError(message)) : (new AppNotification(message));
+        if (clickAction !== null) {
+          snackBarRef.onAction().subscribe(() => {
+            this.store.dispatch(clickAction);
+          });
+        }
 
-              this.store.dispatch(action);
+        const action: AppNotificationTypes =
+          isError ? (new AppNotificationError(message)) : (new AppNotification(message));
+
+        this.store.dispatch(action);
     }
 }

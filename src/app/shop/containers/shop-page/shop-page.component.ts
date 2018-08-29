@@ -17,6 +17,7 @@ export class ShopPageComponent implements OnInit {
   categories: Category[];
 
   ngOnInit(): void {
+
     this.viewMode$ = of('grid');
     this.products$ = of([
       { id: '1', title: 'Title1', description: 'Description1', category_id: '1', category_title: 'Mobile', price: '15000', stock: 38 },
