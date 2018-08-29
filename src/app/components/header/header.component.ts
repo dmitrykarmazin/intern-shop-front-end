@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store} from '@ngrx/store';
 import { AuthState } from '../../auth/store/reducers/auth.reducers';
 import { SignOutAction } from '../../auth/store/actions/auth.actions';
 import { Observable } from 'rxjs';
-import { getIsAuthenticated } from '../../auth/store/selectors/auth.selectors';
+import * as authStore from '../../auth/store';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +13,7 @@ import { getIsAuthenticated } from '../../auth/store/selectors/auth.selectors';
 export class HeaderComponent {
   isAuthorized$: Observable<boolean>;
   constructor(private store: Store<AuthState>) {
-    this.isAuthorized$ = this.store.select(getIsAuthenticated);
+    this.isAuthorized$ = this.store.pipe(select(authStore.getIsAuthenticated));
   }
 
   signOut(): void {

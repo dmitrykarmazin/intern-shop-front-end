@@ -25,7 +25,9 @@ import { RegistrationViewComponent } from './containers/registration-view/regist
   ],
   exports: [
     LoginFormComponent,
-    RegistrationFormComponent
+    RegistrationFormComponent,
+    LoginViewComponent,
+    RegistrationViewComponent
   ],
   declarations: [
     LoginFormComponent,

@@ -3,7 +3,7 @@ import { Store, select } from '@ngrx/store';
 import { AuthState } from './auth/store/reducers/auth.reducers';
 import { AuthService } from './auth/services/auth.service';
 import * as authStore from './auth/store';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -21,8 +21,5 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(new authStore.GetUserInfoAction(this.authService.getToken()));
-    this.loading$.subscribe((data: any) => {
-      // debugger;
-    });
   }
 }

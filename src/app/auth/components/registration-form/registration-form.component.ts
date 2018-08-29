@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-registration-form',
@@ -9,12 +9,12 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class RegistrationFormComponent {
 
   registrationForm: FormGroup;
-  @Output('register') register: any = new EventEmitter<{login: string, password: string}>();
+  @Output('register') register: EventEmitter<{login: string, password: string}> = new EventEmitter<{login: string, password: string}>();
 
-  constructor() {
-    this.registrationForm = new FormGroup ({
-      login: new FormControl(''),
-      password: new FormControl('')
+  constructor(private fb: FormBuilder) {
+    this.registrationForm = this.fb.group({
+      login: this.fb.control('', [Validators.required, Validators.minLength(8)]),
+      password: this.fb.control('', [Validators.required, Validators.minLength(8)])
     });
   }
 }
