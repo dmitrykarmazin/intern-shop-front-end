@@ -6,6 +6,7 @@ import { AddToCart } from './../../../cart/store/actions';
 import { Product } from '../../../shared/models/product.model';
 import { CartItem } from '../../../cart/store/reducers/cart.reducer';
 import { Observable } from 'rxjs';
+import { ProductsService } from './../../services/products.service';
 // import { productById } from '../../../shop/reducers';
 
 @Component({
@@ -16,31 +17,14 @@ import { Observable } from 'rxjs';
 export class ProductPageComponent implements OnInit {
   id: string;
   count: number = 1;
-  product$: Observable<CartItem>;
   loading: boolean = true;
-  product: Product = {
-    id: '5b82dba680a7ce48203557da',
-    title: 'Google pixel 2',
-    price: '799.99',
-    category_id: '1',
-    thumbnail: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Samsung_Galaxy_S9%2B.png',
-    category_title: 'phone',
-    stock: 77,
-    description:
-      `Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum repellat
-      molestias illo expedita placeat aut. Rerum distinctio aut, id optio ipsam
-      provident libero, quam dolorem sequi iste impedit harum quod aspernatur
-      saepe. Architecto totam ratione modi pariatur placeat minus vitae
-      voluptatem enim repellendus necessitatibus officia recusandae eligendi
-      quos esse, non veniam harum adipisci aliquam rerum sit illum tenetur
-      qui magni! Itaque, accusamus, quod autem maxime quasi amet modi in
-      culpa tenetur aliquam rerum sed quam voluptatibus error nemo dolor.
-      Illo dignissimos facere tempora quaerat sed quo expedita sequi totam.
-      Temporibus id a corporis sit commodi necessitatibus voluptatum,
-      incidunt nesciunt sint?`
-  };
+  product: Product;
 
-  constructor(private route: ActivatedRoute, private store: Store<CartFeatureState>) {}
+  constructor(
+      private route: ActivatedRoute,
+      private store: Store<CartFeatureState>,
+      private productService: ProductsService
+    ) {}
 
   ngOnInit(): void {
     this.getProduct();
@@ -48,11 +32,13 @@ export class ProductPageComponent implements OnInit {
 
   getProduct(): void {
     this.id = this.route.snapshot.params.id;
-    //  this.store.select(productById(id)).subscribe((product: any) => {
-    //   this.product = product;
-    //   this.loading = false;
-    //  });
-    setTimeout(() => this.loading = false , 2000);
+    this.productService.getProductById(this.id).subscribe((product: any) => {
+      if (product) {
+        console.log(`[Product page]: ${product.title}`);
+        this.product = product;
+        this.loading = false;
+      }
+    });
   }
 
   increase(): void {

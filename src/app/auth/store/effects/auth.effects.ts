@@ -11,7 +11,6 @@ import { User } from '../../models/user';
 
 @Injectable()
 export class AuthEffects {
-
   constructor(private actions$: Actions, private authService: AuthService) {}
 
   // effects go here
@@ -19,14 +18,13 @@ export class AuthEffects {
   signIn$: Observable<Action> = this.actions$.pipe(
     ofType(authActions.AUTHENTICATE),
     switchMap((action: authActions.AuthenticateAction) => {
-
-      return this.authService.logIn(action['payload'].login, action['payload'].password)
+      return this.authService
+        .logIn(action['payload'].login, action['payload'].password)
         .pipe(
           map((user: User) => {
-
-            return new AuthenticationSuccessAction({token: user.token});
+            return new AuthenticationSuccessAction({ token: user.token });
           }),
-          catchError((error: any) => {
+          catchError((error: Error) => {
             return of(new AuthenticationErrorAction(error));
           })
         );
@@ -37,15 +35,14 @@ export class AuthEffects {
   signUp$: Observable<Action> = this.actions$.pipe(
     ofType(authActions.SIGN_UP),
     switchMap((action: authActions.SignUpAction) => {
-
-      return this.authService.signUp(action['payload'].login, action['payload'].password)
+      return this.authService
+        .signUp(action['payload'].login, action['payload'].password)
         .pipe(
           map((user: User) => {
-
-            return new AuthenticationSuccessAction({token: user.token});
+            return new AuthenticationSuccessAction({ token: user.token });
           }),
-          catchError((error: any) => {
-            return of(new AuthenticationErrorAction({error: error}));
+          catchError((error: Error) => {
+            return of(new AuthenticationErrorAction({ error: error }));
           })
         );
     })
@@ -55,10 +52,9 @@ export class AuthEffects {
   signInSuccess$: Observable<Action> = this.actions$.pipe(
     ofType(authActions.AUTHENTICATE_SUCCESS),
     switchMap((action: authActions.AuthenticationSuccessAction) => {
-
       return this.authService.getUser(action['payload'].token).pipe(
         map((user: User) => new GetUserInfoSuccessAction(user)),
-        catchError((error: any) => of(new GetUserInfoFailAction(error)))
+        catchError((error: Error) => of(new GetUserInfoFailAction(error)))
       );
     })
   );
@@ -73,19 +69,21 @@ export class AuthEffects {
 
       return this.authService.getUser(action.payload).pipe(
         map((user: User) => new GetUserInfoSuccessAction(user)),
-        catchError((error: any) => of(new GetUserInfoFailAction({error: error})))
+        catchError((error: Error) =>
+          of(new GetUserInfoFailAction({ error: error }))
+        )
       );
     })
   );
 
-  @Effect() onFail$: Observable<Action> = this.actions$.pipe(
+  @Effect()
+  onFail$: Observable<Action> = this.actions$.pipe(
     ofType(authActions.GET_USER_INFO_FAIL, authActions.AUTHENTICATE_ERROR),
-    map((error: any) => {
+    map((error: Error) => {
       // debugger;
       console.log(error['payload']);
 
-     return new authActions.SignOutAction();
+      return new authActions.SignOutAction();
     })
   );
-
 }

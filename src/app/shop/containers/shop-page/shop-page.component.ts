@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { of, Subscription, Observable } from 'rxjs';
 
 import { Store } from '@ngrx/store';
 import { Product } from '../../../shared/models/product.model';
 import { Category } from '../../../shared/models/category.model';
 import { Filters } from '../../components/sidebar/sidebar.component';
+import { ProductsService } from '../../services/products.service';
 
 @Component({
   selector: 'app-shop',
@@ -12,29 +13,20 @@ import { Filters } from '../../components/sidebar/sidebar.component';
   styleUrls: ['./shop-page.component.css']
 })
 export class ShopPageComponent implements OnInit {
-
   products$: Observable<Product[]>;
   viewMode$: Observable<string>;
   categories: Category[];
+  sub: Subscription;
 
-  constructor(private store: Store<any>) {
-    // TODO
-  }
+  constructor(
+    private store: Store<any>,
+    private productService: ProductsService
+    ) { }
 
   ngOnInit(): void {
-
     this.viewMode$ = of('grid');
-    this.products$ = of([
-      { id: '1', title:  'Title1', thumbnail: '',
-      description: 'Description1', category_id: '1',
-       category_title: 'Mobile', price: '15000', stock: 38 },
-      { id: '2', title: 'Title2', thumbnail: '', description: 'Description2',
-       category_id: '2', category_title: 'Mobile', price: '1500', stock: 64 },
-      { id: '3', title: 'Title3', thumbnail: '', description: 'Description3',
-       category_id: '3', category_title: 'Mobile', price: '25000', stock: 32 },
-      { id: '4', title: 'Title4', thumbnail: '', description: 'Description4',
-       category_id: '4', category_title: 'Mobile', price: '13500', stock: 2 }
-    ]);
+    this.products$ = this.productService.getProducts();
+
     this.categories = [
       { id: '1', title: 'Phones', description: 'description1' },
       { id: '2', title: 'Cars', description: 'description2' },
