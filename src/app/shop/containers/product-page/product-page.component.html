@@ -1,7 +1,7 @@
-<div class="product-containner">
+<div class="product-containner" fxLayout="row" fxLayout.xs="column">
   <div class="product-details">
-    <div *ngIf="thumbnailURL" class="product-image">
-      <img [src]="thumbnailURL" class="main-image">
+    <div *ngIf="product && product.thumbnail" class="product-image">
+      <img [src]="product.thumbnail" class="main-image">
     </div>
     <div class="details-avalible">
       <div class="addtocard">
@@ -9,7 +9,10 @@
         <div class="count-block">
           <button mat-button (click)="decrease()">-</button>
           <mat-form-field class="count-wrapper">
-            <input [(ngModel)]="count" matInput type="text">
+            <input 
+              [(ngModel)]="count"
+              matInput type="text"
+              (keypress)="numberOnly($event)">
           </mat-form-field>
           <button mat-button (click)="increase()">+</button>
         </div>

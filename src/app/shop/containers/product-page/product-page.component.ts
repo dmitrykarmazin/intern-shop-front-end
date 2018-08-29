@@ -1,15 +1,13 @@
 
-import { Component, OnInit , OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { ActivatedRoute, ParamMap, Params } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 import { CartFeatureState } from '../../../cart/store/reducers';
 import { AddToCart } from './../../../cart/store/actions';
 import { Product } from '../../../shared/models/product.model';
-import * as selectors from '../../../cart/store/selectors';
+// import { productById } from '../../../shop/store/selectors';
 
 @Component({
   selector: 'app-product-page',
@@ -18,8 +16,9 @@ import * as selectors from '../../../cart/store/selectors';
 })
 export class ProductPageComponent implements OnInit {
   count: number = 1;
-  id: number;
-  thumbnailURL: string = 'https://upload.wikimedia.org/wikipedia/commons/4/44/Samsung_Galaxy_S9%2B.png';
+  id: string;
+  private regex: RegExp = new RegExp(/^[0-9]+(\.[0-9]*){0,1}$/g);
+
   // products$: Observable<CartItem[]>;
   product: Product = {
     id: '5b82dba680a7ce48203557da',
@@ -27,6 +26,7 @@ export class ProductPageComponent implements OnInit {
     price: '799.99',
     category_id: '1',
     category_title: 'phone',
+    thumbnail: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Samsung_Galaxy_S9%2B.png',
     stock: 77,
     description:
       `Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum repellat
@@ -41,13 +41,13 @@ export class ProductPageComponent implements OnInit {
       Temporibus id a corporis sit commodi necessitatibus voluptatum,
       incidunt nesciunt sint?`
   };
-  sub: Subscription;
-  // id: string;
 
   constructor(private route: ActivatedRoute, private store: Store<CartFeatureState>) {}
 
   ngOnInit(): void {
     // TODO:
+    this.id = this.route.snapshot.params.id;
+    // this.product = this.store.select(productById(id));
   }
 
   getProduct(): void {
@@ -71,8 +71,12 @@ export class ProductPageComponent implements OnInit {
       product: this.product,
       quantity: this.count
     }));
-    this.store.select(selectors.getCartProducts).subscribe((i: any) => console.log(i));
-    this.store.select(selectors.getTotalSum).subscribe((sum: any) => console.log(sum));
+  }
+  numberOnly(event: KeyboardEvent): any {
+    const currMount: string = this.count + event.key;
+    if (!currMount.match(this.regex)) {
+      event.preventDefault();
+    }
   }
 
 }
