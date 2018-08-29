@@ -2,15 +2,14 @@ import { tap, catchError } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
 import { HttpInterceptor, HttpRequest, HttpResponse, HttpEvent, HttpHandler, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-// import { Store } from '@ngrx/store';
-// import { State as AuthFeatureStore } from './../../auth/store/reducers';
-// import { SignOutAction } from './../../auth/store/actions';
+import { Store } from '@ngrx/store';
+import { State as AuthFeatureStore } from './../../auth/store/reducers';
+import { SignOutAction } from './../../auth/store/actions';
 
 @Injectable()
 export class ResponseInterceptor implements HttpInterceptor {
 
-  constructor() {
-    // store: Store<authStore>
+  constructor(private store: Store<AuthFeatureStore>) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): any {
@@ -25,7 +24,7 @@ export class ResponseInterceptor implements HttpInterceptor {
   }
   private errorHandle(err: HttpErrorResponse): any {
     if (err.status === (401 || 403)) {
-      // store.disputch(new SignOutAction());
+       this.store.dispatch(new SignOutAction());
     }
 
     return throwError(err);

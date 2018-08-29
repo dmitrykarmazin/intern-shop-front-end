@@ -1,4 +1,4 @@
-import { ActionReducerMap, createSelector, createFeatureSelector } from '@ngrx/store';
+import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
 
 import * as fromCart from './cart.reducer';
 

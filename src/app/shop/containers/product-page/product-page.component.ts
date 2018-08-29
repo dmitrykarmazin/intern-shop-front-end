@@ -25,8 +25,8 @@ export class ProductPageComponent implements OnInit {
     title: 'Google pixel 2',
     price: '799.99',
     category_id: '1',
-    category_title: 'phone',
     thumbnail: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Samsung_Galaxy_S9%2B.png',
+    category_title: 'phone',
     stock: 77,
     description:
       `Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum repellat
