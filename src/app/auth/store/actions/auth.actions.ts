@@ -5,6 +5,7 @@ export const AUTHENTICATE_ERROR: string = '[AUTH] Authenticate Error';
 export const AUTHENTICATE_SUCCESS: string = '[AUTH] Authenticate Success';
 export const SIGN_OUT: string = '[AUTH] Sign Out';
 export const SIGN_UP: string = '[AUTH] Sign Up';
+export const SIGN_UP_SUCCESS: string = '[AUTH] Sign Up Success';
 export const GET_USER_INFO: string = '[AUTH] Get User Info';
 export const GET_USER_INFO_SUCCESS: string  = '[AUTH] Get User Info Success';
 export const GET_USER_INFO_FAIL: string = '[AUTH] Get User Info Fail';
@@ -34,7 +35,15 @@ export class SignOutAction implements Action {
 export class SignUpAction implements Action {
   readonly type: string = SIGN_UP;
 
-  constructor(public payload: {login: string, password: string}) {}
+  constructor(public payload: {login: string, password: string}) {
+    console.log(payload);
+  }
+}
+
+export class SignUpSuccessAction implements Action {
+  readonly type: string = SIGN_UP_SUCCESS;
+
+  constructor(public payload: any) {}
 }
 
 export class GetUserInfoAction implements Action {
@@ -56,4 +65,5 @@ export class GetUserInfoFailAction implements Action {
 }
 
 export type Actions = AuthenticateAction | AuthenticationErrorAction | AuthenticationSuccessAction
-  | SignUpAction | SignOutAction | GetUserInfoAction | GetUserInfoSuccessAction | GetUserInfoFailAction;
+  | SignUpAction | SignUpSuccessAction | SignOutAction | GetUserInfoAction | GetUserInfoSuccessAction
+  | GetUserInfoFailAction;

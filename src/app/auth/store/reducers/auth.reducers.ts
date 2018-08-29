@@ -46,6 +46,17 @@ export function reducer(state: AuthState = initialState, action: Actions): AuthS
         error: null
       };
 
+    case fromActions.SIGN_UP_SUCCESS:
+      return <AuthState>{
+        ...state,
+        isAuthorized: true,
+        loading: false,
+        currentUser: {
+          token: action['payload'].token
+        },
+        error: null
+      };
+
     case fromActions.SIGN_UP:
       return <AuthState>{
         ...state,

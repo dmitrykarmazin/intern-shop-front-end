@@ -16,17 +16,26 @@
     <!--Password field-->
     <mat-grid-tile>
       <mat-form-field>
-        <div *ngIf="registrationForm.controls['password'].invalid && (registrationForm.controls['password'].dirty || registrationForm.controls['password'].touched)" class="mat-error error_msg">
+        <div *ngIf="registrationForm.controls['password'].invalid &&
+           (registrationForm.controls['password'].dirty ||
+            registrationForm.controls['password'].touched)"
+               class="mat-error error_msg">
           <div [hidden]="!registrationForm.controls['password'].errors.required">Password is required.</div>
           <div [hidden]="!registrationForm.controls['password'].errors.minlength">Password should contain at least 8 characters.</div>
         </div>
         <input matInput formControlName="password" required type="password" placeholder="Password" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="off" >
       </mat-form-field>
     </mat-grid-tile>
-    <!--Confirm password field-->
+      <!--Confirm password field-->
     <mat-grid-tile>
-      <mat-form-field>
-        <input matInput required type="password" placeholder="Confirm password" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="off" >
+      <mat-form-field >
+        <div *ngIf="registrationForm.controls['confirmPassword'].invalid &&
+           (registrationForm.controls['confirmPassword'].dirty ||
+            registrationForm.controls['confirmPassword'].touched)" class="mat-error error_msg">
+          <div [hidden]="!registrationForm.controls['confirmPassword'].errors.required">Password is required.</div>
+          <div [hidden]="!registrationForm.controls['confirmPassword'].errors?.matchPassword">Confirm password doesn't match</div>
+        </div>
+        <input matInput required type="password" formControlName="confirmPassword" placeholder="Confirm password" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="off" >
       </mat-form-field>
     </mat-grid-tile>
     <!--Button field-->
