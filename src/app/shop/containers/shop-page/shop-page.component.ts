@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
+import { Store } from '@ngrx/store';
 import { Product } from '../../../shared/models/product.model';
 import { Category } from '../../../shared/models/category.model';
 import { Filters } from '../../components/sidebar/sidebar.component';
@@ -16,7 +17,12 @@ export class ShopPageComponent implements OnInit {
   viewMode$: Observable<string>;
   categories: Category[];
 
+  constructor(private store: Store<any>) {
+    // TODO
+  }
+
   ngOnInit(): void {
+
     this.viewMode$ = of('grid');
     this.products$ = of([
       { id: '1', thumbnail: '', title: 'Title1', description: 'Description1', category_id: '1', category_title: 'Mobile', price: '15000', stock: 38 },
