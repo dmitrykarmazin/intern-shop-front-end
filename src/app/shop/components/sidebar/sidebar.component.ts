@@ -11,20 +11,20 @@ import { Category } from '../../../shared/models/category.model';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent {
-  categoryId: string = '';
+  category: string = '';
 
   @Output() filters: EventEmitter<FiltersObject> = new EventEmitter();
   @Input() categories$: Observable<Category[]>;
 
-  getCategoryId(id: string): void {
-    this.categoryId = id;
+  getCategoryName(category: string): void {
+    this.category = category;
   }
 
-  onFiltersChange(from: string, to: string): void {
+  onFiltersChange(from: number, to: number): void {
     this.filters.emit({
       price: {from, to},
-      category: this.categoryId,
-      stock: null
+      category: this.category,
+      stock: ''
     });
   }
 }

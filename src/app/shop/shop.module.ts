@@ -15,8 +15,8 @@ import { ProductPageComponent } from './containers/product-page/product-page.com
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { ProductsEffects } from './store/effects/products.effect';
 import { reducers, effects } from '../shop/store';
+import { ProductsEffects } from './store/effects/products.effect';
 
 @NgModule({
   imports: [

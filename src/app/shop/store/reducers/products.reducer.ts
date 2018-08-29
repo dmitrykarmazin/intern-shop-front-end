@@ -28,15 +28,12 @@ export function reducer(
 ): ProductsState {
   switch (action.type) {
     case fromProducts.LOAD_PRODUCTS: {
-      return {
-        ...state,
-        loading: true,
-      };
+      return { ...state, loading: true };
     }
 
     case fromProducts.LOAD_PRODUCTS_SUCCESS: {
       const products = action.payload;
-      
+
       return {
         ...state,
         loading: false,
@@ -47,7 +44,7 @@ export function reducer(
 
     case fromProducts.APPLY_FILTERS: {
       const filters = action.payload;
-      
+
       return {
         ...state,
         filters
@@ -56,7 +53,7 @@ export function reducer(
 
     case fromProducts.CHANGE_VIEW_MODE: {
       const viewMode = action.payload;
-      
+
       return {
         ...state,
         viewMode

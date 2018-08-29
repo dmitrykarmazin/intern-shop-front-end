@@ -18,15 +18,22 @@ import * as fromCategoriesSelectors from '../../store/selectors/categories.selec
 })
 export class ShopPageComponent implements OnInit {
 
-  viewModeValue: boolean = false;
   products$: Observable<Product[]>;
-  viewMode$: Observable<string>;
   categories$: Observable<Category[]>;
+
+  viewModeValue: boolean = false;
+  viewMode$: Observable<string>;
+  filters$: Observable<FiltersObject>;
 
   constructor(private store: Store<fromStore.ShopState>) {
     this.products$ = this.store.select(fromProductsSelectors.getAllProducts);
     this.categories$ = this.store.select(fromCategoriesSelectors.getAllCategories);
+
     this.viewMode$ = this.store.select(fromProductsSelectors.getProductsViewMode);
+    // this.store.select(fromProductsSelectors.getProductsCurrentObservable<FiltersObject>Filters)
+    //   .subscribe((filters: FiltersObject) => {
+    //     this.filters$ = filters;
+    //   });
   }
 
   ngOnInit(): void {
@@ -40,11 +47,12 @@ export class ShopPageComponent implements OnInit {
     } else {
       this.viewModeValue = true;
     }
+
     this.store.dispatch(new fromStore.ChangeViewMode(viewMode));
   }
 
   filters(filters: FiltersObject): void {
-    this.store.dispatch(new fromStore.ApplyFilters(filters));
+    this.store.dispatch(new fromStore.ApplyFilters(filters));    
   }
 
   private addToCart($event: string): void {

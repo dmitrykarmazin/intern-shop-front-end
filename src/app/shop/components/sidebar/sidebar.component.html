@@ -17,7 +17,7 @@
       </mat-option>
     </mat-select>
       <mat-select placeholder="Category">
-      <mat-option *ngFor="let category of (categories$ | async)" (click)="getCategoryId(category.id)" [value]="category.id">
+      <mat-option *ngFor="let category of (categories$ | async)" (click)="getCategoryName(category.title)" [value]="category.id">
         {{category.title}}
       </mat-option>
     </mat-select>
