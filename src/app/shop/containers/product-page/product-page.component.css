@@ -6,6 +6,12 @@
   justify-content: flex-start;
 
 }
+.spinner-overlay{
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .product-image {
   flex: 0 0 50%;
   height: 500px;

@@ -1,4 +1,12 @@
-<div class="product-containner" fxLayout="row" fxLayout.xs="column">
+<div *ngIf="loading" class="spinner-overlay">
+  <mat-progress-spinner
+        class="example-margin"
+        color="primary"
+        mode="indeterminate"
+        value="50">
+  </mat-progress-spinner>
+</div> 
+<div *ngIf="!loading" class="product-containner" fxLayout="row" fxLayout.xs="column">
   <div class="product-details">
     <div *ngIf="product && product.thumbnail" class="product-image">
       <img [src]="product.thumbnail" class="main-image">

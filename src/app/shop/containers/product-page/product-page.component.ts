@@ -17,6 +17,7 @@ export class ProductPageComponent implements OnInit {
   id: string;
   count: number = 1;
   product$: Observable<CartItem>;
+  loading: boolean = true;
   product: Product = {
     id: '5b82dba680a7ce48203557da',
     title: 'Google pixel 2',
@@ -47,7 +48,11 @@ export class ProductPageComponent implements OnInit {
 
   getProduct(): void {
     this.id = this.route.snapshot.params.id;
-    // this.product = this.store.select(productById(id));
+    //  this.store.select(productById(id)).subscribe((product: any) => {
+    //   this.product = product;
+    //   this.loading = false;
+    //  });
+    setTimeout(() => this.loading = false , 2000);
   }
 
   increase(): void {
