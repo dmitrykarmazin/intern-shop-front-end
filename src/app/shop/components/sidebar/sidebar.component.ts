@@ -20,10 +20,10 @@ export class SidebarComponent {
     this.category = category;
   }
 
-  onFiltersChange(from: number, to: number): void {
+  onFiltersChange(from: number, to: number, category: string = ''): void {
     this.filters.emit({
       price: {from, to},
-      category: this.category,
+      category: category,
       stock: ''
     });
   }

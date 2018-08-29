@@ -25,7 +25,7 @@ export class ProductsEffects {
 
               return new productsActions.LoadProductsSuccess(products['products']);
             }),
-            catchError(error => of(new productsActions.LoadProductsFail(error)))
+            catchError((error: Error) => of(new productsActions.LoadProductsFail(error)))
           )
       })
     )
@@ -41,7 +41,7 @@ export class ProductsEffects {
             map(products => {
               return new productsActions.LoadProductsSuccess(products['products']);
             }),
-            catchError(error => of(new productsActions.LoadProductsFail(error)))
+            catchError((error: Error) => of(new productsActions.LoadProductsFail(error)))
           )
       })
     )

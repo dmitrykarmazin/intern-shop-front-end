@@ -1,6 +1,5 @@
-import { getProductsFilters } from './../../store/reducers/products.reducer';
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { Store } from '@ngrx/store';
 
@@ -36,12 +35,8 @@ export class ShopPageComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(new fromStore.LoadProducts());
     this.store.dispatch(new fromStore.LoadCategories());
-    // this.store.select(fromProductsSelectors.getProductsCurrentFilters)
-    //   .subscribe((payload) => {
-    //     console.log(payload);
-    //   });
 
-    localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViODY5MzU1YTc0NmYwM2M3ZmFjYjFkMSIsImxvZ2luIjoiRWx2aW4iLCJwYXNzd29yZCI6IiQyYiQxMiQ4dVFFelRCb0V0SUlueGdBWkRsSnNlS1p3OXBOamtSSXQ1UFhHdVJ0S2sxcFFkczRJWEhXaSIsImlhdCI6MTUzNTU0NjI5NCwiZXhwIjoxNTM1NTQ4OTk0fQ.o67Soe6-j_0XVNwTz25twPXOFkNny718sSplZ6XTBGQ')
+    localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViODY5MzU1YTc0NmYwM2M3ZmFjYjFkMSIsImxvZ2luIjoiRWx2aW4iLCJwYXNzd29yZCI6IiQyYiQxMiQ4dVFFelRCb0V0SUlueGdBWkRsSnNlS1p3OXBOamtSSXQ1UFhHdVJ0S2sxcFFkczRJWEhXaSIsImlhdCI6MTUzNTU1MjQ3NCwiZXhwIjoxNTM1NTU1MTc0fQ.Lif1LnprkUZDPF3orO4QhYpqNPD1ywYHYLIIRPnZ6WQ')
   }
 
   chooseViewMode(viewMode: string): void {
