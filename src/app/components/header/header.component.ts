@@ -10,6 +10,7 @@ import * as authStore from '../../auth/store';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
+
 export class HeaderComponent {
   isAuthorized$: Observable<boolean>;
   constructor(private store: Store<AuthState>) {
@@ -20,3 +21,4 @@ export class HeaderComponent {
     this.store.dispatch(new SignOutAction());
   }
 }
+

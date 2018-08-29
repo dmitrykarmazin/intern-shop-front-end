@@ -9,8 +9,9 @@ const routes: Routes = [
   { path: 'shop', component: ShopPageComponent },
   { path: 'login', component: LoginViewComponent },
   { path: 'register', component: RegistrationViewComponent },
+  { path: 'shop', component: ShopPageComponent },
   { path: 'cart', component: CartPageComponent },
-  { path: '**', redirectTo: 'cart', pathMatch: 'full' }
+  { path: '**', redirectTo: 'shop', pathMatch: 'full' }
 ];
 
 @NgModule({
@@ -21,5 +22,4 @@ const routes: Routes = [
     RouterModule
   ]
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}
