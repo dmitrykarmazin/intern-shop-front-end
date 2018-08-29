@@ -10,7 +10,7 @@ import {
 } from '@ngrx/store';
 
 import * as fromRouter from '@ngrx/router-store';
-import * as fromNotification from './notifications';
+import * as fromNotification from './notification.reducer';
 
 export interface RouterStateUrl {
   url: string;
