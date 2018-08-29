@@ -2,8 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+
+import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MaterialModule } from './material/material.module';
@@ -35,8 +36,7 @@ import { FooterComponent } from './components/footer/footer.component';
     FormsModule,
     ReactiveFormsModule,
     AuthModule,
-    CartModule,
-    StoreModule.forRoot({}),
+    CartModule
   ],
   providers: [
     { provide: RouterStateSerializer, useClass: CustomSerializer }
