@@ -18,6 +18,9 @@ import { CartModule } from './cart/cart.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor} from './shared/interceptor/token.interceptor';
+import { ResponseInterceptor } from './shared/interceptor/response.interceptor';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,9 @@ import { FooterComponent } from './components/footer/footer.component';
     })
   ],
   providers: [
-    { provide: RouterStateSerializer, useClass: CustomSerializer }
+    { provide: RouterStateSerializer, useClass: CustomSerializer },
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true }
   ],
   bootstrap: [
     AppComponent

@@ -17,7 +17,7 @@ import { Product } from '../../../shared/models/product.model';
 export class ProductPageComponent implements OnInit {
   count: number = 1;
   id: string;
-  private regex: RegExp = new RegExp(/^[0-9]+(\.[0-9]*){0,1}$/g);
+  private regex: RegExp = new RegExp(/^[0-9]+$/g);
 
   // products$: Observable<CartItem[]>;
   product: Product = {
