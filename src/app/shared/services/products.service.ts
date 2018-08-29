@@ -1,4 +1,5 @@
-import { HttpClient } from '@angular/common/http';
+import { FiltersObject } from './../models/filters.model';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from '../models/product.model';
@@ -7,7 +8,8 @@ import { Product } from '../models/product.model';
 export class ProductsService {
   constructor(private http: HttpClient) {}
 
-  getProducts(): Observable<Product[]> {
+  getProducts(filters: FiltersObject = {}): Observable<Product[]> {
     return this.http.get<Product[]>('/assets/products.json');
+    // return this.http.get<Product[]>('http://localhost:8000/products');
   }
 }

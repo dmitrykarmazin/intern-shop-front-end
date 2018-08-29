@@ -15,12 +15,17 @@ export class ProductsEffects {
   ) {}
 
   @Effect()
-  loadProducts$ = this.actions$.ofType(productsActions.LOAD_PRODUCTS).pipe(
-      switchMap(() => {
+  loadProducts$ = this.actions$.ofType(productsActions.LOAD_PRODUCTS || productsActions.APPLY_FILTERS).pipe(
+      switchMap((action: productsActions.LoadProducts | productsActions.ApplyFilters) => {
+        debugger;
+
         return this.productsService
-          .getProducts()
+          .getProducts(action['payload'])
           .pipe(
-            map(products => new productsActions.LoadProductsSuccess(products)),
+            map(products => {
+
+              return new productsActions.LoadProductsSuccess(products);
+            }),
             catchError(error => of(new productsActions.LoadProductsFail(error)))
           )
       })

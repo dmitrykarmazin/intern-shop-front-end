@@ -1,11 +1,12 @@
+import { getProductsFilters } from './../../store/reducers/products.reducer';
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
+
+import { Store } from '@ngrx/store';
 
 import { Product } from '../../../shared/models/product.model';
 import { Category } from '../../../shared/models/category.model';
 import { FiltersObject } from './../../../shared/models/filters.model';
-
-import { Store } from '@ngrx/store';
 
 import * as fromStore from '../../store';
 import * as fromProductsSelectors from '../../store/selectors/products.selector';
@@ -30,15 +31,15 @@ export class ShopPageComponent implements OnInit {
     this.categories$ = this.store.select(fromCategoriesSelectors.getAllCategories);
 
     this.viewMode$ = this.store.select(fromProductsSelectors.getProductsViewMode);
-    // this.store.select(fromProductsSelectors.getProductsCurrentObservable<FiltersObject>Filters)
-    //   .subscribe((filters: FiltersObject) => {
-    //     this.filters$ = filters;
-    //   });
   }
 
   ngOnInit(): void {
     this.store.dispatch(new fromStore.LoadProducts());
     this.store.dispatch(new fromStore.LoadCategories());
+    this.store.select(fromProductsSelectors.getProductsCurrentFilters)
+      .subscribe((payload) => {
+        console.log(payload);
+      });
   }
 
   chooseViewMode(viewMode: string): void {
@@ -52,7 +53,8 @@ export class ShopPageComponent implements OnInit {
   }
 
   filters(filters: FiltersObject): void {
-    this.store.dispatch(new fromStore.ApplyFilters(filters));    
+    this.store.dispatch(new fromStore.ApplyFilters(filters));
+    this.store.dispatch(new fromStore.LoadProducts());
   }
 
   private addToCart($event: string): void {
