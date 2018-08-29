@@ -23,6 +23,7 @@ export class WishStartDownload implements Action {
 
 export class WishDownloadDone implements Action {
     type: string = WISH_DOWNLOAD_OK;
+    constructor ( public payload: Product[] ) { }
 }
 
 export class WishDownloadError implements Action {

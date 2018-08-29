@@ -25,6 +25,7 @@ import { ResponseInterceptor } from './shared/interceptor/response.interceptor';
 
 import { NotificationService } from './shared/services/notification';
 import { SharedModule } from './shared/shared.module';
+import { WishlistModule } from './wishlist/wishlist.module';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { SharedModule } from './shared/shared.module';
     SharedModule,
     ReactiveFormsModule,
     AuthModule,
-    CartModule
+    CartModule,
+    WishlistModule,
   ],
   providers: [
     { provide: RouterStateSerializer, useClass: CustomSerializer },
