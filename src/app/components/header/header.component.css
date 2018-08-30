@@ -17,28 +17,17 @@
   color: #fff;
   text-decoration: none;
   position: relative;
-  padding: 27px 13px 5px;
+  padding: 13px 13px 5px;
   font-size: 11px;
   line-height: 13px;
   z-index: 1;
-}
-
-.cart:before {
-  width: 50px;
-  height: 45px;
-  top: -5px;
-  left: 50%;
-  content: '';
-  position: absolute;
-  background-image: url('https://preview.ibb.co/j7B9DU/cart.png');
-  background-repeat: no-repeat;
-  background-size: cover;
+  margin-left: 30px;
 }
 
 .cart > span {
   position: absolute;
-  top: -6px;
-  right: -45px;
+  top: 0;
+  right: -14px;
   min-width: 23px;
   height: 23px;
   -webkit-box-sizing: border-box;
@@ -51,4 +40,8 @@
   background: #fb3f4c;
   border-radius: 12px;
   z-index: 1;
+}
+
+.cart .mat-icon {
+  font-size: 35px;
 }

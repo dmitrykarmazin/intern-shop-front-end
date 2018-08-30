@@ -36,8 +36,6 @@ export class ShopPageComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(new fromStore.LoadProducts());
     this.store.dispatch(new fromStore.LoadCategories());
-
-    localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViODY5OWYyODc4ZWUyMmVjMDMyNzZhZSIsImxvZ2luIjoidGFueWEyMTAzOTIiLCJwYXNzd29yZCI6IiQyYiQxMiRWempwN3ZkdmZsc01YNmVRYWhvYk5Pb3dxLkpuSERkOFFnRHNtTTRkdlJHeGhtWmlOVmxGZSIsImlhdCI6MTUzNTYxOTgyNiwiZXhwIjoxNTM1NjIyNTI2fQ.tKJ4i89idPUZUxE9bRqX1mVNcDIHUbhrv0hdO84sPfc')
   }
 
   chooseViewMode(viewMode: string): void {

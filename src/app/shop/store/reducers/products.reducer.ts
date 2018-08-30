@@ -32,7 +32,6 @@ export function reducer(
     }
 
     case fromProducts.LOAD_PRODUCTS_SUCCESS: {
-      debugger;
       const products = action.payload;
 
       return {
