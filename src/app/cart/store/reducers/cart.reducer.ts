@@ -35,6 +35,7 @@ export function reducer( state: CartState = initialCartState, action: fromCart.A
                 isEmpty: false,
                 ids: [...state.ids, id],
                 products: {
+                    ...state.products,
                     [id]: {
                         ...state.products[id],
                         product: action.payload['product'],
