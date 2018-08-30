@@ -4,11 +4,13 @@ import { ShopPageComponent } from './shop/containers/shop-page/shop-page.compone
 import { CartPageComponent } from './cart/containers/cart-page/cart-page.component';
 import { LoginViewComponent } from './auth/containers/login-view/login-view.component';
 import { RegistrationViewComponent } from './auth/containers/registration-view/registration-view.component';
+import { ProductPageComponent } from './shop/containers/product-page/product-page.component';
 
 const routes: Routes = [
   { path: 'shop', component: ShopPageComponent },
   { path: 'login', component: LoginViewComponent },
   { path: 'register', component: RegistrationViewComponent },
+  { path: 'shop/products/:id', component: ProductPageComponent },
   { path: 'shop', component: ShopPageComponent },
   { path: 'cart', component: CartPageComponent },
   { path: '**', redirectTo: 'shop', pathMatch: 'full' }
@@ -16,7 +18,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes, {enableTracing: true})
   ],
   exports: [
     RouterModule

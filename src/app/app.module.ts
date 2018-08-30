@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
@@ -23,6 +24,7 @@ import { TokenInterceptor} from './shared/interceptor/token.interceptor';
 import { ResponseInterceptor } from './shared/interceptor/response.interceptor';
 
 import { NotificationService } from './shared/services/notification';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -35,12 +37,14 @@ import { NotificationService } from './shared/services/notification';
     ShopModule,
     BrowserAnimationsModule,
     MaterialModule,
+    HttpClientModule,
     AppRoutingModule,
     EffectsModule.forRoot(effects),
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({ maxAge: 10 }),
     StoreRouterConnectingModule,
     FormsModule,
+    SharedModule,
     ReactiveFormsModule,
     AuthModule,
     CartModule

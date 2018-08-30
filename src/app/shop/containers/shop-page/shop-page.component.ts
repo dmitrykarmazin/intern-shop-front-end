@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { of, Subscription, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { Store } from '@ngrx/store';
+
 import { Product } from '../../../shared/models/product.model';
 import { Category } from '../../../shared/models/category.model';
-import { Filters } from '../../components/sidebar/sidebar.component';
-import { ProductsService } from '../../services/products.service';
+import { FiltersObject } from './../../../shared/models/filters.model';
+
+import * as fromStore from '../../store';
+import * as fromProductsSelectors from '../../store/selectors/products.selector';
+import * as fromCategoriesSelectors from '../../store/selectors/categories.selector';
 
 @Component({
   selector: 'app-shop',
@@ -14,29 +18,36 @@ import { ProductsService } from '../../services/products.service';
 })
 export class ShopPageComponent implements OnInit {
   products$: Observable<Product[]>;
+  categories$: Observable<Category[]>;
+
+  viewModeValue: boolean = false;
   viewMode$: Observable<string>;
-  categories: Category[];
-  sub: Subscription;
+  filters$: Observable<FiltersObject>;
 
-  constructor(
-    private store: Store<any>,
-    private productService: ProductsService
-    ) { }
+  constructor(private store: Store<fromStore.ShopState>) {
+    this.products$ = this.store.select(fromProductsSelectors.getAllProducts);
+    this.categories$ = this.store.select(fromCategoriesSelectors.getAllCategories);
 
-  ngOnInit(): void {
-    this.viewMode$ = of('grid');
-    this.products$ = this.productService.getProducts();
-
-    this.categories = [
-      { id: '1', title: 'Phones', description: 'description1' },
-      { id: '2', title: 'Cars', description: 'description2' },
-      { id: '3', title: 'SmartPhones', description: 'description3' },
-      { id: '4', title: 'Computers', description: 'description4' }
-    ];
+    this.viewMode$ = this.store.select(fromProductsSelectors.getProductsViewMode);
   }
 
-  filters(filters: Filters): void {
-    // TODO dispatch to store
+  ngOnInit(): void {
+    this.store.dispatch(new fromStore.LoadProducts());
+    this.store.dispatch(new fromStore.LoadCategories());
+ }
+
+  chooseViewMode(viewMode: string): void {
+    if (viewMode === 'grid') {
+      this.viewModeValue = false;
+    } else {
+      this.viewModeValue = true;
+    }
+
+    this.store.dispatch(new fromStore.ChangeViewMode(viewMode));
+  }
+
+  filters(filters: FiltersObject): void {
+    this.store.dispatch(new fromStore.ApplyFilters(filters));
   }
 
   private addToCart($event: string): void {

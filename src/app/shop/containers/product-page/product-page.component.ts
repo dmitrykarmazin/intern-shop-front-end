@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { CartFeatureState } from '../../../cart/store/reducers';
 import { AddToCart } from './../../../cart/store/actions';
 import { Product } from '../../../shared/models/product.model';
-import { CartItem } from '../../../cart/store/reducers/cart.reducer';
 import { Observable } from 'rxjs';
-import { ProductsService } from './../../services/products.service';
-// import { productById } from '../../../shop/reducers';
+import * as productsAction from '../../store/actions';
+import * as productsSelectors from '../../store/selectors';
 
 @Component({
   selector: 'app-product-page',
@@ -17,13 +15,13 @@ import { ProductsService } from './../../services/products.service';
 export class ProductPageComponent implements OnInit {
   id: string;
   count: number = 1;
-  loading: boolean = true;
+  loading$: Observable<boolean>;
   product: Product;
 
   constructor(
       private route: ActivatedRoute,
-      private store: Store<CartFeatureState>,
-      private productService: ProductsService
+      private store: Store<any>,
+
     ) {}
 
   ngOnInit(): void {
@@ -32,12 +30,12 @@ export class ProductPageComponent implements OnInit {
 
   getProduct(): void {
     this.id = this.route.snapshot.params.id;
-    this.productService.getProductById(this.id).subscribe((product: any) => {
-      if (product) {
-        console.log(`[Product page]: ${product.title}`);
-        this.product = product;
-        this.loading = false;
-      }
+
+    setTimeout(() => this.loading$ = this.store.select(productsSelectors.getProductsLoading), 1000);
+
+    this.store.dispatch(new productsAction.LoadProducts());
+    this.store.select(productsSelectors.getAllProducts).subscribe((products: Product[]) => {
+      this.product = products.filter((product: Product ) => product.id === this.id)[0];
     });
   }
 
