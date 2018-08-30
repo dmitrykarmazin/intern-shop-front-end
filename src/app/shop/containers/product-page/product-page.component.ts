@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AddToCart } from './../../../cart/store/actions';
@@ -10,7 +10,8 @@ import * as productsSelectors from '../../store/selectors';
 @Component({
   selector: 'app-product-page',
   templateUrl: './product-page.component.html',
-  styleUrls: ['./product-page.component.css']
+  styleUrls: ['./product-page.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductPageComponent implements OnInit {
   id: string;
@@ -25,14 +26,12 @@ export class ProductPageComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
+    this.loading$ = this.store.select(productsSelectors.getProductsLoading);
     this.getProduct();
   }
 
   getProduct(): void {
     this.id = this.route.snapshot.params.id;
-
-    setTimeout(() => this.loading$ = this.store.select(productsSelectors.getProductsLoading), 1000);
-
     this.store.dispatch(new productsAction.LoadProducts());
     this.store.select(productsSelectors.getAllProducts).subscribe((products: Product[]) => {
       this.product = products.filter((product: Product ) => product.id === this.id)[0];
