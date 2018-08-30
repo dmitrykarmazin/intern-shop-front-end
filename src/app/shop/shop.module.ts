@@ -1,9 +1,9 @@
+import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MaterialModule } from '../material/material.module';
-import { ShopRoutingModule } from './shop-routing.module';
 
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ShopPageComponent } from './containers/shop-page/shop-page.component';
@@ -11,6 +11,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { ListItemComponent } from './components/list-item/list-item.component';
 import { GridItemComponent } from './components/grid-item/grid-item.component';
 import { ProductPageComponent } from './containers/product-page/product-page.component';
+import { RecommendationsComponent } from './components/recommendations/recommendations.component';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -22,7 +23,7 @@ import { ProductsEffects } from './store/effects/products.effect';
   imports: [
     CommonModule,
     MaterialModule,
-    ShopRoutingModule,
+    RouterModule,
     FormsModule,
     StoreModule.forFeature('shop', reducers),
     EffectsModule.forFeature(effects),
@@ -34,7 +35,8 @@ import { ProductsEffects } from './store/effects/products.effect';
     SidebarComponent,
     ShopPageComponent,
     ListItemComponent,
-    ProductPageComponent
+    ProductPageComponent,
+    RecommendationsComponent
   ],
   exports: [
     SidebarComponent,
