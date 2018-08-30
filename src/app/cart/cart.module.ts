@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 import { reducers } from './store';
 
 import { CartPageComponent } from './containers/cart-page/cart-page.component';
@@ -17,6 +18,7 @@ import { StoreModule } from '@ngrx/store';
     MaterialModule,
     FormsModule,
     HttpClientModule,
+    RouterModule,
     StoreModule.forFeature('cart', reducers)
   ],
   declarations: [

@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 import { Product } from '../../../shared/models/product.model';
 import { Category } from '../../../shared/models/category.model';
 import { Filters } from '../../components/sidebar/sidebar.component';
+import { CartState } from '../../../cart/store/reducers/cart.reducer';
+import { AddToCart } from '../../../cart/store/actions';
 
 @Component({
   selector: 'app-shop',
@@ -15,6 +18,8 @@ export class ShopPageComponent implements OnInit {
   products$: Observable<Product[]>;
   viewMode$: Observable<string>;
   categories: Category[];
+
+  constructor(private store: Store<CartState>) { }
 
   ngOnInit(): void {
     this.viewMode$ = of('grid');
@@ -35,8 +40,10 @@ export class ShopPageComponent implements OnInit {
     // TODO dispatch to store
   }
 
-  private addToCart($event: string): void {
-    // TODO dispatch to card
-    // event - id
+  addToCart($event: Product): void {
+    this.store.dispatch(new AddToCart({
+      product: $event,
+      quantity: 1
+    }));
   }
 }

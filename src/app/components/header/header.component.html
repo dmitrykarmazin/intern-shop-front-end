@@ -3,6 +3,9 @@
     <a class="btn-container" routerLink="/shop">
       <button class="header-btn" mat-button>Shop</button>
     </a>
+    <a *ngIf="(isAuthorized$ | async)" routerLink="/cart" class="cart" >
+      <span>{{totalCount$ | async}}</span>
+    </a>
     <span class="spacer"></span>
     <a *ngIf="!(isAuthorized$ | async)" class="btn-container" routerLink="/login">
       <button class="header-btn" mat-button>Sign In</button>
