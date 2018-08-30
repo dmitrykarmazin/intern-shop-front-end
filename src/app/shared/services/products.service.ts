@@ -12,11 +12,7 @@ export class ProductsService {
   getProducts(filters: FiltersObject = {}): Observable<Product[]> {
     return this
       .http
-      .get<Product[]>(
-        `http://localhost:8000/products
-        ${this.setPriceFilter(filters)}
-        ${this.setCategoryFilter(filters)}
-        ${this.setStockFilter(filters)}`
+      .get<Product[]>(`http://localhost:8000/products?${this.setPriceFilter(filters)}${this.setCategoryFilter(filters)}${this.setStockFilter(filters)}`
       );
   }
   
