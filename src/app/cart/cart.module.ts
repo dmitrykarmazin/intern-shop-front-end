@@ -4,13 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { reducers } from './store';
 import { CartPageComponent } from './containers/cart-page/cart-page.component';
 import { CartItemsComponent } from './components/cart-items/cart-items.component';
 import { CartTotalComponent } from './components/cart-total/cart-total.component';
+
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './store/reducers';
 import { CartEffects } from './store/effects/cart.effects';
 
 @NgModule({

@@ -20,7 +20,7 @@ export class CartPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.products$ = this.store.select(cartSelectors.getCartProducts);
-    this.ids$ = this.store.select(cartSelectors.getCartList);
+    this.ids$ = this.store.select(cartSelectors.getCartIds);
   }
 
   quantityChange(event: any): void {
