@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { Store , select} from '@ngrx/store';
 import { AddToCart } from './../../../cart/store/actions';
 import { Product } from '../../../shared/models/product.model';
 import { Observable } from 'rxjs';
@@ -26,14 +26,19 @@ export class ProductPageComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
-    this.loading$ = this.store.select(productsSelectors.getProductsLoading);
+    this.loading$ = this.store.pipe(
+      select(productsSelectors.getProductsLoading)
+    );
     this.getProduct();
   }
 
   getProduct(): void {
     this.id = this.route.snapshot.params.id;
     this.store.dispatch(new productsAction.LoadProducts());
-    this.store.select(productsSelectors.getAllProducts).subscribe((products: Product[]) => {
+
+    this.store.pipe(
+        select(productsSelectors.getAllProducts)
+      ).subscribe((products: Product[]) => {
       this.product = products.filter((product: Product ) => product.id === this.id)[0];
     });
   }
