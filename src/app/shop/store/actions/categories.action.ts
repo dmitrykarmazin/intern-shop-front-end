@@ -19,4 +19,4 @@ export class LoadCategoriesFail implements Action {
   constructor(public payload: any) { }
 }
 
-export type CategoryActions = LoadCategories | LoadCategoriesSuccess | LoadCategoriesFail;
+export type CategoriesActions = LoadCategories | LoadCategoriesSuccess | LoadCategoriesFail;

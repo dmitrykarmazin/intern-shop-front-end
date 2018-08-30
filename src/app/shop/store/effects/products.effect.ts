@@ -6,6 +6,7 @@ import { of } from 'rxjs/internal/observable/of';
 
 import * as fromServices from './../../../shared/services';
 import * as productsActions from '../actions/products.action';
+import { Product } from '../../../shared/models/product.model';
 
 @Injectable()
 export class ProductsEffects {
@@ -21,8 +22,8 @@ export class ProductsEffects {
       return this.productsService
         .getProducts()
         .pipe(
-          map((products: any) => {
-            return new productsActions.LoadProductsSuccess(products['products']);
+          map((response: { success: boolean; products: Product[]}) => {
+            return new productsActions.LoadProductsSuccess(response['products']);
           }),
           catchError((error: Error) => of(new productsActions.LoadProductsFail(error)))
         );
@@ -36,8 +37,8 @@ export class ProductsEffects {
       return this.productsService
         .getProducts(action['payload'])
         .pipe(
-          map((products: any) => {
-            return new productsActions.LoadProductsSuccess(products['products']);
+          map((response: { success: boolean; products: Product[]}) => {
+            return new productsActions.LoadProductsSuccess(response['products']);
           }),
           catchError((error: Error) => of(new productsActions.LoadProductsFail(error)))
         );

@@ -15,7 +15,7 @@ export const initialState: CategoriesState = {
 
 export function reducer(
   state: CategoriesState = initialState,
-  action: any
+  action: fromCategories.CategoriesActions
 ): CategoriesState {
   switch (action.type) {
     case fromCategories.LOAD_CATEGORIES: {
@@ -26,7 +26,7 @@ export function reducer(
     }
 
     case fromCategories.LOAD_CATEGORIES_SUCCESS: {
-      const categories: Category[] = action.payload;
+      const categories: Category[] = action['payload'];
 
       return {
         ...state,

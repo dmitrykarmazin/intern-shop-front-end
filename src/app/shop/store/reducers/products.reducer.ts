@@ -24,7 +24,7 @@ export const initialState: ProductsState = {
 
 export function reducer(
   state: ProductsState = initialState,
-  action: any
+  action: fromProducts.ProductsActions
 ): ProductsState {
   switch (action.type) {
     case fromProducts.LOAD_PRODUCTS: {
@@ -32,7 +32,7 @@ export function reducer(
     }
 
     case fromProducts.LOAD_PRODUCTS_SUCCESS: {
-      const products: Product[] = action.payload;
+      const products: Product[] = action['payload'];
 
       return {
         ...state,
@@ -43,7 +43,7 @@ export function reducer(
     }
 
     case fromProducts.APPLY_FILTERS: {
-      const filters: FiltersObject = action.payload;
+      const filters: FiltersObject = action['payload'];
 
       return {
         ...state,
@@ -52,7 +52,7 @@ export function reducer(
     }
 
     case fromProducts.CHANGE_VIEW_MODE: {
-      const viewMode: string = action.payload;
+      const viewMode: string = action['payload'];
 
       return {
         ...state,
