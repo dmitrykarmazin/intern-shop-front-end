@@ -18,6 +18,7 @@ export class ProductPageComponent implements OnInit {
   count: number = 1;
   loading$: Observable<boolean>;
   product: Product;
+  regex: RegExp = new RegExp(/^[0-9]+$/g);
 
   constructor(
       private route: ActivatedRoute,
@@ -39,7 +40,7 @@ export class ProductPageComponent implements OnInit {
     this.store.pipe(
         select(productsSelectors.getAllProducts)
       ).subscribe((products: Product[]) => {
-      this.product = products.filter((product: Product ) => product.id === this.id)[0];
+        this.product = products.find((product: Product) => product.id === this.id);
     });
   }
 
@@ -62,9 +63,8 @@ export class ProductPageComponent implements OnInit {
     }));
   }
   numberOnly(event: KeyboardEvent): any {
-    const regex: RegExp = new RegExp(/^[0-9]+$/g);
     const currMount: string = this.count + event.key;
-    if (!currMount.match(regex)) {
+    if (!currMount.match(this.regex)) {
       event.preventDefault();
     }
   }
