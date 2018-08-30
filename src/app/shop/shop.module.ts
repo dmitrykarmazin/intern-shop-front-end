@@ -10,6 +10,7 @@ import { ListItemComponent } from './components/list-item/list-item.component';
 import { GridItemComponent } from './components/grid-item/grid-item.component';
 import { ShopRoutingModule } from './shop-routing.module';
 import { ProductPageComponent } from './containers/product-page/product-page.component';
+import { RecommendationsComponent } from './components/recommendations/recommendations.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { ProductPageComponent } from './containers/product-page/product-page.com
     SidebarComponent,
     ShopPageComponent,
     ListItemComponent,
-    ProductPageComponent
+    ProductPageComponent,
+    RecommendationsComponent
   ],
   exports: [
     SidebarComponent,
