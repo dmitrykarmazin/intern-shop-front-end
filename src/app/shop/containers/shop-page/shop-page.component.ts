@@ -34,6 +34,7 @@ export class ShopPageComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(new fromStore.LoadProducts());
     this.store.dispatch(new fromStore.LoadCategories());
+
  }
 
   chooseViewMode(viewMode: string): void {

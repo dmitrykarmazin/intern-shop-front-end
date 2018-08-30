@@ -5,9 +5,12 @@ import { Observable, of } from 'rxjs';
 import { Action } from '@ngrx/store';
 import * as authActions from '../actions/auth.actions';
 import { catchError, map, switchMap } from 'rxjs/operators';
-import { AuthenticationErrorAction, AuthenticationSuccessAction, GetUserInfoFailAction,
-  GetUserInfoSuccessAction } from '../actions/auth.actions';
+import {
+  AuthenticationErrorAction, AuthenticationSuccessAction, GetUserInfoFailAction,
+  GetUserInfoSuccessAction, SignUpSuccessAction
+} from '../actions/auth.actions';
 import { User } from '../../models/user';
+import {AppNotificationShow} from '../../../store/actions/notification.action';
 
 @Injectable()
 export class AuthEffects {
@@ -22,7 +25,7 @@ export class AuthEffects {
         .logIn(action['payload'].login, action['payload'].password)
         .pipe(
           map((user: User) => {
-            return new AuthenticationSuccessAction({ token: user.token });
+            return new AuthenticationSuccessAction({token: user.token});
           }),
           catchError((error: Error) => {
             return of(new AuthenticationErrorAction(error));
@@ -35,14 +38,13 @@ export class AuthEffects {
   signUp$: Observable<Action> = this.actions$.pipe(
     ofType(authActions.SIGN_UP),
     switchMap((action: authActions.SignUpAction) => {
-      return this.authService
-        .signUp(action['payload'].login, action['payload'].password)
+      return this.authService.signUp(action['payload'].login, action['payload'].password)
         .pipe(
           map((user: User) => {
-            return new AuthenticationSuccessAction({ token: user.token });
+            return new SignUpSuccessAction({token: user.token});
           }),
           catchError((error: Error) => {
-            return of(new AuthenticationErrorAction({ error: error }));
+            return of(new AuthenticationErrorAction({error: error}));
           })
         );
     })
@@ -54,6 +56,24 @@ export class AuthEffects {
     switchMap((action: authActions.AuthenticationSuccessAction) => {
       return this.authService.getUser(action['payload'].token).pipe(
         map((user: User) => new GetUserInfoSuccessAction(user)),
+        map((user: User) => {
+          return new AppNotificationShow({message: `User is logged in as "${user['payload'].login}"`, isError: false});
+        }),
+        catchError((error: Error) => of(new GetUserInfoFailAction(error)))
+      );
+    })
+  );
+
+  @Effect()
+  signUpSuccess$: Observable<Action> = this.actions$.pipe(
+    ofType(authActions.SIGN_UP_SUCCESS),
+    switchMap((action: authActions.SignUpSuccessAction) => {
+
+      return this.authService.getUser(action['payload'].token).pipe(
+        map((user: User) => new GetUserInfoSuccessAction(user)),
+        map((user: User) => {
+          return new AppNotificationShow({message: `"${user['payload'].login}" was successfully registered`, isError: false});
+        }),
         catchError((error: Error) => of(new GetUserInfoFailAction(error)))
       );
     })
@@ -69,19 +89,21 @@ export class AuthEffects {
 
       return this.authService.getUser(action.payload).pipe(
         map((user: User) => new GetUserInfoSuccessAction(user)),
-        catchError((error: Error) =>
-          of(new GetUserInfoFailAction({ error: error }))
-        )
+        catchError((error: Error) => of(new GetUserInfoFailAction({error: error})))
       );
     })
   );
 
   @Effect()
-  onFail$: Observable<Action> = this.actions$.pipe(
+  signOut$: Observable<Action> = this.actions$.pipe(
+    ofType(authActions.SIGN_OUT),
+    map(() => new AppNotificationShow({message: 'You are signed out', isError: false}))
+  );
+
+  @Effect() onFail$: Observable<Action> = this.actions$.pipe(
     ofType(authActions.GET_USER_INFO_FAIL, authActions.AUTHENTICATE_ERROR),
     map((error: Error) => {
-      // debugger;
-      // console.log(error['payload']);
+      console.log(error['payload']);
 
       return new authActions.SignOutAction();
     })
