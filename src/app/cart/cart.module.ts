@@ -4,13 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { reducers } from './store';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
+import { reducers } from './store';
 import { CartPageComponent } from './containers/cart-page/cart-page.component';
 import { CartItemsComponent } from './components/cart-items/cart-items.component';
 import { CartTotalComponent } from './components/cart-total/cart-total.component';
-
-import { StoreModule } from '@ngrx/store';
+import { CartEffects } from './store/effects/cart.effects';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { StoreModule } from '@ngrx/store';
     FormsModule,
     HttpClientModule,
     RouterModule,
-    StoreModule.forFeature('cart', reducers)
+    StoreModule.forFeature('cart', reducers),
+    EffectsModule.forFeature([CartEffects])
   ],
   declarations: [
     CartPageComponent,

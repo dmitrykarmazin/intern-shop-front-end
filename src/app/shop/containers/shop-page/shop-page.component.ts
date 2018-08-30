@@ -22,6 +22,7 @@ export class ShopPageComponent implements OnInit {
   constructor(private store: Store<CartState>) { }
 
   ngOnInit(): void {
+
     this.viewMode$ = of('grid');
     this.products$ = of([
       { id: '1', thumbnail: '', title: 'Title1', description: 'Description1', category_id: '1', category_title: 'Mobile', price: '15000', stock: 38 },
