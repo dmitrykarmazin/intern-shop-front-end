@@ -17,8 +17,8 @@ export const initialState: ProductsState = {
   viewMode: 'grid',
   filters: {
     price: null,
-    stock: null,
     category: null,
+    stock: null,
   }
 };
 

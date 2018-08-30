@@ -36,7 +36,7 @@ export class ShopPageComponent implements OnInit {
     this.store.dispatch(new fromStore.LoadProducts());
     this.store.dispatch(new fromStore.LoadCategories());
 
-    localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViODY5MzU1YTc0NmYwM2M3ZmFjYjFkMSIsImxvZ2luIjoiRWx2aW4iLCJwYXNzd29yZCI6IiQyYiQxMiQ4dVFFelRCb0V0SUlueGdBWkRsSnNlS1p3OXBOamtSSXQ1UFhHdVJ0S2sxcFFkczRJWEhXaSIsImlhdCI6MTUzNTYxMzYyNSwiZXhwIjoxNTM1NjE2MzI1fQ.tO1GeSIxPBFwNJWQ32PZ6z--vcPbxTsTWt9QXw6RYys')
+    localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViODY5MzU1YTc0NmYwM2M3ZmFjYjFkMSIsImxvZ2luIjoiRWx2aW4iLCJwYXNzd29yZCI6IiQyYiQxMiQ4dVFFelRCb0V0SUlueGdBWkRsSnNlS1p3OXBOamtSSXQ1UFhHdVJ0S2sxcFFkczRJWEhXaSIsImlhdCI6MTUzNTYzMzA4OCwiZXhwIjoxNTM1NjM1Nzg4fQ.2qSs8asDZaK9QcRQXhQGJMyTmazNGl6q_9Vgd6pQ7cI')
   }
 
   chooseViewMode(viewMode: string): void {

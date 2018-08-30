@@ -6,58 +6,44 @@ import { Product } from '../models/product.model';
 
 @Injectable()
 export class ProductsService {
-  query: string = '';
-  priceQuery: string = '';
-  categoryQuery: string = '';
-  stockQuery: string = '';
 
   constructor(private http: HttpClient) {}
 
   getProducts(filters: FiltersObject = {}): Observable<Product[]> {
-    let headers: HttpHeaders = new HttpHeaders({
-      'Authorization': `Bearer ${localStorage.getItem('token')}`
-    });
-    return this.http.get<Product[]>(`http://localhost:8000/products?${this.setFilters(filters)}`, {headers});
+    return this.http.get<Product[]>(`http://localhost:8000/products?${this.setPriceFilter(filters)}${this.setCategoryFilter(filters)}${this.setStockFilter(filters)}`);
   }
-
-  setFilters(filtersObj): string {
+  
+  setPriceFilter(filtersObj): string {
     let query = '';
-    let priceQuery = '';
-    let categoryQuery = '';
-    let stockQuery = '';
-
-
     if (filtersObj && filtersObj.price) {
-      priceQuery = this.priceQuery;
-      priceQuery = `price=${filtersObj['price']['from']} to ${filtersObj['price']['to']}?`;
-      this.priceQuery = priceQuery;
-      query = this.query;
-      if (query.match('price')) {
-        return;
-      } else {
-        query += priceQuery;
+      if (!filtersObj.price['from'] && !filtersObj.price['to']) {
+        return query = '';
+      }
+      if (filtersObj.price['from'] || filtersObj.price['to']) {
+        return query = `price=${filtersObj.price['from']} to ${filtersObj.price['to']}`;
       }
     }
-    if (priceQuery === 'price= to ') {
-      query = this.slicer(query, priceQuery);
-    }
-
-    // if (filtersObj && filtersObj.category) {
-    //   categoryQuery = `category=${filtersObj['category']}?`;
-    //   query += categoryQuery;
-    // }
-    // if (priceQuery === 'category=') {
-    //   query = this.slicer(query, categoryQuery);
-    // }
-
     return query;
   }
 
-  slicer(query, subQuery): string {
-    let str = query.split('?');
-    str.splice(str.indexOf(subQuery), 1);
-    let newStr = str.join('?');
+  setCategoryFilter(filtersObj) {
+    let query;
 
-    return (subQuery === '') ? `?${newStr}` : newStr;
+    if (filtersObj && filtersObj.category) {
+      return query = `&category=${filtersObj.category}`;
+    } else {
+      return '';
+    }
   }
+
+  setStockFilter(filtersObj) {
+    let query;
+
+    if (filtersObj && filtersObj.stock) {
+      return query = `&stock=${filtersObj.stock}`;
+    } else {
+      return '';
+    }
+  }
+  
 }
