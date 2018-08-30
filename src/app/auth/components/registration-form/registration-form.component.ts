@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import {FormGroup, FormBuilder, Validators, AbstractControl, FormControl} from '@angular/forms';
+import { FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-registration-form',
@@ -9,32 +9,21 @@ import {FormGroup, FormBuilder, Validators, AbstractControl, FormControl} from '
 export class RegistrationFormComponent {
 
   registrationForm: FormGroup;
-  passwordFormGroup: FormGroup;
   @Output('register') register: EventEmitter<{login: string, password: string}> = new EventEmitter<{login: string, password: string}>();
 
-  constructor(private fb: FormBuilder) {
-    this.registrationForm = this.fb.group({
+  constructor() {
+    this.registrationForm = new FormGroup({
       login: new FormControl('', [Validators.required, Validators.minLength(8)]),
-      password: [null, [Validators.required, Validators.minLength(8)]],
-      confirmPassword: [null, [Validators.required]]
-    }, {
-      validator: this.matchPassword
+      password_group: new FormGroup({
+        password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+        password_confirm: new FormControl('', [Validators.required, Validators.minLength(8)])
+      }, this.passwordConfirming)
     });
-    // this.passwordFormGroup = this.fb.group({
-    //   password: [null, [Validators.required, Validators.minLength(8)]],
-    //   confirmPassword: [null, [Validators.required]]
-    // }, {
-    //   validator: this.matchPassword
-    // });
   }
 
-  matchPassword(group: AbstractControl): {matchPassword: boolean} {
-    const password: string = group.get('password').value;
-    const confirmPassword: string = group.get('confirmPassword').value;
-    if (password !== confirmPassword) {
-      group.get('confirmPassword').setErrors( {matchPassword: true} );
-    } else {
-      return null;
+  passwordConfirming(c: AbstractControl): { invalid: boolean } {
+    if (c.get('password').value !== c.get('password_confirm').value) {
+      return { invalid: true };
     }
   }
 }

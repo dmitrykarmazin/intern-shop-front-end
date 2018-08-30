@@ -35,9 +35,7 @@ export class SignOutAction implements Action {
 export class SignUpAction implements Action {
   readonly type: string = SIGN_UP;
 
-  constructor(public payload: {login: string, password: string}) {
-    console.log(payload);
-  }
+  constructor(public payload: {login: string, password: string}) {}
 }
 
 export class SignUpSuccessAction implements Action {
