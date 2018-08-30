@@ -7,8 +7,7 @@ export class Product {
     public category_id: string,
     public category_title: string,
     public price: number,
-    public stock: number,
-    public thumbnail: string
+    public stock: number
   ) {
   }
 }

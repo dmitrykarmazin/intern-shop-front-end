@@ -1,4 +1,4 @@
-import { Actions, Effect } from '@ngrx/effects';
+import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 
 import { switchMap, map, catchError } from 'rxjs/operators';
@@ -24,5 +24,5 @@ export class CategoriesEffects {
         catchError(error => of(new categoriesActions.LoadCategoriesFail(error)))
       )
     })
-  )
+  ) 
 }

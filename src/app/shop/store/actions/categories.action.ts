@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Category } from '../../../shared/models/category.model';
+import { FiltersObject } from '../../../shared/models/filters.model';
 
 export const LOAD_CATEGORIES = '[Categories] Load Categories';
 export const LOAD_CATEGORIES_FAIL = '[Categories] Load Categories Fail';

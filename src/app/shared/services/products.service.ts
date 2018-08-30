@@ -6,6 +6,10 @@ import { Product } from '../models/product.model';
 
 @Injectable()
 export class ProductsService {
+  query: string = '';
+  priceQuery: string = '';
+  categoryQuery: string = '';
+  stockQuery: string = '';
 
   constructor(private http: HttpClient) {}
 
@@ -13,17 +17,6 @@ export class ProductsService {
     let headers: HttpHeaders = new HttpHeaders({
       'Authorization': `Bearer ${localStorage.getItem('token')}`
     });
-    
-    debugger;
-
-    let params: HttpParams = new HttpParams();
-
-      // (filters['price']) ? params.set('price', `${filters['price']['from']} to ${filters['price']['to']}`) : '';
-      // (filters['category']) ? params.set('category', `${filters['category']}`) : '';
-      // (filters['stock']) ? params.set('stock', `${filters['stock']}`) : '';
-
-    
-
     return this.http.get<Product[]>(`http://localhost:8000/products?${this.setFilters(filters)}`, {headers});
   }
 
@@ -33,29 +26,31 @@ export class ProductsService {
     let categoryQuery = '';
     let stockQuery = '';
 
-    if (filtersObj['price']) {
-      (query.length > 1) ? query += '?' : query;
-      priceQuery = `price=${filtersObj['price']['from']} to ${filtersObj['price']['to']}`;
-      return query += priceQuery;
-    } else if (!filtersObj['price']) {
-      return query = this.slicer(query, priceQuery);
+
+    if (filtersObj && filtersObj.price) {
+      priceQuery = this.priceQuery;
+      priceQuery = `price=${filtersObj['price']['from']} to ${filtersObj['price']['to']}?`;
+      this.priceQuery = priceQuery;
+      query = this.query;
+      if (query.match('price')) {
+        return;
+      } else {
+        query += priceQuery;
+      }
+    }
+    if (priceQuery === 'price= to ') {
+      query = this.slicer(query, priceQuery);
     }
 
-    if (filtersObj['category']) {
-      (query.length > 1) ? query += '?' : query;
-      categoryQuery = `category=${filtersObj['category']}`;
-      return query += categoryQuery;
-    } else if (!filtersObj['category']) {
-      return query = this.slicer(query, categoryQuery);
-    }
+    // if (filtersObj && filtersObj.category) {
+    //   categoryQuery = `category=${filtersObj['category']}?`;
+    //   query += categoryQuery;
+    // }
+    // if (priceQuery === 'category=') {
+    //   query = this.slicer(query, categoryQuery);
+    // }
 
-    if (filtersObj['stock']) {
-      (query.length > 1) ? query += '?' : query;
-      stockQuery = `stock=${filtersObj['stock']}`;
-      return query += stockQuery;
-    } else if (!filtersObj['stock']) {
-      return query = this.slicer(query, stockQuery);
-    }
+    return query;
   }
 
   slicer(query, subQuery): string {

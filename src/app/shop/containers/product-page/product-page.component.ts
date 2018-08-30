@@ -24,7 +24,6 @@ export class ProductPageComponent implements OnInit {
     thumbnail: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Samsung_Galaxy_S9%2B.png',
     category_title: 'phone',
     stock: 77,
-    thumbnail: 'image',
     description:
       `Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum repellat
       molestias illo expedita placeat aut. Rerum distinctio aut, id optio ipsam
