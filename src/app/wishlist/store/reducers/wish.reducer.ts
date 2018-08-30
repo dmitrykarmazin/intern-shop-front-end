@@ -1,5 +1,4 @@
 import { Product } from '../../../shared/models/product.model';
-import { Action } from '@ngrx/store';
 import * as wishActions from '../actions/wish.action';
 
 export interface WishState {
@@ -34,18 +33,24 @@ export function wishReducer (state: WishState = initialState, action: any): Wish
                 state.ids.push(action.payload.id);
                 state.products[action.payload.id] = action.payload;
 
-                return {...state};
+                return {...state,
+                    ids: state.ids.slice(),
+                    products: {...state.products}
+                };
             }
 
             return state;
 
         case wishActions.WISH_REMOVE_PRODUCT:
-            const index: number = state.ids.indexOf(action.payload.id);
+            const index: number = state.ids.indexOf(action.payload);
             if (index !== -1) {
-                state.ids.splice(action.payload.id);
-                delete state.products[action.payload.id];
+                state.ids.splice(index, 1);
+                delete state.products[action.payload];
 
-                return {...state};
+                return {...state,
+                    ids: state.ids.slice(),
+                    products: {...state.products}
+                };
             }
 
             return state;

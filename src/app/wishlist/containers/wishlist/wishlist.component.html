@@ -1,1 +1,15 @@
-
+<div class="app-wish-list">
+    <h3 class="app-wish-list__title" >You have 
+        <span class="app-wish-list__count">{{(wishCount$ | async)}}</span>
+        wishes</h3>
+    <ul class="app-wish-list__list">
+        <li *ngFor="let product of (products$ | async)">
+            <a [routerLink]="['/product', product.id]" class="app-wish-list__link">
+                <app-wish-item [product]="product"
+                (emitAddToCart)="addToCart($event)"
+                (emitRemoveFromList)="removeFromList($event)"
+                ></app-wish-item>
+            </a>             
+        </li>
+    </ul>
+</div>  

@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Store, Action } from '@ngrx/store';
-import { MatSnackBar, MatSnackBarConfig, MatSnackBarRef, SimpleSnackBar } from '@angular/material';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 
-import { AppNotificationTypes } from '../../store/actions/notification.action';
-import { State } from '../../store/reducers';
 import { Observable, of } from 'rxjs';
 
 @Injectable()
@@ -19,8 +16,6 @@ export class NotificationService {
       panelClass: 'app-notification-text-error'
     };
 
-    private snackBarRef: MatSnackBarRef<SimpleSnackBar>;
-
     constructor(public snackBar: MatSnackBar) { }
 
     public showNotification (
@@ -31,7 +26,7 @@ export class NotificationService {
       const config: MatSnackBarConfig = isError ? this.barConfigError : this.barConfig;
       Promise.resolve(true)
         .then(() => {
-          this.snackBarRef = this.snackBar.open(
+          this.snackBar.open(
             message,
             null,
             config
@@ -44,5 +39,4 @@ export class NotificationService {
       });
 
     }
-
 }

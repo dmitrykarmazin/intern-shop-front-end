@@ -1,14 +1,14 @@
 import { Input, Output, EventEmitter } from '@angular/core';
 
-import Product from '../../models/product';
+import { Product } from 'src/app/shared/models/product.model';
 
-export default class BasicItem {
+export default abstract class BasicItem {
 
     @Input() product: Product;
 
     @Output() emitAddToCart: EventEmitter<Product> = new EventEmitter<Product>();
 
-    private addToCart(): void {
+    protected addToCart(): void {
         this.emitAddToCart.emit(this.product);
     }
 }

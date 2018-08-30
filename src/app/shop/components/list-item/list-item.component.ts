@@ -1,7 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 import BasicItem from '../basic-item/basic-item';
-import Product from '../../models/product';
 
 @Component({
   selector: 'app-list-item',

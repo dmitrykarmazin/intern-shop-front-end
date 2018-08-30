@@ -14,7 +14,7 @@ export class WishAddNew implements Action {
 
 export class WishRemoteProduct implements Action {
     type: string = WISH_REMOVE_PRODUCT;
-    constructor ( public payload: number ) { }
+    constructor ( public payload: string ) { }
 }
 
 export class WishStartDownload implements Action {
