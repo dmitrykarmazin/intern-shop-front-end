@@ -1,3 +1,4 @@
+import { AdminModule } from './admin/admin.module';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ShopPageComponent } from './shop/containers/shop-page/shop-page.component';
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'shop/products/:id', component: ProductPageComponent },
   { path: 'shop', component: ShopPageComponent },
   { path: 'cart', component: CartPageComponent },
+  { path: 'admin', loadChildren: (): any => AdminModule },
   { path: '**', redirectTo: 'shop', pathMatch: 'full' }
 ];
 

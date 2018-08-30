@@ -1,0 +1,24 @@
+<div class="admin-wrapper">
+  <mat-sidenav-container fullscreen>
+  <mat-sidenav #sidenav class="mat-elevation-z4" mode="side" opened="true">
+    <mat-nav-list>
+      <mat-list-item [routerLink]="['./']">
+        <mat-icon matListIcon>home</mat-icon>
+        <h3 matLine>HOME</h3>
+      </mat-list-item>
+      <mat-list-item  [routerLink]="['./', 'products']">
+        <mat-icon matListIcon>
+          add_shopping_cart</mat-icon>
+        <h3 matLine>PRODUCTS</h3>
+      </mat-list-item>
+      <mat-list-item [routerLink]="['./', 'orders']">
+          <mat-icon matListIcon>payment</mat-icon>
+          <h3 matLine>ORDERS</h3>
+      </mat-list-item>
+    </mat-nav-list>
+    </mat-sidenav>
+    <div class="container">
+        <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-container>
+</div>
