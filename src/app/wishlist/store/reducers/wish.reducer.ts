@@ -28,7 +28,7 @@ const initialState: WishState = {
 export function wishReducer (state: WishState = initialState, action: any): WishState {
     switch (action.type) {
 
-        case wishActions.WISH_ADD_NEW:
+        case wishActions.WISH_ADD_NEW_SUCCESS:
             if (state.ids.indexOf(action.payload.id) === -1) {
                 state.ids.push(action.payload.id);
                 state.products[action.payload.id] = action.payload;
@@ -80,7 +80,9 @@ export function wishReducer (state: WishState = initialState, action: any): Wish
             };
 
         case wishActions.WISH_DOWNLOAD_ERROR:
-            return {...state,
+            return {
+                ids: [],
+                products: {},
                 isLoading: false,
                 isLoaded: false,
                 isLoadError: true

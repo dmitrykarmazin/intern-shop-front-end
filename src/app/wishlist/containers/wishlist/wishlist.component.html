@@ -4,7 +4,7 @@
         wishes</h3>
     <ul class="app-wish-list__list">
         <li *ngFor="let product of (products$ | async)">
-            <a [routerLink]="['/product', product.id]" class="app-wish-list__link">
+            <a [routerLink]="['shop/products', product.id]" class="app-wish-list__link">
                 <app-wish-item [product]="product"
                 (emitAddToCart)="addToCart($event)"
                 (emitRemoveFromList)="removeFromList($event)"

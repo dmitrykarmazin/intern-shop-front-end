@@ -16,7 +16,7 @@ export const getWishIsLoaded: MemoizedSelector<object, boolean> =
 export const getWishIsLoadError: MemoizedSelector<object, boolean> =
     createSelector (getWishState, fromReducer.getWishIsLoadError);
 
-export const getWishProductsInObject: MemoizedSelector<object, {[id: string]: Product}> =
+const getWishProductsInObject: MemoizedSelector<object, {[id: string]: Product}> =
     createSelector (getWishState, fromReducer.getWishProducts);
 
 export const getWishProducts: MemoizedSelector<object, Product[]> =
