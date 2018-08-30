@@ -34,30 +34,35 @@ export class ProductsService {
     let stockQuery = '';
 
     if (filtersObj['price']) {
+      (query.length > 1) ? query += '?' : query;
       priceQuery = `price=${filtersObj['price']['from']} to ${filtersObj['price']['to']}`;
       return query += priceQuery;
-    } else {
-      return priceQuery = '';
+    } else if (!filtersObj['price']) {
+      return query = this.slicer(query, priceQuery);
     }
 
     if (filtersObj['category']) {
+      (query.length > 1) ? query += '?' : query;
       categoryQuery = `category=${filtersObj['category']}`;
       return query += categoryQuery;
-    } else {
-      return categoryQuery = '';
+    } else if (!filtersObj['category']) {
+      return query = this.slicer(query, categoryQuery);
     }
 
     if (filtersObj['stock']) {
+      (query.length > 1) ? query += '?' : query;
       stockQuery = `stock=${filtersObj['stock']}`;
       return query += stockQuery;
-    } else {
-      return stockQuery = '';
+    } else if (!filtersObj['stock']) {
+      return query = this.slicer(query, stockQuery);
     }
   }
 
-  // slicer(string): string {
-  //   const str = string;
+  slicer(query, subQuery): string {
+    let str = query.split('?');
+    str.splice(str.indexOf(subQuery), 1);
+    let newStr = str.join('?');
 
-  //   return string;
-  // }
+    return (subQuery === '') ? `?${newStr}` : newStr;
+  }
 }
