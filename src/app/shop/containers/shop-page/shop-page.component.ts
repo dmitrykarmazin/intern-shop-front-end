@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Store } from '@ngrx/store';
+import { select, Store} from '@ngrx/store';
 
 import { Product } from '../../../shared/models/product.model';
 import { Category } from '../../../shared/models/category.model';
@@ -24,12 +24,16 @@ export class ShopPageComponent implements OnInit {
   viewModeValue: boolean = false;
   viewMode$: Observable<string>;
   filters$: Observable<FiltersObject>;
+  loadingProducts$: Observable<boolean>;
+  loadingCategories$: Observable<boolean>;
 
   constructor(private store: Store<fromStore.ShopState>) {
     this.products$ = this.store.select(fromProductsSelectors.getAllProducts);
     this.categories$ = this.store.select(fromCategoriesSelectors.getAllCategories);
 
     this.viewMode$ = this.store.select(fromProductsSelectors.getProductsViewMode);
+    this.loadingProducts$ = this.store.pipe(select(fromProductsSelectors.getProductsLoading));
+    this.loadingCategories$ = this.store.pipe(select(fromCategoriesSelectors.getIsCategoriesLoading));
   }
 
   ngOnInit(): void {

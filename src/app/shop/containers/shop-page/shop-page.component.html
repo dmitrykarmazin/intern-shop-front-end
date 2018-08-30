@@ -6,18 +6,21 @@
     <div class="view-mode">
         <span class="spacer"></span>
         <span>
-            <i 
+            <i
               class="fa fa-th"
               [ngClass]="{'active': !viewModeValue}"
               (click)="chooseViewMode('grid')"
             ></i>
-            <i 
+            <i
               class="fa fa-th-list"
               [ngClass]="{'active': viewModeValue}"
               (click)="chooseViewMode('list')"
             ></i>
         </span>
     </div>
-    <app-product-list [products$]="products$" [viewMode$]="viewMode$" (emitAddToCart)="addToCart($event)"></app-product-list>    
+    <div *ngIf="(loadingProducts$ | async) && (loadingCategories$ | async)" class="wrap-spinner">
+      <mat-spinner strokeWidth="3" [diameter]="150"></mat-spinner>
+    </div>
+    <app-product-list [products$]="products$" [viewMode$]="viewMode$" (emitAddToCart)="addToCart($event)"></app-product-list>
   </mat-drawer-content>
 </mat-drawer-container>
