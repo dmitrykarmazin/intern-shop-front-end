@@ -17,7 +17,6 @@ import * as fromCategoriesSelectors from '../../store/selectors/categories.selec
   styleUrls: ['./shop-page.component.css']
 })
 export class ShopPageComponent implements OnInit {
-
   products$: Observable<Product[]>;
   categories$: Observable<Category[]>;
 
@@ -40,8 +39,7 @@ export class ShopPageComponent implements OnInit {
     this.store.dispatch(new fromStore.LoadProducts());
     this.store.dispatch(new fromStore.LoadCategories());
 
-    localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViODY5MzU1YTc0NmYwM2M3ZmFjYjFkMSIsImxvZ2luIjoiRWx2aW4iLCJwYXNzd29yZCI6IiQyYiQxMiQ4dVFFelRCb0V0SUlueGdBWkRsSnNlS1p3OXBOamtSSXQ1UFhHdVJ0S2sxcFFkczRJWEhXaSIsImlhdCI6MTUzNTYxMzYyNSwiZXhwIjoxNTM1NjE2MzI1fQ.tO1GeSIxPBFwNJWQ32PZ6z--vcPbxTsTWt9QXw6RYys')
-  }
+ }
 
   chooseViewMode(viewMode: string): void {
     if (viewMode === 'grid') {
