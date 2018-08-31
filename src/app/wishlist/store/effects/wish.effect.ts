@@ -39,7 +39,7 @@ export class WishEffects {
    userSignUp$: Observable<Action> = this.actions$
        .ofType(SIGN_UP)
        .pipe(
-           switchMap((action: object): any => {
+           switchMap((): any => {
                 this.isSignUp = true;
 
                 return of({type: 'EMPTY'});
@@ -68,7 +68,7 @@ export class WishEffects {
                             return this.saveWishlist(data, action.payload);
                         }
 
-                        return of(new AppNotificationShow({message: 'You already have this product', isError: true}));
+                        return of(new AppNotificationShow({message: 'You already have this product', isError: false}));
                     }),
                     catchError((err: Error) => of(new AppNotificationShow({message: err.message, isError: true})))
                 );
@@ -104,15 +104,11 @@ export class WishEffects {
         .pipe(
             switchMap((action: SignUpAction): any => {
                 if (this.isSignUp) {
-                    this.isSignUp = !this.isSignUp;
+                    this.isSignUp = false;
 
-                    return this.store.select(getAuthenticatedUser).pipe(
-                        switchMap((user: User): any => {
-                            return this.dataService.createWishList(user, []).pipe(
-                                map((products: Product[]) => new wishActions.WishDownloadDone([])),
-                                catchError((err2: Error) => of(new AppNotificationShow({message: err2.message, isError: true})))
-                            );
-                        })
+                    return this.dataService.createWishList(action.payload, []).pipe(
+                        map((products: Product[]) => new wishActions.WishDownloadDone([])),
+                        catchError((err2: Error) => of(new AppNotificationShow({message: err2.message, isError: true})))
                     );
                 }
 
@@ -121,6 +117,13 @@ export class WishEffects {
                     catchError((err: Error) => of())
                 );
             })
+        );
+
+    @Effect()
+    signOut$: Observable<Action> = this.actions$
+        .ofType(SIGN_OUT)
+        .pipe(
+            switchMap(() => of(new wishActions.WishIsCleaned()))
         );
 
     private saveWishlist(data: any, product: Product): Observable<any> {

@@ -11,6 +11,7 @@ import * as fromStore from '../../store';
 import * as fromProductsSelectors from '../../store/selectors/products.selector';
 import * as fromCategoriesSelectors from '../../store/selectors/categories.selector';
 import { AddToCart } from '../../../cart/store/actions/cart.action';
+import { WishAddNew } from '../../../wishlist/store/actions/wish.action';
 
 @Component({
   selector: 'app-shop',
@@ -53,5 +54,9 @@ export class ShopPageComponent implements OnInit {
       product: $event,
       quantity: 1
     }));
+  }
+
+  addToWish($event: Product): void {
+    this.store.dispatch(new WishAddNew($event));
   }
 }

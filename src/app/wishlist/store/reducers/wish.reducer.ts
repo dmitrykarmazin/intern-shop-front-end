@@ -80,6 +80,15 @@ export function wishReducer (state: WishState = initialState, action: any): Wish
                 isLoadError: true
             };
 
+        case wishActions.WISH_IS_CLEANED:
+            return {
+                ids: [],
+                products: {},
+                isLoading: false,
+                isLoaded: false,
+                isLoadError: false
+            };
+
         default:
             return state;
     }

@@ -14,8 +14,12 @@ export class ProductListComponent {
   @Input() products$: Observable<Product[]>;
 
   @Output() emitAddToCart: EventEmitter<Product> = new EventEmitter<Product>();
+  @Output() emitAddToWish: EventEmitter<Product> = new EventEmitter<Product>();
 
   protected addToCart($event: Product): void {
     this.emitAddToCart.emit($event);
+  }
+  protected addToWish($event: Product): void {
+    this.emitAddToWish.emit($event);
   }
 }

@@ -8,6 +8,7 @@ export const WISH_REMOVE_PRODUCT_SUCCESS: string = 'WISH_REMOVE_PRODUCT_SUCCESS'
 export const WISH_START_DOWNLOAD: string = 'WISH_START_DOWNLOAD';
 export const WISH_DOWNLOAD_OK: string = 'WISH_DOWNLOAD_OK';
 export const WISH_DOWNLOAD_ERROR: string = 'WISH_DOWNLOAD_ERROR';
+export const WISH_IS_CLEANED: string = 'WISH_IS_CLEANED';
 
 export class WishAddNew implements Action {
     type: string = WISH_ADD_NEW;
@@ -41,6 +42,10 @@ export class WishDownloadDone implements Action {
 export class WishDownloadError implements Action {
     type: string = WISH_DOWNLOAD_ERROR;
     constructor ( public payload: Error ) { }
+}
+
+export class WishIsCleaned implements Action {
+    type: string = WISH_IS_CLEANED;
 }
 
 export type WishTypes =

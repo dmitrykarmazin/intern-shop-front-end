@@ -12,7 +12,10 @@
       <p class="app-list-item__price">{{product.price | currency:'USD':'symbol'}}</p>
     </mat-card-content>
     <mat-card-actions>
-      <button  mat-button [disabled]="!product.stock" (click)="addToCart($event)">BUY</button>    
+      <button  mat-button [disabled]="!product.stock" (click)="addToCart($event)">BUY</button>
+      <div class="app-list-wish-icon">
+          <mat-icon (click)="addToWish($event)">favorite</mat-icon> 
+      </div>     
     </mat-card-actions>
   </mat-card>
 </div>
@@ -22,16 +25,15 @@
     <mat-card-header>
       <mat-card-title>{{product.title}}</mat-card-title>
       <mat-card-subtitle>Category: {{product.category_title}}</mat-card-subtitle>
-    </mat-card-header>  
-    <mat-card-content>
-      <p>
-        {{product.description}}
-      </p>
-      <p class="app-grid-item__price">{{product.price | currency:'USD':'symbol'}}</p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button  mat-button [disabled]="!product.stock" (click)="addToCart($event)">BUY</button>    
+    </mat-card-header>   
+    <mat-card-content>    
+        <p class="app-list-item__price">{{product.price | currency:'USD':'symbol'}}</p>
+      </mat-card-content>  
+    <mat-card-actions>      
+      <button  mat-button [disabled]="!product.stock" (click)="addToCart($event)">BUY</button>  
+      <div class="app-list-wish-icon">
+          <mat-icon (click)="addToWish($event)">favorite</mat-icon> 
+      </div>     
     </mat-card-actions>
-  </mat-card>
-  
+  </mat-card>  
 </ng-template>

@@ -1,8 +1,9 @@
 <div *ngIf="((viewMode$ | async) != 'list'); else listtype" class="app-product-list__grid-container">
   <mat-grid-list cols="4" rowHeight="300px" gutterSize="50px">
     <mat-grid-tile *ngFor="let product of (products$ | async)"> 
-      <a [routerLink]="['shop/products', product.id]" class="app-product-list__link">    
-        <app-list-item [product]="product" [viewMode$]="viewMode$" (emitAddToCart)="addToCart($event)"></app-list-item>
+      <a [routerLink]="['/shop/products', product.id]" class="app-product-list__link">    
+        <app-list-item [product]="product" [viewMode$]="viewMode$"
+         (emitAddToCart)="addToCart($event)" (emitAddToWish)="addToWish($event)"></app-list-item>
       </a>
     </mat-grid-tile>
   </mat-grid-list>
@@ -11,8 +12,9 @@
 <ng-template #listtype> 
   <ul class="app-product-list__ul">
     <li *ngFor="let product of (products$ | async)">
-      <a [routerLink]="['shop/products', product.id]" class="app-product-list__link"> 
-        <app-list-item [product]="product" [viewMode$]="viewMode$" (emitAddToCart)="addToCart($event)"></app-list-item>
+      <a [routerLink]="['/shop/products', product.id]" class="app-product-list__link"> 
+        <app-list-item [product]="product" [viewMode$]="viewMode$"
+        (emitAddToCart)="addToCart($event)" (emitAddToWish)="addToWish($event)"></app-list-item>
       </a> 
     </li>
   </ul>
