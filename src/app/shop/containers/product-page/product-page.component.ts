@@ -7,6 +7,8 @@ import { Store } from '@ngrx/store';
 import { CartState } from '../../../cart/store/reducers/cart.reducer';
 import { AddToCart } from './../../../cart/store/actions';
 import { Product } from '../../../shared/models/product.model';
+import * as fromStore from '../../store';
+import * as fromProductsSelectors from '../../store/selectors/products.selector';
 
 @Component({
   selector: 'app-product-page',
@@ -39,11 +41,16 @@ export class ProductPageComponent implements OnInit {
   };
   sub: Subscription;
   id: string;
+  products$: Observable<Product[]>;
 
-  constructor(private route: ActivatedRoute, private store: Store<CartState>) {}
+  constructor(private route: ActivatedRoute, 
+              private store: Store<CartState>,
+              private store2: Store<fromStore.ShopState>) {
+    this.products$ = this.store2.select(fromProductsSelectors.getAllProducts);
+  }
 
   ngOnInit(): void {
-    // TODO:
+    this.store.dispatch(new fromStore.LoadProducts());
   }
 
   getProduct(): void {
