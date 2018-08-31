@@ -60,9 +60,6 @@ export class AuthEffects {
          new GetUserInfoSuccessAction(user),
          new AppNotificationShow({message: `User is logged in as "${user.login}"`, isError: false})
        ]),
-        // map((user: User) => {
-        //   return new AppNotificationShow({message: `User is logged in as "${user['payload'].login}"`, isError: false});
-        // }),
         catchError((error: Error) => of(new GetUserInfoFailAction(error)))
       );
     })

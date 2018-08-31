@@ -1,5 +1,5 @@
 import { FiltersObject } from './../../../shared/models/filters.model';
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { Observable } from 'rxjs';
 

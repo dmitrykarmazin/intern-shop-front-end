@@ -46,8 +46,6 @@ export function reducer(state: AuthState = initialState, action: Actions): AuthS
       };
 
     case fromActions.SIGN_UP_SUCCESS:
-      console.log(action);
-
       return <AuthState>{
         ...state,
         isAuthorized: true,
@@ -110,10 +108,3 @@ export function reducer(state: AuthState = initialState, action: Actions): AuthS
       return state;
   }
 }
-
-// export const getIsAuthenticated: any = (state: AuthState): boolean => state.isAuthorized;
-// export const getIsAuthenticatedLoaded: any = (state: AuthState): boolean => state.loaded;
-// export const getAuthenticatedUser: any = (state: AuthState): any => state.currentUser;
-// export const getAuthenticationError: any = (state: AuthState): string => state.error;
-// export const getIsLoading: any = (state: AuthState): boolean => state.loading;
-// export const getUserInfo: any = (state: AuthState): any => state.currentUser;
