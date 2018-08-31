@@ -22,18 +22,6 @@ export class WishEffects {
 
     constructor( private actions$: Actions, private dataService: WishService , private store: Store<State>) { }
 
-    /*
-    @Effect()
-    serverError$: Observable<Action> = this.actions$
-        .ofType(wishActions.WISH_DOWNLOAD_ERROR)
-        .pipe(
-            switchMap((action: wishActions.WishDownloadError): any => {
-                of(new AppNotificationShow({message: action.payload.message, isError: true}));
-            }
-        )
-    );
-    */
-
    @Effect()
    userSignUp$: Observable<Action> = this.actions$
        .pipe(ofType(authActions.SIGN_UP_SUCCESS))

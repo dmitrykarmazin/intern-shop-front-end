@@ -9,7 +9,7 @@
   </mat-grid-list>
 </div>
 
-<ng-template #listtype> 
+<div *ngIf="((viewMode$ | async) == 'list')">
   <ul class="app-product-list__ul">
     <li *ngFor="let product of (products$ | async)">
       <a [routerLink]="['/shop/products', product.id]" class="app-product-list__link"> 
@@ -18,4 +18,4 @@
       </a> 
     </li>
   </ul>
-</ng-template>
+</div>

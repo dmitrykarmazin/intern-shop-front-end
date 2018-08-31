@@ -16,13 +16,13 @@ export class ListItemComponent {
   @Output() emitAddToCart: EventEmitter<Product> = new EventEmitter<Product>();
   @Output() emitAddToWish: EventEmitter<Product> = new EventEmitter<Product>();
 
-  protected addToCart($event: MouseEvent): void {
+  addToCart($event: MouseEvent): void {
     $event.preventDefault();
     $event.stopPropagation();
     this.emitAddToCart.emit(this.product);
   }
 
-  protected addToWish($event: MouseEvent): void {
+  addToWish($event: MouseEvent): void {
     $event.preventDefault();
     $event.stopPropagation();
     this.emitAddToWish.emit(this.product);

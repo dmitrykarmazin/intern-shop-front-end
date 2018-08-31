@@ -1,4 +1,4 @@
-<div *ngIf="((viewMode$ | async) == 'list'); else listtype" class="app-list-item">
+<div *ngIf="((viewMode$ | async) == 'list')" class="app-list-item">
   <mat-card>
     <mat-card-header>
       <mat-card-title>
@@ -20,7 +20,7 @@
   </mat-card>
 </div>
 
-<ng-template #listtype> 
+<div *ngIf="((viewMode$ | async) == 'grid')">
   <mat-card class="app-grid-item">
     <mat-card-header>
       <mat-card-title>{{product.title}}</mat-card-title>
@@ -36,4 +36,4 @@
       </div>     
     </mat-card-actions>
   </mat-card>  
-</ng-template>
+</div>
