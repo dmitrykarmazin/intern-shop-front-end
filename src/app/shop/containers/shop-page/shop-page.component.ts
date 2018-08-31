@@ -10,6 +10,7 @@ import { FiltersObject } from './../../../shared/models/filters.model';
 import * as fromStore from '../../store';
 import * as fromProductsSelectors from '../../store/selectors/products.selector';
 import * as fromCategoriesSelectors from '../../store/selectors/categories.selector';
+import { AddToCart } from '../../../cart/store/actions/cart.action';
 
 @Component({
   selector: 'app-shop',
@@ -47,8 +48,10 @@ export class ShopPageComponent implements OnInit {
     this.store.dispatch(new fromStore.ApplyFilters(filters));
   }
 
-  private addToCart($event: string): void {
-    // TODO dispatch to card
-    // event - id
+  addToCart($event: Product): void {
+    this.store.dispatch(new AddToCart({
+      product: $event,
+      quantity: 1
+    }));
   }
 }
