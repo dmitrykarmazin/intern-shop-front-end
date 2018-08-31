@@ -18,6 +18,7 @@ import { getWishIds } from '../../../wishlist/store/selectors/wish.selector';
   styleUrls: ['./shop-page.component.css']
 })
 export class ShopPageComponent implements OnInit {
+
   products$: Observable<Product[]>;
   categories$: Observable<Category[]>;
   viewModeValue: boolean = false;

@@ -11,14 +11,19 @@
 
   <h4 class="title-self">Category: </h4>
   <mat-form-field>
-    <mat-select placeholder="Category" *ngIf="!!(categories?.length | async)">
+    <mat-select placeholder="Category" *ngIf="!(categories$ | async)">
       <mat-option>
         No any categories
       </mat-option>
     </mat-select>
 
-    <mat-select placeholder="Category">
-      <mat-option *ngFor="let category of (categories$ | async)" (click)="getCategoryName(category.title)" (click)="onFiltersChange(From.value, To.value, category.title, stock.value)" [value]="category.id">
+    <mat-select placeholder="Category" *ngIf="(categories$ | async)">
+      <mat-option
+        *ngFor="let category of (categories$ | async)" 
+        (click)="getCategoryName(category.title)" 
+        (click)="onFiltersChange(From.value, To.value, category.title, stock.value)" 
+        [value]="category.id"
+      >
         {{category.title}}
       </mat-option>
     </mat-select>
