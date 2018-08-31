@@ -7,6 +7,10 @@
       <mat-icon>add_shopping_cart</mat-icon>
       <span>{{totalCount$ | async}}</span>
     </a>
+    <a *ngIf="(isAuthorized$ | async)" routerLink="/wish" class="cart" >
+      <mat-icon>favorite</mat-icon>
+      <span>{{wishCount$ | async}}</span>
+    </a>
     <span class="spacer"></span>
     <a *ngIf="!(isAuthorized$ | async)" class="btn-container" routerLink="/login">
       <button class="header-btn" mat-button>Sign In</button>
