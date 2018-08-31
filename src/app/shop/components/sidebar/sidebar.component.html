@@ -16,7 +16,7 @@
         No any categories
       </mat-option>
     </mat-select>
-  
+
     <mat-select placeholder="Category" formControlName="category" *ngIf="(categories$ | async)">
       <mat-option *ngFor="let category of (categories$ | async)" (click)="onFiltersChange(form.value)" [value]="category.title">
         {{category.title}}

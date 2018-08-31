@@ -5,13 +5,7 @@ import { Observable } from 'rxjs';
 
 import { Category } from '../../../shared/models/category.model';
 import { FormGroup, FormControl } from '@angular/forms';
-
-export interface FormData {
-  from: number;
-  to: number;
-  category: string;
-  stock: string;
-}
+import { FormData } from '../../../shared/models/form-data.model'; 
 
 @Component({
   selector: 'app-sidebar',
@@ -27,10 +21,10 @@ export class SidebarComponent {
 
   constructor() {
     this.form = new FormGroup({
-      from: new FormControl(),
-      to: new FormControl(),
-      category: new FormControl(),
-      stock: new FormControl()
+      from: new FormControl(''),
+      to: new FormControl(''),
+      category: new FormControl(''),
+      stock: new FormControl('')
     });
   }
 

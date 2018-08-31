@@ -1,4 +1,4 @@
-<div *ngIf="((viewMode$ | async) != 'list')" class="app-product-list__grid-container">
+<div *ngIf="((viewMode$ | async) !== 'list')" class="app-product-list__grid-container">
   <mat-grid-list cols="4" rowHeight="300px" gutterSize="50px">
     <mat-grid-tile *ngFor="let product of (products$ | async)"> 
       <a [routerLink]="['/shop/products', product.id]" class="app-product-list__link">    
@@ -9,7 +9,7 @@
   </mat-grid-list>
 </div>
 
-<div *ngIf="((viewMode$ | async) == 'list')">
+<div *ngIf="((viewMode$ | async) === 'list')">
   <ul class="app-product-list__ul">
     <li *ngFor="let product of (products$ | async)">
       <a [routerLink]="['/shop/products', product.id]" class="app-product-list__link"> 

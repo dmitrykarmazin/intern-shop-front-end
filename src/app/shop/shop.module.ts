@@ -42,7 +42,6 @@ import { ProductsEffects } from './store/effects/products.effect';
     SidebarComponent,
     FormsModule,
     ShopPageComponent,
-    ReactiveFormsModule,
     ProductListComponent,
     ListItemComponent,
     ProductPageComponent
