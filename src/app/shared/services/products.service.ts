@@ -13,10 +13,10 @@ export class ProductsService {
   getProducts(filters: FiltersObject = {}): Observable<Product[]> {
     return this
       .http
-      .get<Product[]>(`${environment.api_url}/products?${this.setPriceFilter(filters)}${this.setCategoryFilter(filters)}${this.setStockFilter(filters)}`
-      );
+      .get<Product[]>
+      (`${environment.api_url}/products?${this.setPriceFilter(filters)}${this.setCategoryFilter(filters)}${this.setStockFilter(filters)}`);
   }
-  
+
   setPriceFilter(filtersObj: FiltersObject): string {
     let query: string = '';
     if (filtersObj && filtersObj.price) {
