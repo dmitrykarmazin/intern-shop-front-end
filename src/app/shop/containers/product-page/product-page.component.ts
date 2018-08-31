@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterEvent, NavigationEnd } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Store , select} from '@ngrx/store';
 import { AddToCart } from './../../../cart/store/actions';
@@ -21,11 +21,13 @@ export class ProductPageComponent implements OnInit {
   products$: Observable<Product[]>;
   count: number = 1;
   loading$: Observable<boolean>;
+  loaded$: Observable<boolean>;
   product: Product;
   regex: RegExp = new RegExp(/^[0-9]+$/g);
 
   constructor(private route: ActivatedRoute, 
-              private store: Store<CartState>) {
+              private store: Store<CartState>,
+              private router: Router) {
     this.products$ = this.store.select(fromProductsSelectors.getAllProducts);
   }
 
@@ -35,11 +37,14 @@ export class ProductPageComponent implements OnInit {
     );
     this.getProduct();
     this.store.dispatch(new fromStore.LoadProducts());
+    this.subscribeToRouting();
   }
 
   getProduct(): void {
     this.id = this.route.snapshot.params.id;
-    this.store.dispatch(new productsAction.LoadProducts());
+    if(this.loaded$) {
+      this.store.dispatch(new productsAction.LoadProducts());
+    }
 
     this.store.pipe(
         select(productsSelectors.getAllProducts)
@@ -71,6 +76,14 @@ export class ProductPageComponent implements OnInit {
     if (!currMount.match(this.regex)) {
       event.preventDefault();
     }
+  }
+
+  private subscribeToRouting(): void {
+    this.router.events.subscribe((event: RouterEvent) => {
+      if (event instanceof NavigationEnd) {
+        this.getProduct();
+      }
+    })
   }
 
 }
