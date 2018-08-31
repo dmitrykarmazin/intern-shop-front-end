@@ -1,0 +1,11 @@
+.app-wish-item {
+    margin: 20px 30px;
+}
+
+
+.app-wish-item__actions {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    width: 300px;
+}

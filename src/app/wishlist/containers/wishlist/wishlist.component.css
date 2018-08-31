@@ -1,0 +1,23 @@
+.app-wish-list {
+    margin: 20px auto;
+    max-width: 980px;
+}
+
+.app-wish-list__list {
+    list-style: none;
+    margin-top: 20px;
+}
+
+.app-wish-list__title {
+    font-size: 20px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.app-wish-list__count {
+    font-weight: 700;
+}
+
+.app-wish-list__link {
+    text-decoration: none;
+}
