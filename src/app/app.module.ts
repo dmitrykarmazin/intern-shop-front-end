@@ -42,7 +42,7 @@ import { WishlistModule } from './wishlist/wishlist.module';
     AppRoutingModule,
     EffectsModule.forRoot(effects),
     StoreModule.forRoot(reducers),
-    StoreDevtoolsModule.instrument({ maxAge: 10 }),
+    StoreDevtoolsModule.instrument({ maxAge: 20 }),
     StoreRouterConnectingModule,
     FormsModule,
     SharedModule,

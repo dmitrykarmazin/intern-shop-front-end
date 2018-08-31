@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
-import { Actions, Effect } from '@ngrx/effects';
+import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
@@ -13,7 +13,7 @@ export class NotificationsEffects {
 
     @Effect()
     notificate$: Observable<Action> = this.actions$
-        .ofType(notificationActions.NOTIFICATION_NEW)
+        .pipe(ofType(notificationActions.NOTIFICATION_NEW))
         .pipe(
             switchMap((action: notificationActions.AppNotificationShow): any => {
                 return this.service.showNotification(

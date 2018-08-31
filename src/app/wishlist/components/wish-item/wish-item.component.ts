@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { Product } from 'src/app/shared/models/product.model';
 
@@ -14,13 +14,13 @@ export class WishItemComponent {
   @Output() emitAddToCart: EventEmitter<Product> = new EventEmitter<Product>();
   @Output() emitRemoveFromList: EventEmitter<string> = new EventEmitter<string>();
 
-  protected addToCart($event: MouseEvent): void {
+  addToCart($event: MouseEvent): void {
     $event.stopPropagation();
     $event.preventDefault();
     this.emitAddToCart.emit(this.product);
   }
 
-  protected removeFromWishes($event: MouseEvent): void {
+  removeFromWishes($event: MouseEvent): void {
     $event.stopPropagation();
     $event.preventDefault();
     this.emitRemoveFromList.emit(this.product.id);

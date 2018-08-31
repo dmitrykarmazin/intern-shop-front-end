@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Component } from '@angular/core';
+import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { Product } from 'src/app/shared/models/product.model';
@@ -15,29 +15,22 @@ import { AddToCart } from '../../../cart/store/actions/cart.action';
 })
 export class WishlistComponent {
 
-  private products$: Observable<Product[]>;
-  private wishCount$: Observable<number>;
+  products$: Observable<Product[]>;
+  wishCount$: Observable<number>;
 
   constructor(private store: Store<State>) {
-    this.products$ = this.store.select(wishSelectors.getWishProducts);
-    this.wishCount$ = this.store.select(wishSelectors.getWishCount);
-
-    ////////////////////////////////////    Test data
-    /*setTimeout(() => this.store.dispatch(new wishActions.WishAddNew(
-      { id: '4', thumbnail: '', title: 'Title1', description: 'Description1',
-            category_id: '1', category_title: 'Mobile', price: '15000', stock: 38 }
-    )), 3000); */
-    //////////////////////////////////
+    this.products$ = this.store.pipe(select(wishSelectors.getWishProducts));
+    this.wishCount$ = this.store.pipe(select(wishSelectors.getWishCount));
   }
 
-  protected addToCart($event: Product): void {
+  addToCart($event: Product): void {
     this.store.dispatch( new AddToCart({
       product: $event,
       quantity: 1
     }));
   }
 
-  protected removeFromList($event: string): void {
+  removeFromList($event: string): void {
     this.store.dispatch( new wishActions.WishRemoteProduct($event) );
   }
 

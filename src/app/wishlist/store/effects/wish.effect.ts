@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Action } from '@ngrx/store';
-import { Actions, Effect } from '@ngrx/effects';
+import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of, zip } from 'rxjs';
 import { map, switchMap, catchError } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
+import { Store, select, Action } from '@ngrx/store';
 
 import { State } from '../reducers';
 import { Product } from 'src/app/shared/models/product.model';
@@ -12,7 +11,7 @@ import { WishService } from '../../services/wish.service';
 import * as wishSelectors from '../selectors/wish.selector';
 import { User } from 'src/app/auth/models/user';
 import { getAuthenticatedUser } from 'src/app/auth/store/selectors';
-import { SIGN_UP, SIGN_OUT, SignUpAction, GET_USER_INFO_SUCCESS } from 'src/app/auth/store/actions/auth.actions';
+import * as authActions from 'src/app/auth/store/actions/auth.actions';
 import { AppNotificationShow } from 'src/app/store/actions/notification.action';
 import { productToArray } from 'src/app/shared/utils/productsToArray';
 
@@ -37,25 +36,24 @@ export class WishEffects {
 
    @Effect()
    userSignUp$: Observable<Action> = this.actions$
-       .ofType(SIGN_UP)
+       .pipe(ofType(authActions.SIGN_UP_SUCCESS))
        .pipe(
            switchMap((): any => {
                 this.isSignUp = true;
 
                 return of({type: 'EMPTY'});
             })
-
         );
 
     @Effect()
     addWish$: Observable<Action> = this.actions$
-        .ofType(wishActions.WISH_ADD_NEW)
+        .pipe(ofType(wishActions.WISH_ADD_NEW))
         .pipe(
             switchMap((action: wishActions.WishAddNew): any => {
                 return zip(
-                    this.store.select(wishSelectors.getWishProducts),
-                    this.store.select(getAuthenticatedUser),
-                    this.store.select(wishSelectors.getWishIds)
+                    this.store.pipe(select(wishSelectors.getWishProducts)),
+                    this.store.pipe(select(getAuthenticatedUser)),
+                    this.store.pipe(select(wishSelectors.getWishIds))
                 ).pipe(
                     switchMap((data: [Product[], User, string[]]) => {
                         if (!data[1]) {
@@ -77,12 +75,12 @@ export class WishEffects {
 
     @Effect()
     removeWish$: Observable<Action> = this.actions$
-        .ofType(wishActions.WISH_REMOVE_PRODUCT)
+        .pipe(ofType(wishActions.WISH_REMOVE_PRODUCT))
         .pipe(
             switchMap((action: wishActions.WishRemoteProduct): any => {
                 return zip(
-                    this.store.select(wishSelectors.getWishProducts),
-                    this.store.select(getAuthenticatedUser)
+                    this.store.pipe(select(wishSelectors.getWishProducts)),
+                    this.store.pipe(select(getAuthenticatedUser))
                 ).pipe(
                     switchMap((data: any) => {
                         if (data[1] !== null) {
@@ -100,9 +98,9 @@ export class WishEffects {
 
     @Effect()
     getWishes$: Observable<Action> = this.actions$
-        .ofType(GET_USER_INFO_SUCCESS)
+        .pipe(ofType(authActions.GET_USER_INFO_SUCCESS))
         .pipe(
-            switchMap((action: SignUpAction): any => {
+            switchMap((action: authActions.SignUpAction): any => {
                 if (this.isSignUp) {
                     this.isSignUp = false;
 
@@ -121,7 +119,7 @@ export class WishEffects {
 
     @Effect()
     signOut$: Observable<Action> = this.actions$
-        .ofType(SIGN_OUT)
+        .pipe(ofType(authActions.SIGN_OUT))
         .pipe(
             switchMap(() => of(new wishActions.WishIsCleaned()))
         );
