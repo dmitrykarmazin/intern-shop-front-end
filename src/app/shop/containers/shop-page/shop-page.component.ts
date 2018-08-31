@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 
 import { Product } from '../../../shared/models/product.model';
 import { Category } from '../../../shared/models/category.model';
@@ -19,22 +19,19 @@ import * as fromCategoriesSelectors from '../../store/selectors/categories.selec
 export class ShopPageComponent implements OnInit {
   products$: Observable<Product[]>;
   categories$: Observable<Category[]>;
-
   viewModeValue: boolean = false;
   viewMode$: Observable<string>;
   filters$: Observable<FiltersObject>;
 
   constructor(private store: Store<fromStore.ShopState>) {
-    this.products$ = this.store.select(fromProductsSelectors.getAllProducts);
-    this.categories$ = this.store.select(fromCategoriesSelectors.getAllCategories);
-
-    this.viewMode$ = this.store.select(fromProductsSelectors.getProductsViewMode);
+    this.products$ = this.store.pipe(select(fromProductsSelectors.getAllProducts));
+    this.categories$ = this.store.pipe(select(fromCategoriesSelectors.getAllCategories));
+    this.viewMode$ = this.store.pipe(select(fromProductsSelectors.getProductsViewMode));
   }
 
   ngOnInit(): void {
     this.store.dispatch(new fromStore.LoadProducts());
     this.store.dispatch(new fromStore.LoadCategories());
-
  }
 
   chooseViewMode(viewMode: string): void {
@@ -43,7 +40,6 @@ export class ShopPageComponent implements OnInit {
     } else {
       this.viewModeValue = true;
     }
-
     this.store.dispatch(new fromStore.ChangeViewMode(viewMode));
   }
 
