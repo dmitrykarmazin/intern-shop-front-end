@@ -3,7 +3,9 @@
     <mat-grid-tile *ngFor="let product of (products$ | async)"> 
       <a [routerLink]="['/shop/products', product.id]" class="app-product-list__link">    
         <app-list-item [product]="product" [viewMode$]="viewMode$"
-         (emitAddToCart)="addToCart($event)" (emitAddToWish)="addToWish($event)"></app-list-item>
+          [isWish]="(wishIds$ | async).indexOf(product.id) !== -1"
+         (emitAddToCart)="addToCart($event)" (emitAddToWish)="addToWish($event)" 
+         (emitRemoveFromWish)="removeFromWish($event)"></app-list-item>
       </a>
     </mat-grid-tile>
   </mat-grid-list>
@@ -14,7 +16,9 @@
     <li *ngFor="let product of (products$ | async)">
       <a [routerLink]="['/shop/products', product.id]" class="app-product-list__link"> 
         <app-list-item [product]="product" [viewMode$]="viewMode$"
-        (emitAddToCart)="addToCart($event)" (emitAddToWish)="addToWish($event)"></app-list-item>
+        [isWish]="(wishIds$ | async).indexOf(product.id) !== -1"
+        (emitAddToCart)="addToCart($event)" (emitAddToWish)="addToWish($event)" 
+        (emitRemoveFromWish)="removeFromWish($event)"></app-list-item>
       </a> 
     </li>
   </ul>

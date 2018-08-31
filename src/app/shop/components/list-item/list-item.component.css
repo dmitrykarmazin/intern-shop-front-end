@@ -17,3 +17,7 @@
 .app-list-wish-icon .mat-icon:hover {
     color: red;
 }
+
+.app-in-wish-list {
+    color: purple;
+}
