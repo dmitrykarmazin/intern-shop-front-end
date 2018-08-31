@@ -7,10 +7,10 @@ import { Category } from '../../../shared/models/category.model';
 import { FormGroup, FormControl } from '@angular/forms';
 
 export interface FormData {
-  from: number,
-  to: number,
-  category: string,
-  stock: string
+  from: number;
+  to: number;
+  category: string;
+  stock: string;
 }
 
 @Component({
@@ -19,13 +19,12 @@ export interface FormData {
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent {
-  category: string = '';
   categoryRegExp: RegExp = new RegExp(/\d/g);
+  form: FormGroup;
 
   @Output() filters: EventEmitter<FiltersObject> = new EventEmitter();
   @Input() categories$: Observable<Category[]>;
 
-  form: FormGroup;
   constructor() {
     this.form = new FormGroup({
       from: new FormControl(),
@@ -33,10 +32,6 @@ export class SidebarComponent {
       category: new FormControl(),
       stock: new FormControl()
     });
-  }
-
-  getCategoryName(category: string): void {
-    this.category = category;
   }
 
   onFiltersChange(form: FormData): void {

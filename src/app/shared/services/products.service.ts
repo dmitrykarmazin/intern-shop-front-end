@@ -8,7 +8,6 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class ProductsService {
 
-
   constructor(private http: HttpClient) {}
 
   getProducts(filters: FiltersObject = {}): Observable<Product[]> {
