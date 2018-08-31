@@ -24,15 +24,12 @@ export class ProductPageComponent implements OnInit {
   product: Product;
   regex: RegExp = new RegExp(/^[0-9]+$/g);
 
-  constructor(private route: ActivatedRoute, 
-              private store: Store<CartState>) {
+  constructor(private route: ActivatedRoute, private store: Store<CartState>) {
     this.products$ = this.store.select(fromProductsSelectors.getAllProducts);
   }
 
   ngOnInit(): void {
-    this.loading$ = this.store.pipe(	
-      select(productsSelectors.getProductsLoading)	
-    );
+    this.loading$ = this.store.pipe(select(productsSelectors.getProductsLoading));
     this.getProduct();
     this.store.dispatch(new fromStore.LoadProducts());
   }
