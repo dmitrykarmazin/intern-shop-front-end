@@ -1,10 +1,10 @@
+import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NguCarouselModule } from '@ngu/carousel';
 
 import { MaterialModule } from '../material/material.module';
-import { ShopRoutingModule } from './shop-routing.module';
 
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ShopPageComponent } from './containers/shop-page/shop-page.component';
@@ -24,7 +24,7 @@ import { ProductsEffects } from './store/effects/products.effect';
   imports: [
     CommonModule,
     MaterialModule,
-    ShopRoutingModule,
+    RouterModule,
     FormsModule,
     StoreModule.forFeature('shop', reducers),
     EffectsModule.forFeature(effects),
