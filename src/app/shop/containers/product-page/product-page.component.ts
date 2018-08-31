@@ -30,6 +30,7 @@ export class ProductPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getProduct();
     this.store.dispatch(new fromStore.LoadProducts());
   }
 
