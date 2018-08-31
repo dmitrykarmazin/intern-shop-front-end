@@ -9,7 +9,6 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ShopPageComponent } from './containers/shop-page/shop-page.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ListItemComponent } from './components/list-item/list-item.component';
-import { GridItemComponent } from './components/grid-item/grid-item.component';
 import { ProductPageComponent } from './containers/product-page/product-page.component';
 import { RecommendationsComponent } from './components/recommendations/recommendations.component';
 
@@ -31,7 +30,6 @@ import { ProductsEffects } from './store/effects/products.effect';
   ],
   declarations: [
     ProductListComponent,
-    GridItemComponent,
     SidebarComponent,
     ShopPageComponent,
     ListItemComponent,
@@ -44,7 +42,6 @@ import { ProductsEffects } from './store/effects/products.effect';
     ShopPageComponent,
     ProductListComponent,
     ListItemComponent,
-    GridItemComponent,
     ProductPageComponent
   ],
   providers: [

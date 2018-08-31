@@ -6,6 +6,6 @@
     text-decoration: none;
 }
 
-ul {
-  list-style: none;
+.app-product-list__ul {
+    list-style: none;
 }

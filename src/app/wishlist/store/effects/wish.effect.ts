@@ -19,11 +19,9 @@ import { productToArray } from 'src/app/shared/utils/productsToArray';
 @Injectable()
 export class WishEffects {
 
-    private userInfo: User;
+    private isSignUp: boolean = false;
 
-    constructor( private actions$: Actions, private dataService: WishService , private store: Store<State>) {
-        this.store.select(getAuthenticatedUser).subscribe((user: User) => this.userInfo = user);
-    }
+    constructor( private actions$: Actions, private dataService: WishService , private store: Store<State>) { }
 
     /*
     @Effect()
@@ -35,31 +33,62 @@ export class WishEffects {
             }
         )
     );
+    */
+
+   @Effect()
+   userSignUp$: Observable<Action> = this.actions$
+       .ofType(SIGN_UP)
+       .pipe(
+           switchMap((action: object): any => {
+                this.isSignUp = true;
+
+                return of({type: 'EMPTY'});
+            })
+
+        );
 
     @Effect()
-    userAuth$: Observable<Action> = this.actions$
+    addWish$: Observable<Action> = this.actions$
         .ofType(wishActions.WISH_ADD_NEW)
         .pipe(
             switchMap((action: wishActions.WishAddNew): any => {
-                return this.dataService.updateWishes(this.userInfo).pipe(
+                return zip(
+                    this.store.select(wishSelectors.getWishProducts),
+                    this.store.select(getAuthenticatedUser),
+                    this.store.select(wishSelectors.getWishIds)
+                ).pipe(
+                    switchMap((data: [Product[], User, string[]]) => {
+                        if (!data[1]) {
+                           return of(new AppNotificationShow({message: 'You should log in', isError: true}));
+                        }
+
+                        if (data[2].indexOf(action.payload.id) === -1) {
+                            data[0].push(action.payload);
+
+                            return this.saveWishlist(data, action.payload);
+                        }
+
+                        return of(new AppNotificationShow({message: 'You already have this product', isError: true}));
+                    }),
                     catchError((err: Error) => of(new AppNotificationShow({message: err.message, isError: true})))
                 );
             })
         );
-    */
 
     @Effect()
-    userAuth$: Observable<Action> = this.actions$
-        .ofType(wishActions.WISH_ADD_NEW)
+    removeWish$: Observable<Action> = this.actions$
+        .ofType(wishActions.WISH_REMOVE_PRODUCT)
         .pipe(
-            switchMap((action: wishActions.WishAddNew): any => {
+            switchMap((action: wishActions.WishRemoteProduct): any => {
                 return zip(
                     this.store.select(wishSelectors.getWishProducts),
                     this.store.select(getAuthenticatedUser)
                 ).pipe(
                     switchMap((data: any) => {
                         if (data[1] !== null) {
-                            return this.saveWishlist(data, action.payload);
+                            delete data[0][action.payload];
+
+                            return this.removeWishlist(data, action.payload);
                         }
 
                         return of(new AppNotificationShow({message: 'You should log in', isError: true}));
@@ -69,37 +98,62 @@ export class WishEffects {
             })
         );
 
-    private function saveWishlist(data: any, product: Product): Observable<any> {
-        return this.dataService.updateWishes(data[1], productToArray(data[0]))
-            .pipe(
-                map((success: boolean) => {
-                    if (success) {
-                        return new wishActions.WishAddNewSuccess(product);
-                    }
-
-                    return new AppNotificationShow({message: 'Server error', isError: true});
-                }),
-                catchError((err: Error) => {
-                    return this.dataService.createWishList(data[1], productToArray(data[0]))
-                        .pipe(
-                            map((products: Product[]) => new wishActions.WishDownloadDone(products)),
-                            catchError((err2: Error) => of(new AppNotificationShow({message: err2.message, isError: true})))
-                        );
-                    )
-
-            );
-    }
-
     @Effect()
     getWishes$: Observable<Action> = this.actions$
         .ofType(GET_USER_INFO_SUCCESS)
         .pipe(
             switchMap((action: SignUpAction): any => {
+                if (this.isSignUp) {
+                    this.isSignUp = !this.isSignUp;
+
+                    return this.store.select(getAuthenticatedUser).pipe(
+                        switchMap((user: User): any => {
+                            return this.dataService.createWishList(user, []).pipe(
+                                map((products: Product[]) => new wishActions.WishDownloadDone([])),
+                                catchError((err2: Error) => of(new AppNotificationShow({message: err2.message, isError: true})))
+                            );
+                        })
+                    );
+                }
+
                 return this.dataService.getWishes (action.payload).pipe(
                     map((products: Product[]) => new wishActions.WishDownloadDone(products)),
                     catchError((err: Error) => of())
                 );
             })
         );
+
+    private saveWishlist(data: any, product: Product): Observable<any> {
+        return this.dataService.updateWishes(data[1], productToArray(data[0])).pipe(
+            map((success: boolean) => {
+                if (success) {
+                    return new wishActions.WishAddNewSuccess(product);
+                }
+
+                return new AppNotificationShow({message: 'Server error', isError: true});
+
+            }),
+            catchError((err: Error) => {
+                return this.dataService.createWishList(data[1], productToArray(data[0])).pipe(
+                    map((products: Product[]) => new wishActions.WishAddNewSuccess(product)),
+                    catchError((err2: Error) => of(new AppNotificationShow({message: err2.message, isError: true})))
+                );
+            })
+        );
+    }
+
+    private removeWishlist(data: any, productId: string): Observable<any> {
+        return this.dataService.updateWishes(data[1], productToArray(data[0])).pipe(
+            map((success: boolean) => {
+                if (success) {
+                    return new wishActions.WishRemoteProductSuccess(productId);
+                }
+
+                return new AppNotificationShow({message: 'Server error', isError: true});
+
+            }),
+            catchError((err: Error) => of(new AppNotificationShow({message: 'Program error', isError: true})))
+        );
+    }
 
 }

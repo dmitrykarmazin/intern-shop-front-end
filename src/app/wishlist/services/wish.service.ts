@@ -15,7 +15,7 @@ export class WishService {
   private httpOptions: any = {
     // TODO - delete
     headers: new HttpHeaders({
-      'Authorization' : `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViODc5OGVhNzc3Zjk4MjEzM2I0NGY3ZiIsImxvZ2luIjoicXFxcXFxcXEiLCJwYXNzd29yZCI6IiQyYiQxMiQuejIyTnNQemtWT2NaN3B0Ui5maXMuZmJQREdSZzZ3OEw4WDJMc0RhTTIvUm1oUVFmdFkybSIsImlhdCI6MTUzNTYzODU1MCwiZXhwIjoxNTM1NjQxMjUwfQ.YcYUVpCUNijMRNZSrOI_SES1JLN-bodwlhlxdthEfDw`
+      'Authorization' : `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6InJycnJycnJyIiwicGFzc3dvcmQiOiIkMmIkMTIkNjVydFB5MnVManRzSGlOUENRU0x1T3hpZTB6cWhWVVMycE9ucHRBNGIyUklnQnNwN1F4ckciLCJfaWQiOiI1Yjg4ZmMzN2NmYWU1NTE2NmM4Njg2YTQiLCJpZCI6IjViODhmYzM3Y2ZhZTU1MTY2Yzg2ODZhNCIsImlhdCI6MTUzNTcwNDExOSwiZXhwIjoxNTM1NzA2ODE5fQ.p0RIfDaEdiuljgFRJwP3lPohSYYMdlp1ufoa9b5l1KQ`
     })
   };
 
@@ -28,13 +28,17 @@ export class WishService {
     return this.http.get<Product[]>(`${this.serverUrl}/wishlists/${user.id}`, this.httpOptions)
     .pipe(
       map((data: any) => {
+        if (data.success) {
+          return data.wishlist.items;
+        }
 
-        return data.products;
+        return new Error('Connection Error');
       }));
   }
 
   public createWishList (user: User, products: Product[]): Observable<boolean> {
     const body: any = {
+      'id': user.id,
       client: {
           'id': user.id,
           'login': user.login,

@@ -23,10 +23,10 @@ export class WishlistComponent {
     this.wishCount$ = this.store.select(wishSelectors.getWishCount);
 
     ////////////////////////////////////    Test data
-     setTimeout(() => this.store.dispatch(new wishActions.WishAddNew(
-      { id: '5', thumbnail: '', title: 'Title1', description: 'Description1',
+    /*setTimeout(() => this.store.dispatch(new wishActions.WishAddNew(
+      { id: '4', thumbnail: '', title: 'Title1', description: 'Description1',
             category_id: '1', category_title: 'Mobile', price: '15000', stock: 38 }
-    )), 3000);
+    )), 3000); */
     //////////////////////////////////
   }
 

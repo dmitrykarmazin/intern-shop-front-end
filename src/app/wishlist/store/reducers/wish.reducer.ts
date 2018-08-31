@@ -9,17 +9,9 @@ export interface WishState {
     isLoadError: boolean;
 }
 
-// TODO - delete test data
 const initialState: WishState = {
-    ids: ['1', '2', '3'],
-    products: {
-        '1': { id: '1', thumbnail: '', title: 'Title1', description: 'Description1',
-            category_id: '1', category_title: 'Mobile', price: '15000', stock: 38 },
-        '2': { id: '2', thumbnail: '', title: 'Title2', description: 'Description2',
-            category_id: '2', category_title: 'Mobile', price: '1500', stock: 64 },
-        '3': { id: '3', thumbnail: '', title: 'Title', description: 'Description4',
-            category_id: '4', category_title: 'Mobile', price: '13500', stock: 2 }
-    },
+    ids: [],
+    products: {},
     isLoading: false,
     isLoaded: false,
     isLoadError: false
@@ -41,7 +33,7 @@ export function wishReducer (state: WishState = initialState, action: any): Wish
 
             return state;
 
-        case wishActions.WISH_REMOVE_PRODUCT:
+        case wishActions.WISH_REMOVE_PRODUCT_SUCCESS:
             const index: number = state.ids.indexOf(action.payload);
             if (index !== -1) {
                 state.ids.splice(index, 1);
