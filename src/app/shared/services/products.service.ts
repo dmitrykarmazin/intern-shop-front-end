@@ -3,6 +3,7 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from '../models/product.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class ProductsService {
@@ -11,10 +12,15 @@ export class ProductsService {
   categoryQuery: string = '';
   stockQuery: string = '';
 
+
   constructor(private http: HttpClient) {}
 
   getProducts(filters: FiltersObject = {}): Observable<Product[]> {
     return this.http.get<Product[]>(`http://localhost:8000/products?${this.setFilters(filters)}`);
+  }
+
+  addProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(`${environment.api_url}/products`, product);
   }
 
   setFilters(filtersObj): string {

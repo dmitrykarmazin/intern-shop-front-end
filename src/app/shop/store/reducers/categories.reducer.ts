@@ -5,12 +5,14 @@ export interface CategoriesState {
   loading: boolean;
   loaded: boolean;
   categories: Category[];
+  error: Error;
 }
 
 export const initialState: CategoriesState = {
   loading: false,
   loaded: false,
-  categories: []
+  categories: [],
+  error: null
 };
 
 export function reducer(
@@ -42,6 +44,33 @@ export function reducer(
         loading: false,
         loaded: false
       }
+    }
+
+    case fromCategories.ADD_CATEGORY: {
+      return {
+        ...state,
+        loading: true
+      };
+    }
+
+    case fromCategories.ADD_CATEGORY_SUCCESS: {
+
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        categories: [...state.categories, action.payload]
+      };
+    }
+
+    case fromCategories.ADD_CATEGORY_FAIL: {
+
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+        error: action.payload
+      };
     }
 
     default: return state;
