@@ -4,6 +4,14 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Category } from '../../../shared/models/category.model';
+import { FormGroup, FormControl } from '@angular/forms';
+
+export interface FormData {
+  from: number,
+  to: number,
+  category: string,
+  stock: string
+}
 
 @Component({
   selector: 'app-sidebar',
@@ -17,19 +25,34 @@ export class SidebarComponent {
   @Output() filters: EventEmitter<FiltersObject> = new EventEmitter();
   @Input() categories$: Observable<Category[]>;
 
-  getCategoryName(category: string): void {
-    if (category.match(this.categoryRegExp)) {
-      return;
-    } else {
-      this.category = category;
-    }
+  form: FormGroup;
+  constructor() {
+    this.form = new FormGroup({
+      from: new FormControl(),
+      to: new FormControl(),
+      category: new FormControl(),
+      stock: new FormControl()
+    });
   }
 
-  onFiltersChange(from: number, to: number, category: string, stock: string): void {
+  getCategoryName(category: string): void {
+    this.category = category;
+  }
+
+  onFiltersChange(form: FormData): void {
     this.filters.emit({
-      price: {from, to},
-      category,
-      stock
+      price: {from: form['from'], to: form['to']},
+      category: form['category'],
+      stock: form['stock']
+    });
+  }
+
+  clearFilters(): void {
+    this.form.reset();
+    this.filters.emit({
+      price: {from: null, to: null},
+      category: null,
+      stock: null
     });
   }
 }

@@ -51,6 +51,10 @@ export class ShopPageComponent implements OnInit {
     this.store.dispatch(new fromStore.ApplyFilters(filters));
   }
 
+  clearFilters(filters: FiltersObject): void {
+    this.store.dispatch(new fromStore.ApplyFilters(filters));
+  }
+
   addToCart($event: Product): void {
     this.store.dispatch(new AddToCart({
       product: $event,
