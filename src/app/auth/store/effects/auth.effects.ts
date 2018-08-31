@@ -10,7 +10,8 @@ import {
   GetUserInfoSuccessAction, SignUpSuccessAction
 } from '../actions/auth.actions';
 import { User } from '../../models/user';
-import {AppNotificationShow} from '../../../store/actions/notification.action';
+import { AppNotificationShow } from '../../../store/actions/notification.action';
+import { mergeMap } from 'rxjs/internal/operators';
 
 @Injectable()
 export class AuthEffects {
@@ -55,28 +56,31 @@ export class AuthEffects {
     ofType(authActions.AUTHENTICATE_SUCCESS),
     switchMap((action: authActions.AuthenticationSuccessAction) => {
       return this.authService.getUser(action['payload'].token).pipe(
-        map((user: User) => new GetUserInfoSuccessAction(user)),
-        map((user: User) => {
-          return new AppNotificationShow({message: `User is logged in as "${user['payload'].login}"`, isError: false});
-        }),
+       mergeMap((user: User) => [
+         new GetUserInfoSuccessAction(user),
+         new AppNotificationShow({message: `User is logged in as "${user.login}"`, isError: false})
+       ]),
+        // map((user: User) => {
+        //   return new AppNotificationShow({message: `User is logged in as "${user['payload'].login}"`, isError: false});
+        // }),
         catchError((error: Error) => of(new GetUserInfoFailAction(error)))
       );
     })
   );
 
   @Effect()
-  signUpSuccess$: Observable<Action> = this.actions$.pipe(
+  signUpSuccess$: Observable<any> = this.actions$.pipe(
     ofType(authActions.SIGN_UP_SUCCESS),
     switchMap((action: authActions.SignUpSuccessAction) => {
 
       return this.authService.getUser(action['payload'].token).pipe(
-        map((user: User) => new GetUserInfoSuccessAction(user)),
-        map((user: User) => {
-          return new AppNotificationShow({message: `"${user['payload'].login}" was successfully registered`, isError: false});
-        }),
+        mergeMap((user: User) => [
+          new GetUserInfoSuccessAction(user),
+          new AppNotificationShow({message: `"${user.login}" was successfully registered`, isError: false})
+          ]),
         catchError((error: Error) => of(new GetUserInfoFailAction(error)))
       );
-    })
+    }),
   );
 
   @Effect()

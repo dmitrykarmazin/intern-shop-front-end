@@ -40,20 +40,20 @@ export function reducer(state: AuthState = initialState, action: Actions): AuthS
         ...state,
         isAuthorized: true,
         loading: false,
-        currentUser: {
-          token: action['payload'].token
-        },
+        token: action['payload'].token,
+        currentUser: action['payload'],
         error: null
       };
 
     case fromActions.SIGN_UP_SUCCESS:
+      console.log(action);
+
       return <AuthState>{
         ...state,
         isAuthorized: true,
         loading: false,
-        currentUser: {
-          token: action['payload'].token
-        },
+        token: action['payload'].token,
+        currentUser: action['payload'],
         error: null
       };
 
@@ -79,8 +79,10 @@ export function reducer(state: AuthState = initialState, action: Actions): AuthS
     }
 
     case fromActions.GET_USER_INFO: {
+
       return <AuthState>{
         ...state,
+        token: action['payload'],
         loading: true
       };
     }
@@ -95,6 +97,7 @@ export function reducer(state: AuthState = initialState, action: Actions): AuthS
     }
 
     case fromActions.GET_USER_INFO_SUCCESS: {
+
       return <AuthState>{
         ...state,
         loading: false,
