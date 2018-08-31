@@ -5,6 +5,8 @@
 mat-drawer,
 mat-drawer-content {
   padding: 20px;
+  min-height: calc(100vh - 128px);
+  box-sizing: border-box;
 }
 
 mat-drawer {

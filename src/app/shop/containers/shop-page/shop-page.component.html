@@ -1,8 +1,8 @@
 <mat-drawer-container class="shop-container">
-  <mat-drawer mode="side" opened>
+  <mat-drawer mode="side" opened class="sidebar">
     <app-sidebar (filters)="filters($event)" (clearFilters)="clearFilters($event)" [categories$]="categories$"></app-sidebar>
   </mat-drawer>
-  <mat-drawer-content>
+  <mat-drawer-content class="shop-content-container">
     <div class="view-mode">
         <span class="spacer"></span>
         <span>
