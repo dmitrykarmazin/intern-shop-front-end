@@ -1,6 +1,6 @@
-:host{
-    width:100vw;
-    height: 100vh;
+.mat-drawer-container,
+.container {
+    min-height: calc(100vh - 128px);
 }
 .container{
     height: 100%;

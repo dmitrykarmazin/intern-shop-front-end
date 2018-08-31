@@ -1,21 +1,113 @@
 <div class="product-wrapper">
-    <mat-toolbar>
-        <mat-toolbar class="cart-container">
-          <mat-toolbar-row class="cart-header">
-            <h2>Create new product</h2>
-          </mat-toolbar-row>
-          <mat-toolbar-row >
-              <form class="example-form">
-                  <mat-form-field class="full-width">
-                    <input matInput placeholder="Favorite food" value="Title">
+  <div class="form-container">
+    <mat-toolbar color="" class="">
+      <h2 class="headline">Create new product</h2>
+    </mat-toolbar>
+  </div>
+  <mat-card class="form-card">
+    <mat-card-content>
+      <form [formGroup]="addProductForm" (ngSubmit)="submitNewProduct()">
+        <mat-grid-list cols="2" rowHeight="500px" gutterSize="20px">
+          <mat-grid-tile>
+              <div class="fcolumn">
+                  <mat-form-field>
+                      <input matInput type="text"
+                      formControlName="title"
+                      class="form-control"
+                      (keyup)="onkey($event)" 
+                      matInput placeholder="Product name">
+                      <mat-error *ngIf="addProductForm['controls'].title.invalid && (addProductForm['controls'].title.dirty || addProductForm['controls'].title.touched)"> 
+                          <div *ngIf="addProductForm['controls'].title.errors.required">Product name is required</div>
+                          <div *ngIf="addProductForm['controls'].title.errors.minlength">Product name should contain at least 3 characters</div>
+                      </mat-error>
                   </mat-form-field>
-                  <mat-form-field class="full-width">
-                    <textarea cdkAutosizeTextarea matInput placeholder="Leave a comment"></textarea>
+                  <div class="fxRow">
+                      <mat-form-field class="xFlex2-5">
+                          <input type="number"
+                          formControlName="stock" 
+                          matInput placeholder="Quantity">
+                          <mat-error *ngIf="addProductForm['controls'].stock.invalid && (addProductForm['controls'].stock.dirty || addProductForm['controls'].stock.touched)"> 
+                              <div *ngIf="addProductForm['controls'].stock.errors.required">Enter the product price </div>
+                              <div *ngIf="addProductForm['controls'].stock.errors.min">Product quantity should be higher or equal 1</div>
+                          </mat-error>
+                      </mat-form-field>
+                      <mat-form-field class="xFlex2-5">
+                          <input type="number"
+                          formControlName="price"
+                          matInput placeholder="Price">
+                          <mat-error *ngIf="addProductForm['controls'].price.invalid && (addProductForm['controls'].price.dirty || addProductForm['controls'].price.touched)"> 
+                            <div *ngIf="addProductForm['controls'].price.errors.required">Enter the product price </div>
+                            <div *ngIf="addProductForm['controls'].price.errors.min">Product price should be higher 1</div>
+                          </mat-error>
+                      </mat-form-field>
+                  </div>
+                  <mat-form-field>
+                      <textarea matInput
+                      formControlName="description"
+                      class="product-desc"
+                      placeholder="Description"
+                      ></textarea>
+                      <mat-error *ngIf="addProductForm['controls'].description.invalid && (addProductForm['controls'].description.dirty || addProductForm['controls'].description.touched)"> 
+                          <div *ngIf="addProductForm['controls'].description.errors.required">Description is required</div>
+                          <div *ngIf="addProductForm['controls'].description.errors.minlength">Product description should contain at least 10 characters</div>
+                        </mat-error>
                   </mat-form-field>
-                </form>
-          </mat-toolbar-row>
-        </mat-toolbar>  
-      </mat-toolbar>
+                  <mat-form-field>
+                      <mat-select placeholder="Category" *ngIf="!!(categories$?.length | async)">
+                          <mat-option>
+                            No any categories
+                          </mat-option>
+                      </mat-select>
+                      <mat-select placeholder="Caterogy" formControlName="category_title">
+                        <mat-option *ngFor="let category of (categories$ | async)" [value]="category.title">
+                          {{category.title}}
+                        </mat-option>
+                        <mat-error *ngIf="addProductForm['controls'].category_title.invalid && (addProductForm['controls'].category_title.ditry || addProductForm['controls'].category_title.touched)">
+                          <div *ngIf="addProductForm['controls'].description.errors.required">Select category</div>
+                        </mat-error>
+                      </mat-select>
+                  </mat-form-field>
+                  <mat-form-field formControlName="thumbnail" ngDefaultControl>
+                      <input matInput placeholder="Product picture">
+                  </mat-form-field>
+                  <button mat-button
+                  [disabled]="!addProductForm.valid" 
+                  class="add-product-btn"
+                  color="accent">Add product</button>
+              </div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+              <div class="fcolumn">
+                  <div class="add-category">
+                      <form [formGroup]="addCategoryForm" (ngSubmit)="submitNewCategory()">
+                          <mat-form-field>
+                              <input matInput placeholder="Category name" formControlName="title">
+                              <mat-error *ngIf="addCategoryForm['controls'].title.invalid && (addCategoryForm['controls'].title.dirty || addCategoryForm['controls'].title.touched)"> 
+                                <div *ngIf="addCategoryForm['controls'].title.errors.required">Category name is required</div>
+                                <div *ngIf="addCategoryForm['controls'].title.errors.minlength">Categoty name should contain at least 3 characters</div>
+                              </mat-error>
+                          </mat-form-field>
+                          <mat-form-field>
+                              <input matInput placeholder="Category description" formControlName="description">
+                              <mat-error *ngIf="addCategoryForm['controls'].description.invalid && (addCategoryForm['controls'].description.dirty || addCategoryForm['controls'].description.touched)"> 
+                                  <div *ngIf="addCategoryForm['controls'].description.errors.required">Category description is required</div>
+                                  <div *ngIf="addCategoryForm['controls'].description.errors.minlength">Categoty description should contain at least 5 characters</div>
+                              </mat-error>
+                          </mat-form-field>
+                          <div >
+                              <button 
+                              mat-raised-button
+                              [disabled]="!addCategoryForm.valid" 
+                              color="primary">Add</button>
+                          </div>
+                      </form>
+                  </div> 
+              </div> 
+          </mat-grid-tile>
+        </mat-grid-list>
+      </form>
+    </mat-card-content>
+  </mat-card>
 </div>
 
-  
+    
