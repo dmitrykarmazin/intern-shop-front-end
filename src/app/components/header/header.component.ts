@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import * as authStore from '../../auth/store';
 import { CartItem } from '../../cart/store/reducers/cart.reducer';
 import * as cartSelectors from '../../cart/store/selectors/cart.selector';
+import { getWishCount } from '../../wishlist/store/selectors/wish.selector';
 
 @Component({
   selector: 'app-header',
@@ -16,10 +17,12 @@ import * as cartSelectors from '../../cart/store/selectors/cart.selector';
 export class HeaderComponent {
   isAuthorized$: Observable<boolean>;
   totalCount$: Observable<{[key: string]: CartItem}>;
+  wishCount$: Observable<number>;
 
   constructor(private store: Store<AuthState>) {
     this.isAuthorized$ = this.store.pipe(select(authStore.getIsAuthenticated));
     this.totalCount$ = this.store.select(cartSelectors.getTotalCount);
+    this.wishCount$ = this.store.select(getWishCount);
   }
 
   signOut(): void {

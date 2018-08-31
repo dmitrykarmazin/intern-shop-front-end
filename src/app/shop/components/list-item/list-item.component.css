@@ -1,3 +1,19 @@
 .app-list-item{
     padding: 20px 30px;
 }
+
+.app-grid-item__price{
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.app-list-wish-icon {
+    display: inline-block;
+    vertical-align: middle;    
+    margin: 0 10px;
+    color: #888888;
+}
+
+.app-list-wish-icon .mat-icon:hover {
+    color: red;
+}
