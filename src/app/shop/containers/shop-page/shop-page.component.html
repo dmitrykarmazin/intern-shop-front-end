@@ -18,6 +18,7 @@
             ></i>
         </span>
     </div>
-    <app-product-list [products$]="products$" [viewMode$]="viewMode$" (emitAddToCart)="addToCart($event)"></app-product-list>    
+    <app-product-list [products$]="products$" [viewMode$]="viewMode$"
+     (emitAddToCart)="addToCart($event)" (emitAddToWish)="addToWish($event)"></app-product-list>    
   </mat-drawer-content>
 </mat-drawer-container>

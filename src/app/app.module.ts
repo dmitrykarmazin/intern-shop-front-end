@@ -26,6 +26,7 @@ import { ResponseInterceptor } from './shared/interceptor/response.interceptor';
 
 import { NotificationService } from './shared/services/notification';
 import { SharedModule } from './shared/shared.module';
+import { WishlistModule } from './wishlist/wishlist.module';
 
 @NgModule({
   declarations: [
@@ -42,14 +43,15 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule,
     EffectsModule.forRoot(effects),
     StoreModule.forRoot(reducers),
-    StoreDevtoolsModule.instrument({ maxAge: 10 }),
+    StoreDevtoolsModule.instrument({ maxAge: 20 }),
     StoreRouterConnectingModule,
     FormsModule,
     SharedModule,
     ReactiveFormsModule,
     AuthModule,
     CartModule,
-    AdminModule
+    AdminModule,
+    WishlistModule,
   ],
   providers: [
     { provide: RouterStateSerializer, useClass: CustomSerializer },

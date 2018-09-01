@@ -1,5 +1,5 @@
 import { FiltersObject } from './../models/filters.model';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from '../models/product.model';
@@ -7,16 +7,14 @@ import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class ProductsService {
-  query: string = '';
-  priceQuery: string = '';
-  categoryQuery: string = '';
-  stockQuery: string = '';
-
 
   constructor(private http: HttpClient) {}
 
   getProducts(filters: FiltersObject = {}): Observable<Product[]> {
-    return this.http.get<Product[]>(`http://localhost:8000/products?${this.setFilters(filters)}`);
+    return this.http
+      .get<Product[]>(`${environment.api_url}/products?
+      ${this.setPriceFilter(filters)}${this.setCategoryFilter(filters)}${this.setStockFilter(filters)}`
+      );
   }
 
   addProduct(product: Product): Observable<Product> {
@@ -28,39 +26,37 @@ export class ProductsService {
     let priceQuery = '';
     let categoryQuery = '';
     let stockQuery = '';
+  }
 
-
+  setPriceFilter(filtersObj: FiltersObject): string {
+    let query: string = '';
     if (filtersObj && filtersObj.price) {
-      priceQuery = this.priceQuery;
-      priceQuery = `price=${filtersObj['price']['from']} to ${filtersObj['price']['to']}?`;
-      this.priceQuery = priceQuery;
-      query = this.query;
-      if (query.match('price')) {
-        return;
-      } else {
-        query += priceQuery;
+      if (!filtersObj.price['from'] && !filtersObj.price['to']) {
+        return query = '';
+      }
+      if (filtersObj.price['from'] || filtersObj.price['to']) {
+        return query = `price=${filtersObj.price['from']} to ${filtersObj.price['to']}`;
       }
     }
-    if (priceQuery === 'price= to ') {
-      query = this.slicer(query, priceQuery);
-    }
-
-    // if (filtersObj && filtersObj.category) {
-    //   categoryQuery = `category=${filtersObj['category']}?`;
-    //   query += categoryQuery;
-    // }
-    // if (priceQuery === 'category=') {
-    //   query = this.slicer(query, categoryQuery);
-    // }
 
     return query;
   }
 
-  slicer(query, subQuery): string {
-    let str = query.split('?');
-    str.splice(str.indexOf(subQuery), 1);
-    let newStr = str.join('?');
+  setCategoryFilter(filtersObj: FiltersObject): string {
+    let query: string;
+    if (filtersObj && filtersObj.category) {
+      return query = `&category=${filtersObj.category}`;
+    } else {
+      return '';
+    }
+  }
 
-    return (subQuery === '') ? `?${newStr}` : newStr;
+  setStockFilter(filtersObj: FiltersObject): string{
+    let query: string;
+    if (filtersObj && filtersObj.stock) {
+      return query = `&stock=${filtersObj.stock}`;
+    } else {
+      return '';
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { Category } from "../../../shared/models/category.model";
+import { Category } from '../../../shared/models/category.model';
 import * as fromCategories from '../actions/categories.action';
 
 export interface CategoriesState {
@@ -16,26 +16,26 @@ export const initialState: CategoriesState = {
 };
 
 export function reducer(
-  state = initialState,
-  action: fromCategories.CategoryActions
+  state: CategoriesState = initialState,
+  action: fromCategories.CategoriesActions
 ): CategoriesState {
-  switch(action.type) {
+  switch (action.type) {
     case fromCategories.LOAD_CATEGORIES: {
       return {
         ...state,
         loading: true
-      }
+      };
     }
 
     case fromCategories.LOAD_CATEGORIES_SUCCESS: {
-      const categories = action.payload;
+      const categories: Category[] = action['payload'];
 
       return {
         ...state,
         loading: false,
         loaded: true,
         categories
-      }
+      };
     }
 
     case fromCategories.LOAD_CATEGORIES_FAIL: {
@@ -43,7 +43,7 @@ export function reducer(
         ...state,
         loading: false,
         loaded: false
-      }
+      };
     }
 
     case fromCategories.ADD_CATEGORY: {
@@ -77,6 +77,6 @@ export function reducer(
   }
 }
 
-export const getCategoriesIsLoading = (state: CategoriesState) => state.loading;
-export const getCategoriesIsLoaded = (state: CategoriesState) => state.loaded;
-export const getCategories = (state: CategoriesState) => state.categories;
+export const getCategoriesIsLoading: any = (state: CategoriesState): boolean => state.loading;
+export const getCategoriesIsLoaded: any = (state: CategoriesState): boolean => state.loaded;
+export const getCategories: any = (state: CategoriesState): Category[] => state.categories;

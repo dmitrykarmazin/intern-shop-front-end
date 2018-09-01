@@ -18,14 +18,14 @@ export const initialState: ProductsState = {
   viewMode: 'grid',
   filters: {
     price: null,
-    stock: null,
     category: null,
   },
-  error: null
+  error: null,
+  stock: null
 };
 
 export function reducer(
-  state = initialState,
+  state: ProductsState = initialState,
   action: fromProducts.ProductsActions
 ): ProductsState {
   switch (action.type) {
@@ -34,7 +34,7 @@ export function reducer(
     }
 
     case fromProducts.LOAD_PRODUCTS_SUCCESS: {
-      const products = action.payload;
+      const products: Product[] = action['payload'];
 
       return {
         ...state,
@@ -45,7 +45,7 @@ export function reducer(
     }
 
     case fromProducts.APPLY_FILTERS: {
-      const filters = action.payload;
+      const filters: FiltersObject = action['payload'];
 
       return {
         ...state,
@@ -54,7 +54,7 @@ export function reducer(
     }
 
     case fromProducts.CHANGE_VIEW_MODE: {
-      const viewMode = action.payload;
+      const viewMode: string = action['payload'];
 
       return {
         ...state,
@@ -96,8 +96,8 @@ export function reducer(
   }
 }
 
-export const getProducts = (state: ProductsState) => state.products;
-export const getProductsLoaded = (state: ProductsState) => state.loaded;
-export const getProductsLoading = (state: ProductsState) => state.loading;
-export const getProductsViewMode = (state: ProductsState) => state.viewMode;
-export const getProductsFilters = (state: ProductsState) => state.filters;
+export const getProducts: any = (state: ProductsState): Product[] => state.products;
+export const getProductsLoaded: any = (state: ProductsState): boolean => state.loaded;
+export const getProductsLoading: any = (state: ProductsState): boolean => state.loading;
+export const getProductsViewMode: any = (state: ProductsState): string => state.viewMode;
+export const getProductsFilters: any = (state: ProductsState): FiltersObject => state.filters;

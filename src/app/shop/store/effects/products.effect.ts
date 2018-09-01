@@ -19,20 +19,22 @@ export class ProductsEffects {
   ) {}
 
   @Effect()
-  loadProducts$ = this.actions$.ofType(productsActions.LOAD_PRODUCTS).pipe(
-      switchMap(() => {
-        return this.productsService
-          .getProducts()
-          .pipe(
-            map(products => {
-              return new productsActions.LoadProductsSuccess(products['products']);
-            }),
-            catchError((error: Error) => of(new productsActions.LoadProductsFail(error)))
-          )
-      })
-    )
+  loadProducts$: any = this.actions$.pipe(
+    ofType(productsActions.LOAD_PRODUCTS),
+    switchMap(() => {
+      return this.productsService
+        .getProducts()
+        .pipe(
+          map((response: { success: boolean; products: Product[]}) => {
+            return new productsActions.LoadProductsSuccess(response['products']);
+          }),
+          catchError((error: Error) => of(new productsActions.LoadProductsFail(error)))
+        );
+    })
+  );
   
   @Effect()
+<<<<<<< HEAD
   applyFilters$ = this.actions$.pipe(
       ofType(productsActions.APPLY_FILTERS),
       switchMap((action: productsActions.ApplyFilters) => {
@@ -71,4 +73,19 @@ export class ProductsEffects {
     })
   );
 
+=======
+  applyFilters$: any = this.actions$.pipe(
+    ofType(productsActions.APPLY_FILTERS),
+    switchMap((action: productsActions.ApplyFilters) => {
+      return this.productsService
+        .getProducts(action['payload'])
+        .pipe(
+          map((response: { success: boolean; products: Product[]}) => {
+            return new productsActions.LoadProductsSuccess(response['products']);
+          }),
+          catchError((error: Error) => of(new productsActions.LoadProductsFail(error)))
+        );
+    })
+  );
+>>>>>>> 5f0374a18df9c9736ecd2d2391b9d2d7a6781956
 }

@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 
 import { Product } from '../../../shared/models/product.model';
 import { Category } from '../../../shared/models/category.model';
 import { FiltersObject } from './../../../shared/models/filters.model';
-
 import * as fromStore from '../../store';
 import * as fromProductsSelectors from '../../store/selectors/products.selector';
 import * as fromCategoriesSelectors from '../../store/selectors/categories.selector';
+import { AddToCart } from '../../../cart/store/actions/cart.action';
+import { WishAddNew } from '../../../wishlist/store/actions/wish.action';
+import { getWishIds } from '../../../wishlist/store/selectors/wish.selector';
 
 @Component({
   selector: 'app-shop',
@@ -19,22 +20,21 @@ import * as fromCategoriesSelectors from '../../store/selectors/categories.selec
 export class ShopPageComponent implements OnInit {
   products$: Observable<Product[]>;
   categories$: Observable<Category[]>;
-
   viewModeValue: boolean = false;
   viewMode$: Observable<string>;
   filters$: Observable<FiltersObject>;
+  wisheIds$: Observable<string[]>;
 
   constructor(private store: Store<fromStore.ShopState>) {
-    this.products$ = this.store.select(fromProductsSelectors.getAllProducts);
-    this.categories$ = this.store.select(fromCategoriesSelectors.getAllCategories);
-
-    this.viewMode$ = this.store.select(fromProductsSelectors.getProductsViewMode);
+    this.products$ = this.store.pipe(select(fromProductsSelectors.getAllProducts));
+    this.categories$ = this.store.pipe(select(fromCategoriesSelectors.getAllCategories));
+    this.viewMode$ = this.store.pipe(select(fromProductsSelectors.getProductsViewMode));
+    this.wisheIds$ = this.store.pipe(select(getWishIds));
   }
 
   ngOnInit(): void {
     this.store.dispatch(new fromStore.LoadProducts());
     this.store.dispatch(new fromStore.LoadCategories());
-
  }
 
   chooseViewMode(viewMode: string): void {
@@ -43,7 +43,6 @@ export class ShopPageComponent implements OnInit {
     } else {
       this.viewModeValue = true;
     }
-
     this.store.dispatch(new fromStore.ChangeViewMode(viewMode));
   }
 
@@ -51,8 +50,14 @@ export class ShopPageComponent implements OnInit {
     this.store.dispatch(new fromStore.ApplyFilters(filters));
   }
 
-  private addToCart($event: string): void {
-    // TODO dispatch to card
-    // event - id
+  addToCart($event: Product): void {
+    this.store.dispatch(new AddToCart({
+      product: $event,
+      quantity: 1
+    }));
+  }
+
+  addToWish($event: Product): void {
+    this.store.dispatch(new WishAddNew($event));
   }
 }
