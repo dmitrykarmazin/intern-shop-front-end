@@ -9,14 +9,15 @@ import { of } from 'rxjs/internal/observable/of';
 
 import * as fromServices from '../../../shared/services';
 import * as categoriesActions from '../actions/categories.action';
-import { Action } from '@ngrx/store';
+import { Action , Store} from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 @Injectable()
 export class CategoriesEffects {
   constructor(
     private fromServices: fromServices.CategoriesService,
-    private actions$: Actions
+    private actions$: Actions,
+    private store: Store<any>
   ) {}
 
   @Effect()
@@ -30,30 +31,38 @@ export class CategoriesEffects {
         catchError((error: Error) => of(new categoriesActions.LoadCategoriesFail(error)))
       );
     })
-<<<<<<< HEAD
   )
 
   @Effect()
-  addCategoty$: Observable<Action> = this.actions$.pipe(
+  addCategoty$ = this.actions$.pipe(
       ofType(categoriesActions.ADD_CATEGORY),
       switchMap((action: categoriesActions.AddCategory) => {
         return this.fromServices
           .addCategory(action.payload).pipe(
-            map((res: { success: string, categoty?: Category, error?: Error}) => {
+          map((res: {success: boolean}) => {
               if (res.success) {
-                return of( new categoriesActions.AddCategorySuccess(res.categoty)).pipe(
-                  map((ac: categoriesActions.AddCategorySuccess) => of(new AppNotificationShow({
-                    message: `Category ${ac.payload['title']} added`,
-                    isError: false
-                  })))
-                );
+                this.store.dispatch(new categoriesActions.LoadCategories);
+                return new categoriesActions.AddCategorySuccess();
+                // .pipe(
+                //   map(() => new AppNotificationShow({
+                //     message: `Category  added`,
+                //     isError: false
+                //   }))
+                // );
               }
             }),
             catchError((error: Error) => of(new categoriesActions.AddCategoriesFail(error)))
-        );
+          );
       })
-    );
-=======
   );
->>>>>>> 5f0374a18df9c9736ecd2d2391b9d2d7a6781956
+
+  @Effect()
+  categoryAdded$ = this.actions$.pipe(
+    ofType(categoriesActions.ADD_CATEGORY_SUCCESS),
+      map(() => new AppNotificationShow({
+              message: `Category  added`,
+              isError: false
+      }))
+  );
+  
 }

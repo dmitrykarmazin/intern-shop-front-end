@@ -22,16 +22,13 @@ export class LoadCategoriesFail implements Action {
   constructor(public payload: any) { }
 }
 
-
-
 export class AddCategory implements Action {
   readonly type = ADD_CATEGORY;
-  constructor(public payload: Category) { }
+  constructor(public payload: any) { }
 }
 
 export class AddCategorySuccess implements Action {
   readonly type = ADD_CATEGORY_SUCCESS;
-  constructor(public payload: Category) { }
 }
 
 export class AddCategoriesFail implements Action {

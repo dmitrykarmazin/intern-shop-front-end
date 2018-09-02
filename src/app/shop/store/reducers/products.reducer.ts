@@ -19,9 +19,9 @@ export const initialState: ProductsState = {
   filters: {
     price: null,
     category: null,
+    stock: null
   },
-  error: null,
-  stock: null
+  error: null
 };
 
 export function reducer(
@@ -80,7 +80,7 @@ export function reducer(
     case fromProducts.ADD_PRODUCT_SUCCESS: {
       return {
         ...state,
-        products: [...state.products, action.payload],
+        products: [...state.products, action['payload']],
         loading: false,
         loaded: true
       };
@@ -88,7 +88,7 @@ export function reducer(
     case fromProducts.ADD_PRODUCT_FAIL: {
       return {
         ...state,
-        error: action.payload
+        error: action['payload']
       };
     }
 

@@ -2,7 +2,6 @@ import { FiltersObject } from './../../../shared/models/filters.model';
 import { Action } from '@ngrx/store';
 import { Product } from '../../../shared/models/product.model';
 
-<<<<<<< HEAD
 export const LOAD_PRODUCTS = '[Products] Load Products';
 export const LOAD_PRODUCTS_FAIL = '[Products] Load Products Fail';
 export const LOAD_PRODUCTS_SUCCESS = '[Products] Load Products Success';
@@ -11,13 +10,6 @@ export const CHANGE_VIEW_MODE = '[Products] Change View Mode For Products List';
 export const ADD_PRODUCT_START = '[Products] Product is fetching';
 export const ADD_PRODUCT_SUCCESS = '[Products] Product was added';
 export const ADD_PRODUCT_FAIL = '[Products] Product add fail';
-=======
-export const LOAD_PRODUCTS: string = '[Products] Load Products';
-export const LOAD_PRODUCTS_FAIL: string = '[Products] Load Products Fail';
-export const LOAD_PRODUCTS_SUCCESS: string = '[Products] Load Products Success';
-export const APPLY_FILTERS: string = '[Products] Apply Filters For Products';
-export const CHANGE_VIEW_MODE: string = '[Products] Change View Mode For Products List';
->>>>>>> 5f0374a18df9c9736ecd2d2391b9d2d7a6781956
 
 export class LoadProducts implements Action {
   readonly type: string = LOAD_PRODUCTS;

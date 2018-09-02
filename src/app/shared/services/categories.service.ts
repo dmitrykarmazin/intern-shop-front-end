@@ -14,7 +14,7 @@ export class CategoriesService {
     return this.http.get<Category[]>(`${environment.api_url}/categories`);
   }
 
-  addCategory(category: any): Observable<Category> {
+  addCategory(category: any): Observable<{success: boolean}> {
     return this.http.post<any>(`${environment.api_url}/categories`, category);
   }
 }

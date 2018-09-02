@@ -3,7 +3,7 @@ import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 
-import { map, switchMap, catchError } from 'rxjs/operators';
+import { map, switchMap, catchError, pluck } from 'rxjs/operators';
 import { of } from 'rxjs/internal/observable/of';
 
 import * as fromServices from './../../../shared/services';
@@ -25,29 +25,30 @@ export class ProductsEffects {
       return this.productsService
         .getProducts()
         .pipe(
-          map((response: { success: boolean; products: Product[]}) => {
-            return new productsActions.LoadProductsSuccess(response['products']);
+          pluck('products'),
+          map((response: Product[]) => {
+            return new productsActions.LoadProductsSuccess(response);
           }),
           catchError((error: Error) => of(new productsActions.LoadProductsFail(error)))
         );
     })
   );
-  
+
   @Effect()
-<<<<<<< HEAD
   applyFilters$ = this.actions$.pipe(
       ofType(productsActions.APPLY_FILTERS),
       switchMap((action: productsActions.ApplyFilters) => {
         return this.productsService
           .getProducts(action['payload'])
           .pipe(
-            map(products => {
-              return new productsActions.LoadProductsSuccess(products['products']);
+            pluck('products'),
+            map((products: Product[]) => {
+              return new productsActions.LoadProductsSuccess(products);
             }),
             catchError((error: Error) => of(new productsActions.LoadProductsFail(error)))
-          )
+          );
       })
-    )
+  );
 
   @Effect()
   addProduct$: Observable<Action> = this.actions$.pipe(
@@ -56,14 +57,15 @@ export class ProductsEffects {
       return this.productsService
         .addProduct(action.payload)
         .pipe(
-          map((res: { success: string, product?: Product, error?: Error}) => new productsActions.AddProductSuccess(res.product)),
+          pluck('product'),
+          map((res: Product) => new productsActions.AddProductSuccess(res)),
           catchError((error: Error) => of(new productsActions.AddProductFail(error)))
         );
     })
   );
 
   @Effect()
-  productAdded$ = this.actions$.pipe(
+  productAdded$: Observable<Action> = this.actions$.pipe(
     ofType(productsActions.ADD_PRODUCT_SUCCESS),
     map((action: productsActions.AddProductSuccess) => {
       return new AppNotificationShow({
@@ -73,19 +75,4 @@ export class ProductsEffects {
     })
   );
 
-=======
-  applyFilters$: any = this.actions$.pipe(
-    ofType(productsActions.APPLY_FILTERS),
-    switchMap((action: productsActions.ApplyFilters) => {
-      return this.productsService
-        .getProducts(action['payload'])
-        .pipe(
-          map((response: { success: boolean; products: Product[]}) => {
-            return new productsActions.LoadProductsSuccess(response['products']);
-          }),
-          catchError((error: Error) => of(new productsActions.LoadProductsFail(error)))
-        );
-    })
-  );
->>>>>>> 5f0374a18df9c9736ecd2d2391b9d2d7a6781956
 }

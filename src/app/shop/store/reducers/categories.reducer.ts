@@ -17,7 +17,7 @@ export const initialState: CategoriesState = {
 
 export function reducer(
   state: CategoriesState = initialState,
-  action: fromCategories.CategoriesActions
+  action: fromCategories.CategoryActions
 ): CategoriesState {
   switch (action.type) {
     case fromCategories.LOAD_CATEGORIES: {
@@ -58,8 +58,7 @@ export function reducer(
       return {
         ...state,
         loading: false,
-        loaded: true,
-        categories: [...state.categories, action.payload]
+        loaded: true
       };
     }
 
@@ -69,7 +68,7 @@ export function reducer(
         ...state,
         loading: false,
         loaded: false,
-        error: action.payload
+        error: action['payload']
       };
     }
 

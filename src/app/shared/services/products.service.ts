@@ -21,12 +21,6 @@ export class ProductsService {
     return this.http.post<Product>(`${environment.api_url}/products`, product);
   }
 
-  setFilters(filtersObj): string {
-    let query = '';
-    let priceQuery = '';
-    let categoryQuery = '';
-    let stockQuery = '';
-  }
 
   setPriceFilter(filtersObj: FiltersObject): string {
     let query: string = '';
