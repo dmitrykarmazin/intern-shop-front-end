@@ -7,7 +7,6 @@ import { Product } from '../../../shared/models/product.model';
 import * as fromStore from '../../store';
 import * as fromProductsSelectors from '../../store/selectors/products.selector';
 import { CartState } from '../../../cart/store/reducers/cart.reducer';
-import * as productsAction from '../../store/actions';
 import * as productsSelectors from '../../store/selectors';
 
 @Component({
@@ -24,15 +23,15 @@ export class ProductPageComponent implements OnInit {
   product: Product;
   regex: RegExp = new RegExp(/^[0-9]+$/g);
 
-  constructor(private route: ActivatedRoute, 
+  constructor(private route: ActivatedRoute,
               private store: Store<CartState>,
               private router: Router) {
-    this.products$ = this.store.select(fromProductsSelectors.getAllProducts);
+    this.products$ = this.store.pipe(select(fromProductsSelectors.getAllProducts));
   }
 
   ngOnInit(): void {
-    this.loading$ = this.store.pipe(	
-      select(productsSelectors.getProductsLoading)	
+    this.loading$ = this.store.pipe(
+      select(productsSelectors.getProductsLoading)
     );
     this.getProduct();
     this.store.dispatch(new fromStore.LoadProducts());
@@ -79,7 +78,7 @@ export class ProductPageComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         this.getProduct();
       }
-    })
+    });
   }
 
 }
