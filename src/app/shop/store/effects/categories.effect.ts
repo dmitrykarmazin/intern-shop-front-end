@@ -1,6 +1,4 @@
 import { AppNotificationShow } from './../../../store/actions/notification.action';
-import { Category } from './../../../shared/models/category.model';
-import { AddCategorySuccess } from './../actions/categories.action';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 
@@ -31,10 +29,10 @@ export class CategoriesEffects {
         catchError((error: Error) => of(new categoriesActions.LoadCategoriesFail(error)))
       );
     })
-  )
+  );
 
   @Effect()
-  addCategoty$ = this.actions$.pipe(
+  addCategoty$: Observable<Action> = this.actions$.pipe(
       ofType(categoriesActions.ADD_CATEGORY),
       switchMap((action: categoriesActions.AddCategory) => {
         return this.fromServices
@@ -42,13 +40,8 @@ export class CategoriesEffects {
           map((res: {success: boolean}) => {
               if (res.success) {
                 this.store.dispatch(new categoriesActions.LoadCategories);
+
                 return new categoriesActions.AddCategorySuccess();
-                // .pipe(
-                //   map(() => new AppNotificationShow({
-                //     message: `Category  added`,
-                //     isError: false
-                //   }))
-                // );
               }
             }),
             catchError((error: Error) => of(new categoriesActions.AddCategoriesFail(error)))
@@ -57,12 +50,12 @@ export class CategoriesEffects {
   );
 
   @Effect()
-  categoryAdded$ = this.actions$.pipe(
+  categoryAdded$: Observable<Action> = this.actions$.pipe(
     ofType(categoriesActions.ADD_CATEGORY_SUCCESS),
       map(() => new AppNotificationShow({
               message: `Category  added`,
               isError: false
       }))
   );
-  
+
 }

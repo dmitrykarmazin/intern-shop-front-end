@@ -79,8 +79,4 @@ export class ProductsComponent implements OnInit {
      this.store.dispatch(new categoryActions.AddCategory(this.category));
      this.addCategoryForm.reset();
   }
-
-  onkey(e: KeyboardEvent): void  {
-    console.log(this.addProductForm);
-  }
 }
