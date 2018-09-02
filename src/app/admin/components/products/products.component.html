@@ -6,7 +6,9 @@
   </div>
   <mat-card class="form-card">
     <mat-card-content>
-      <form [formGroup]="addProductForm" (ngSubmit)="submitNewProduct()">
+      <form [formGroup]="addProductForm" 
+        (ngSubmit)="submitNewProduct()"
+        novalidate>
         <mat-grid-list cols="2" rowHeight="500px" gutterSize="20px">
           <mat-grid-tile>
               <div class="fcolumn">
@@ -14,9 +16,9 @@
                       <input matInput type="text"
                       formControlName="title"
                       class="form-control"
-                      (keyup)="onkey($event)" 
                       matInput placeholder="Product name">
-                      <mat-error *ngIf="addProductForm['controls'].title.invalid && (addProductForm['controls'].title.dirty || addProductForm['controls'].title.touched)"> 
+                      <mat-error 
+                          *ngIf="addProductForm['controls'].title.invalid && (addProductForm['controls'].title.dirty || addProductForm['controls'].title.touched)"> 
                           <div *ngIf="addProductForm['controls'].title.errors.required">Product name is required</div>
                           <div *ngIf="addProductForm['controls'].title.errors.minlength">Product name should contain at least 3 characters</div>
                       </mat-error>
@@ -25,19 +27,25 @@
                       <mat-form-field class="xFlex2-5">
                           <input type="number"
                           formControlName="stock" 
-                          matInput placeholder="Quantity">
+                          matInput placeholder="Quantity"
+                          min="1"
+                          >
                           <mat-error *ngIf="addProductForm['controls'].stock.invalid && (addProductForm['controls'].stock.dirty || addProductForm['controls'].stock.touched)"> 
                               <div *ngIf="addProductForm['controls'].stock.errors.required">Enter the product price </div>
                               <div *ngIf="addProductForm['controls'].stock.errors.min">Product quantity should be higher or equal 1</div>
+                              <div *ngIf="addProductForm['controls'].stock.errors.pattern"> Quantity not valid. The number should not be a decimals
+                            or negative </div>
                           </mat-error>
                       </mat-form-field>
                       <mat-form-field class="xFlex2-5">
                           <input type="number"
                           formControlName="price"
-                          matInput placeholder="Price">
+                          matInput placeholder="Price"
+                          min="1"
+                          >
                           <mat-error *ngIf="addProductForm['controls'].price.invalid && (addProductForm['controls'].price.dirty || addProductForm['controls'].price.touched)"> 
                             <div *ngIf="addProductForm['controls'].price.errors.required">Enter the product price </div>
-                            <div *ngIf="addProductForm['controls'].price.errors.min">Product price should be higher 1</div>
+                            <div *ngIf="addProductForm['controls'].price.errors.min">Product price should be higher 0</div>
                           </mat-error>
                       </mat-form-field>
                   </div>
@@ -67,8 +75,14 @@
                         </mat-error>
                       </mat-select>
                   </mat-form-field>
-                  <mat-form-field formControlName="thumbnail" ngDefaultControl>
-                      <input matInput placeholder="Product picture">
+                  <mat-form-field>
+                      <input matInput
+                        formControlName="thumbnail"
+                        placeholder="Product picture">
+                        <mat-error *ngIf="addProductForm['controls'].thumbnail.invalid && (addProductForm['controls'].thumbnail.ditry || addProductForm['controls'].thumbnail.touched)">
+                        <div *ngIf="addProductForm['controls'].thumbnail.errors.required">Thumbnail required</div>
+                        <div *ngIf="addProductForm['controls'].thumbnail.errors.pattern">Picture link not correct</div>
+                        </mat-error>
                   </mat-form-field>
                   <button mat-button
                   [disabled]="!addProductForm.valid" 

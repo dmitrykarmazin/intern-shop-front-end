@@ -1,18 +1,18 @@
 import * as categoryActions from './../../../shop/store/actions/categories.action';
 import { Product } from './../../../shared/models/product.model';
 import * as productsActions from './../../../shop/store/actions/products.action';
-import { Observable, of } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Category } from '../../../shared/models/category.model';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder, ValidatorFn } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import { getAllCategories } from '../../../shop/store/selectors/categories.selector';
-import { CategoryActions} from '../../../shop/store/actions';
-import { map } from 'rxjs/operators';
+
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css']
+  styleUrls: ['./products.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductsComponent implements OnInit {
   categories$: Observable<Category[]>;
@@ -45,13 +45,16 @@ export class ProductsComponent implements OnInit {
         Validators.required
       ]],
       stock: [1, [
-        Validators.min(1)
+        Validators.min(1),
+        Validators.pattern(/^[1-9]*[0-9]+$/)
+        // wholeNumbersValidator
       ]],
       price: [1, [
-        Validators.min(1)
+        Validators.min(0.01)
       ]],
       thumbnail: ['', [
-        Validators.required
+        Validators.required,
+        Validators.pattern(/^https?:\/\/.+$/)
       ]]
     });
 
@@ -69,10 +72,12 @@ export class ProductsComponent implements OnInit {
   submitNewProduct(): void {
     this.product = this.addProductForm.value;
     this.store.dispatch(new productsActions.AddProductStart(this.product));
+    this.addProductForm.reset();
   }
-  submitNewCategoty(): void {
+  submitNewCategory(): void {
      this.category = this.addCategoryForm.value;
      this.store.dispatch(new categoryActions.AddCategory(this.category));
+     this.addCategoryForm.reset();
   }
 
   onkey(e: KeyboardEvent): void  {
