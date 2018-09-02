@@ -21,7 +21,6 @@ export class ProductPageComponent implements OnInit {
   products$: Observable<Product[]>;
   count: number = 1;
   loading$: Observable<boolean>;
-  loaded$: Observable<boolean>;
   product: Product;
   regex: RegExp = new RegExp(/^[0-9]+$/g);
 
@@ -42,9 +41,6 @@ export class ProductPageComponent implements OnInit {
 
   getProduct(): void {
     this.id = this.route.snapshot.params.id;
-    if(this.loaded$) {
-      this.store.dispatch(new productsAction.LoadProducts());
-    }
 
     this.store.pipe(
         select(productsSelectors.getAllProducts)
