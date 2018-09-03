@@ -1,6 +1,6 @@
   <div class="app-wish-item">
     <mat-card>      
-        <img class="app-wish-item-img" [src]="imgNotFound">
+        <img class="app-wish-item-img" [src]="product.thumbnail || imgNotFound">
       <mat-card-header>          
         <mat-card-title>{{product.title}}</mat-card-title>
         <mat-card-subtitle>Category: {{product.category_title}}</mat-card-subtitle>
