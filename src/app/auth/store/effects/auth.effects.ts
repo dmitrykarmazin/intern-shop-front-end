@@ -9,8 +9,10 @@ import {
   AuthenticationErrorAction, AuthenticationSuccessAction, GetUserInfoFailAction,
   GetUserInfoSuccessAction, SignUpSuccessAction
 } from '../actions/auth.actions';
+import { Go } from '../../../store/actions/router.action';
 import { User } from '../../models/user';
-import {AppNotificationShow} from '../../../store/actions/notification.action';
+import { AppNotificationShow } from '../../../store/actions/notification.action';
+import { mergeMap } from 'rxjs/internal/operators';
 
 @Injectable()
 export class AuthEffects {
@@ -54,6 +56,7 @@ export class AuthEffects {
   signInSuccess$: Observable<Action> = this.actions$.pipe(
     ofType(authActions.AUTHENTICATE_SUCCESS),
     switchMap((action: authActions.AuthenticationSuccessAction) => {
+<<<<<<< HEAD
       return this.authService
         .getUser(action['payload'].token)
         .pipe(
@@ -68,22 +71,40 @@ export class AuthEffects {
             of(new GetUserInfoFailAction(error))
           )
         );
+=======
+      return this.authService.getUser(action['payload'].token).pipe(
+       mergeMap((user: User) => [
+         new GetUserInfoSuccessAction(user),
+         new AppNotificationShow({message: `User is logged in as "${user.login}"`, isError: false}),
+         new Go({path: ['', 'shop']})
+       ]),
+        catchError((error: Error) => of(new GetUserInfoFailAction(error)))
+      );
+>>>>>>> b670df13bea27aa5422b5435deedba7f7f2d8f6e
     })
   );
 
   @Effect()
-  signUpSuccess$: Observable<Action> = this.actions$.pipe(
+  signUpSuccess$: Observable<any> = this.actions$.pipe(
     ofType(authActions.SIGN_UP_SUCCESS),
     switchMap((action: authActions.SignUpSuccessAction) => {
 
       return this.authService.getUser(action['payload'].token).pipe(
+<<<<<<< HEAD
         map((user: User) => new GetUserInfoSuccessAction(user)),
         map((user: authActions.GetUserInfoSuccessAction) => {
           return new AppNotificationShow({message: `"${user['payload'].login}" was successfully registered`, isError: false});
         }),
+=======
+        mergeMap((user: User) => [
+          new GetUserInfoSuccessAction(user),
+          new AppNotificationShow({message: `"${user.login}" was successfully registered`, isError: false}),
+          new Go({path: ['', 'shop']})
+          ]),
+>>>>>>> b670df13bea27aa5422b5435deedba7f7f2d8f6e
         catchError((error: Error) => of(new GetUserInfoFailAction(error)))
       );
-    })
+    }),
   );
 
   @Effect()
@@ -95,7 +116,10 @@ export class AuthEffects {
       }
 
       return this.authService.getUser(action.payload).pipe(
-        map((user: User) => new GetUserInfoSuccessAction(user)),
+        mergeMap((user: User) => [
+          new GetUserInfoSuccessAction(user),
+          new Go({ path: ['', 'shop']})
+        ]),
         catchError((error: Error) => of(new GetUserInfoFailAction({error: error})))
       );
     })
@@ -104,7 +128,10 @@ export class AuthEffects {
   @Effect()
   signOut$: Observable<Action> = this.actions$.pipe(
     ofType(authActions.SIGN_OUT),
-    map(() => new AppNotificationShow({message: 'You are signed out', isError: false}))
+    mergeMap(() => [
+      new AppNotificationShow({message: 'You are signed out', isError: false}),
+      new Go({ path: ['', 'login']})
+    ])
   );
 
   @Effect() onFail$: Observable<Action> = this.actions$.pipe(

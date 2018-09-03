@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterEvent, NavigationEnd } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Store , select} from '@ngrx/store';
 import { AddToCart } from './../../../cart/store/actions';
@@ -7,7 +7,6 @@ import { Product } from '../../../shared/models/product.model';
 import * as fromStore from '../../store';
 import * as fromProductsSelectors from '../../store/selectors/products.selector';
 import { CartState } from '../../../cart/store/reducers/cart.reducer';
-import * as productsAction from '../../store/actions';
 import * as productsSelectors from '../../store/selectors';
 
 @Component({
@@ -25,22 +24,20 @@ export class ProductPageComponent implements OnInit {
   regex: RegExp = new RegExp(/^[0-9]+$/g);
 
   constructor(private route: ActivatedRoute,
-              private store: Store<CartState>) {
-    this.products$ = this.store.select(fromProductsSelectors.getAllProducts);
+              private store: Store<CartState>,
+              private router: Router) {
+    this.products$ = this.store.pipe(select(fromProductsSelectors.getAllProducts));
   }
 
   ngOnInit(): void {
-    this.loading$ = this.store.pipe(
-      select(productsSelectors.getProductsLoading)
-    );
+    this.loading$ = this.store.pipe(select(productsSelectors.getProductsLoading));
     this.getProduct();
     this.store.dispatch(new fromStore.LoadProducts());
+    this.subscribeToRouting();
   }
 
   getProduct(): void {
     this.id = this.route.snapshot.params.id;
-    this.store.dispatch(new productsAction.LoadProducts());
-
     this.store.pipe(
         select(productsSelectors.getAllProducts)
       ).subscribe((products: Product[]) => {
@@ -71,6 +68,14 @@ export class ProductPageComponent implements OnInit {
     if (!currMount.match(this.regex)) {
       event.preventDefault();
     }
+  }
+
+  private subscribeToRouting(): void {
+    this.router.events.subscribe((event: RouterEvent) => {
+      if (event instanceof NavigationEnd) {
+        this.getProduct();
+      }
+    });
   }
 
 }

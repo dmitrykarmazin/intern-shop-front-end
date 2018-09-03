@@ -1,17 +1,17 @@
 <mat-drawer-container class="shop-container">
-  <mat-drawer mode="side" opened>
-    <app-sidebar (filters)="filters($event)" [categories$]="categories$"></app-sidebar>
+  <mat-drawer mode="side" opened class="sidebar">
+    <app-sidebar (filters)="filters($event)" (clearFilters)="clearFilters($event)" [categories$]="categories$"></app-sidebar>
   </mat-drawer>
   <mat-drawer-content>
-    <div class="view-mode">
+    <div class="view-mode" >
         <span class="spacer"></span>
         <span>
-            <i 
+            <i
               class="fa fa-th"
               [ngClass]="{'active': !viewModeValue}"
               (click)="chooseViewMode('grid')"
             ></i>
-            <i 
+            <i
               class="fa fa-th-list"
               [ngClass]="{'active': viewModeValue}"
               (click)="chooseViewMode('list')"
@@ -19,6 +19,11 @@
         </span>
     </div>
     <app-product-list [products$]="products$" [viewMode$]="viewMode$"
-     (emitAddToCart)="addToCart($event)" (emitAddToWish)="addToWish($event)"></app-product-list>    
+     (emitAddToCart)="addToCart($event)" (emitAddToWish)="addToWish($event)"></app-product-list>
+    <div *ngIf="(loadingProducts$ | async) && (loadingCategories$ | async)" class="wrap-spinner">
+      <mat-spinner strokeWidth="10" [diameter]="150"></mat-spinner>
+    </div>
   </mat-drawer-content>
 </mat-drawer-container>
+
+

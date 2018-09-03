@@ -16,7 +16,7 @@ export class ResponseInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       tap((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
-          console.log('yeah, this is a response');
+          // Some notification action
         }
       }),
       catchError((res: HttpErrorResponse) => this.errorHandle(res))

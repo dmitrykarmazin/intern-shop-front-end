@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Store, select } from '@ngrx/store';
-
 import { Product } from '../../../shared/models/product.model';
 import { Category } from '../../../shared/models/category.model';
-import { FiltersObject } from './../../../shared/models/filters.model';
+import { FiltersObject } from '../../../shared/models/filters.model';
+import { Store, select } from '@ngrx/store';
 import * as fromStore from '../../store';
 import * as fromProductsSelectors from '../../store/selectors/products.selector';
 import * as fromCategoriesSelectors from '../../store/selectors/categories.selector';
@@ -18,14 +17,20 @@ import { getWishIds } from '../../../wishlist/store/selectors/wish.selector';
   styleUrls: ['./shop-page.component.css']
 })
 export class ShopPageComponent implements OnInit {
+
   products$: Observable<Product[]>;
   categories$: Observable<Category[]>;
   viewModeValue: boolean = false;
   viewMode$: Observable<string>;
   filters$: Observable<FiltersObject>;
+  loadingProducts$: Observable<boolean>;
+  loadingCategories$: Observable<boolean>;
   wisheIds$: Observable<string[]>;
 
   constructor(private store: Store<fromStore.ShopState>) {
+    this.loadingProducts$ = this.store.pipe(select(fromProductsSelectors.getProductsLoading));
+    this.loadingCategories$ = this.store.pipe(select(fromCategoriesSelectors.getIsCategoriesLoading));
+
     this.products$ = this.store.pipe(select(fromProductsSelectors.getAllProducts));
     this.categories$ = this.store.pipe(select(fromCategoriesSelectors.getAllCategories));
     this.viewMode$ = this.store.pipe(select(fromProductsSelectors.getProductsViewMode));
@@ -35,7 +40,7 @@ export class ShopPageComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(new fromStore.LoadProducts());
     this.store.dispatch(new fromStore.LoadCategories());
- }
+  }
 
   chooseViewMode(viewMode: string): void {
     if (viewMode === 'grid') {
@@ -47,6 +52,10 @@ export class ShopPageComponent implements OnInit {
   }
 
   filters(filters: FiltersObject): void {
+    this.store.dispatch(new fromStore.ApplyFilters(filters));
+  }
+
+  clearFilters(filters: FiltersObject): void {
     this.store.dispatch(new fromStore.ApplyFilters(filters));
   }
 

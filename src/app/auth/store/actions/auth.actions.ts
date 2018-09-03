@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { User } from '../../models/user';
 
 export const AUTHENTICATE: string = '[AUTH] Authenticate';
 export const AUTHENTICATE_ERROR: string = '[AUTH] Authenticate Error';
@@ -53,7 +54,7 @@ export class GetUserInfoAction implements Action {
 export class GetUserInfoSuccessAction implements Action {
   readonly type: string = GET_USER_INFO_SUCCESS;
 
-  constructor(public payload: any) { }
+  constructor(public payload: User) { }
 }
 
 export class GetUserInfoFailAction implements Action {

@@ -24,6 +24,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor} from './shared/interceptor/token.interceptor';
 import { ResponseInterceptor } from './shared/interceptor/response.interceptor';
 
+import * as fromGuards from './auth/guards';
+
 import { NotificationService } from './shared/services/notification';
 import { SharedModule } from './shared/shared.module';
 import { WishlistModule } from './wishlist/wishlist.module';
@@ -58,7 +60,8 @@ import { WishlistModule } from './wishlist/wishlist.module';
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true },
     { provide: RouterStateSerializer, useClass: CustomSerializer },
-    NotificationService
+    NotificationService,
+    fromGuards.guards
 
   ],
   bootstrap: [

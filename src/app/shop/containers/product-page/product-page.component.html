@@ -1,10 +1,10 @@
 <div *ngIf="(loading$ | async)" class="spinner-overlay">
-  <mat-progress-spinner
+    <mat-progress-spinner
         class="example-margin"
         color="primary"
         mode="indeterminate"
         value="30">
-  </mat-progress-spinner>
+    </mat-progress-spinner>
 </div> 
 <div *ngIf="!(loading$ | async)" class="product-containner">
   <div *ngIf="product" class="product-details">
@@ -44,5 +44,7 @@
       </p>
     </div>
   </div>
-  <app-recommendations [products$]="products$"></app-recommendations>
+  <div *ngIf="product">
+    <app-recommendations [products$]="products$"></app-recommendations>
+  </div>
 </div>

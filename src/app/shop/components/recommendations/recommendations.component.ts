@@ -14,9 +14,7 @@ export class RecommendationsComponent implements OnInit {
   @Input() products$: Observable<Product[]>;
   public carouselOne: NguCarousel;
 
-  constructor() { }
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.carouselOne = {
       grid: {xs: 1, sm: 1, md: 3, lg: 3, all: 0},
       slide: 1,
@@ -29,7 +27,6 @@ export class RecommendationsComponent implements OnInit {
       touch: true,
       loop: true,
       custom: 'banner'
-    }
+    };
   }
-
 }
