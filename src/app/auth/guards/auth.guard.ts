@@ -10,10 +10,6 @@ export class AuthGuard implements CanActivate {
 
   constructor(private store: Store<any>) {
     this.isAuthorized$ = this.store.pipe(select(fromAuth.getIsAuthenticated));
-    // this.isAuthorized$.subscribe((data: boolean) => {
-    //   this.temp = data;
-    //   debugger;
-    // });
   }
   canActivate(): Observable<boolean> {
     return this.isAuthorized$;

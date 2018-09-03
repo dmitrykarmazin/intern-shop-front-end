@@ -8,6 +8,7 @@ export interface ProductsState {
   products: Product[];
   viewMode: string; // 'grid' | 'list'
   filters: FiltersObject;
+  error: Error;
 }
 
 export const initialState: ProductsState = {
@@ -18,8 +19,9 @@ export const initialState: ProductsState = {
   filters: {
     price: null,
     category: null,
-    stock: null,
-  }
+    stock: null
+  },
+  error: null
 };
 
 export function reducer(
@@ -65,6 +67,28 @@ export function reducer(
         ...state,
         loading: false,
         loaded: false,
+      };
+    }
+
+    case fromProducts.ADD_PRODUCT_START: {
+      return {
+        ...state,
+        loading: true
+      };
+    }
+
+    case fromProducts.ADD_PRODUCT_SUCCESS: {
+      return {
+        ...state,
+        products: [...state.products, action['payload']],
+        loading: false,
+        loaded: true
+      };
+    }
+    case fromProducts.ADD_PRODUCT_FAIL: {
+      return {
+        ...state,
+        error: action['payload']
       };
     }
 

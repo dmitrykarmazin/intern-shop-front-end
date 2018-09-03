@@ -112,7 +112,7 @@ export class AuthEffects {
 
   @Effect() onFail$: Observable<Action> = this.actions$.pipe(
     ofType(authActions.GET_USER_INFO_FAIL, authActions.AUTHENTICATE_ERROR),
-    map((error: Error) => {
+    map((error: (authActions.GetUserInfoFailAction|authActions.AuthenticationErrorAction)) => {
       console.log(error['payload']);
 
       return new authActions.SignOutAction();

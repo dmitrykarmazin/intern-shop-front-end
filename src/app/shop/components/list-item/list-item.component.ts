@@ -12,9 +12,11 @@ export class ListItemComponent {
 
   @Input() product: Product;
   @Input() viewMode$: Observable<string>;
+  @Input() isWish: boolean;
 
   @Output() emitAddToCart: EventEmitter<Product> = new EventEmitter<Product>();
   @Output() emitAddToWish: EventEmitter<Product> = new EventEmitter<Product>();
+  @Output() emitRemoveFromWish: EventEmitter<string> = new EventEmitter<string>();
 
   addToCart($event: MouseEvent): void {
     $event.preventDefault();
@@ -25,6 +27,11 @@ export class ListItemComponent {
   addToWish($event: MouseEvent): void {
     $event.preventDefault();
     $event.stopPropagation();
-    this.emitAddToWish.emit(this.product);
+
+    if (this.isWish) {
+      this.emitRemoveFromWish.emit(this.product.id);
+    } else {
+      this.emitAddToWish.emit(this.product);
+    }
   }
 }
