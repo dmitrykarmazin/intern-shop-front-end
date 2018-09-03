@@ -45,12 +45,10 @@ export class WishEffects {
                 ).pipe(
                     switchMap((data: [Product[], User, string[]]) => {
                         if (!data[1]) {
-                          debugger;
                            return of(new AppNotificationShow({message: 'You should log in', isError: true}));
                         }
 
                         if (data[2].indexOf(action.payload.id) === -1) {
-                          debugger;
                             data[0].push(action.payload);
 
                             return this.saveWishlist(data, action.payload);
