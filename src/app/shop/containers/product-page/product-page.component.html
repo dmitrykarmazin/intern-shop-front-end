@@ -20,7 +20,7 @@
             <input 
               [(ngModel)]="count"
               matInput type="text"
-              (keypress)="numberOnly($event)">
+              (keyup)="handleInput($event)">
           </mat-form-field>
           <button mat-button (click)="increase()">+</button>
         </div>

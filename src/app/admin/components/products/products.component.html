@@ -70,7 +70,7 @@
                         <mat-option *ngFor="let category of (categories$ | async)" [value]="category.title">
                           {{category.title}}
                         </mat-option>
-                        <mat-error *ngIf="addProductForm['controls'].category_title.invalid && (addProductForm['controls'].category_title.ditry || addProductForm['controls'].category_title.touched)">
+                        <mat-error *ngIf="addProductForm['controls'].category_title.invalid && (addProductForm['controls'].category_title.dirty || addProductForm['controls'].category_title.touched)">
                           <div *ngIf="addProductForm['controls'].description.errors.required">Select category</div>
                         </mat-error>
                       </mat-select>
@@ -79,7 +79,7 @@
                       <input matInput
                         formControlName="thumbnail"
                         placeholder="Product picture">
-                        <mat-error *ngIf="addProductForm['controls'].thumbnail.invalid && (addProductForm['controls'].thumbnail.ditry || addProductForm['controls'].thumbnail.touched)">
+                        <mat-error *ngIf="addProductForm['controls'].thumbnail.invalid && (addProductForm['controls'].thumbnail.dirty || addProductForm['controls'].thumbnail.touched)">
                         <div *ngIf="addProductForm['controls'].thumbnail.errors.required">Thumbnail required</div>
                         <div *ngIf="addProductForm['controls'].thumbnail.errors.pattern">Picture link not correct</div>
                         </mat-error>

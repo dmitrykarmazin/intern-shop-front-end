@@ -26,7 +26,14 @@ export function reducer( state: CartState = initialCartState, action: fromCart.A
         case fromCart.ADD_TO_CART: {
           const id: string = action.payload['product'].id;
           const prevQuantity: number = state.products[id] ? state.products[id].quantity : 0;
-          const newQuantity: number = prevQuantity + action.payload['quantity'];
+          let newQuantity: number = prevQuantity + action.payload['quantity'];
+          
+          if (state.products[id]) {
+            if (newQuantity > state.products[id]['product'].stock) {
+              newQuantity = state.products[id]['product'].stock;
+              action.payload['quantity'] = action.payload['quantity'] - prevQuantity;
+            }
+          }
 
           const additionalSum: number = action.payload['quantity'] * Number(action.payload['product'].price);
           const searchId: string = state.ids.find((ids: string) => ids === id);
