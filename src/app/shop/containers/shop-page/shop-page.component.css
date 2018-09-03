@@ -20,6 +20,8 @@ mat-drawer {
 .view-mode {
   display: flex;
   align-items: center;
+  margin-bottom: 20px;
+  padding-right: 30px;
 }
 
 .fa {

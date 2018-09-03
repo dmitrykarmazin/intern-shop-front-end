@@ -24,7 +24,6 @@
 
 <div *ngIf="((viewMode$ | async) === 'grid')">
   <mat-card class="app-grid-item">
-    <img mat-card-md-image src="{{product?.thumbnail}}" alt="{{product.title}}">
     <mat-card-header>
       <mat-card-title>{{product.title}}</mat-card-title>
       <mat-card-subtitle>Category: {{product.category_title}}</mat-card-subtitle>
