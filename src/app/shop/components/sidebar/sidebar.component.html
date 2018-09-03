@@ -3,10 +3,10 @@
 <form [formGroup]="form" class="side-form">
   <h4 class="title-self full-width">Price: </h4>
   <mat-form-field class="half-width">
-    <input matInput placeholder="From" formControlName="from" (keydown.enter)="onFiltersChange(form.value)">
+    <input matInput placeholder="From" formControlName="from" (change)="onFiltersChange(form.value)">
   </mat-form-field>
   <mat-form-field class="half-width">
-    <input matInput placeholder="To" formControlName="to" (keydown.enter)="onFiltersChange(form.value)">
+    <input matInput placeholder="To" formControlName="to" (change)="onFiltersChange(form.value)">
   </mat-form-field>
 
   <h4 class="title-self">Category: </h4>
