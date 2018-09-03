@@ -6,8 +6,9 @@ import { AddToCart } from './../../../cart/store/actions';
 import { Product } from '../../../shared/models/product.model';
 import * as fromStore from '../../store';
 import * as fromProductsSelectors from '../../store/selectors/products.selector';
-import { CartState } from '../../../cart/store/reducers/cart.reducer';
+import { CartState, CartItem } from '../../../cart/store/reducers/cart.reducer';
 import * as productsSelectors from '../../store/selectors';
+import * as cartSelectors from '../../../cart/store/selectors/cart.selector';
 
 @Component({
   selector: 'app-product-page',
@@ -22,6 +23,8 @@ export class ProductPageComponent implements OnInit {
   loading$: Observable<boolean>;
   product: Product;
   regex: RegExp = new RegExp(/^[0-9]+$/g);
+  totalCount$: Observable<{[key: string]: CartItem}>;
+  quantity: number;
 
   constructor(private route: ActivatedRoute,
               private store: Store<CartState>,
@@ -48,6 +51,8 @@ export class ProductPageComponent implements OnInit {
   increase(): void {
     if (this.count < this.product.stock) {
       this.count += 1;
+    } else {
+      this.count;
     }
   }
 
@@ -63,11 +68,12 @@ export class ProductPageComponent implements OnInit {
       quantity: this.count
     }));
   }
-  numberOnly(event: KeyboardEvent): any {
-    const currMount: string = this.count + event.key;
-    if (!currMount.match(this.regex)) {
-      event.preventDefault();
+
+  handleInput(event: KeyboardEvent): number {
+    if (+event.target['value'] > this.product.stock) {
+      return this.count = this.product.stock;
     }
+    return this.count = +event.target['value'];
   }
 
   private subscribeToRouting(): void {
