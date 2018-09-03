@@ -20,7 +20,7 @@ export class ProductsComponent implements OnInit {
   addProductForm: FormGroup;
   addCategoryForm: FormGroup;
   product: Product;
-  regLink: RegExp = /^(http[s]?):\/\/.*$/g;
+  regLink: RegExp = /^(http(s)?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
   noDecimal: RegExp = /^\d+$/g;
 
   constructor(
@@ -49,7 +49,6 @@ export class ProductsComponent implements OnInit {
       stock: [1, [
         Validators.min(1),
         Validators.pattern(this.noDecimal)
-        // wholeNumbersValidator
       ]],
       price: [1, [
         Validators.min(0.01)
