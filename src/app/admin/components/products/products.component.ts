@@ -74,12 +74,11 @@ export class ProductsComponent implements OnInit {
     this.product = this.addProductForm.value;
     this.store.dispatch(new productsActions.AddProductStart(this.product));
     this.resetForm(this.addProductForm);
-    // this.addProductForm.reset();
   }
   submitNewCategory(): void {
      this.category = this.addCategoryForm.value;
      this.store.dispatch(new categoryActions.AddCategory(this.category));
-     this.addCategoryForm.reset();
+     this.resetForm(this.addCategoryForm);
   }
 
   private resetForm(formGroup: FormGroup): void {
