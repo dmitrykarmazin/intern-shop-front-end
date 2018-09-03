@@ -27,5 +27,4 @@ export class ListItemComponent {
     $event.stopPropagation();
     this.emitAddToWish.emit(this.product);
   }
-
 }

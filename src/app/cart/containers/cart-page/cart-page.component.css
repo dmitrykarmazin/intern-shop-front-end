@@ -8,7 +8,8 @@
 }
 
 .mat-toolbar.mat-toolbar-single-row {
-    height: auto;
+  min-height: calc(100vh - 128px);
+  height: auto
 }
 
 .cart-container {

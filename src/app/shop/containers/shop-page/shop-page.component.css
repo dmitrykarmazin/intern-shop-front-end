@@ -5,6 +5,8 @@
 mat-drawer,
 mat-drawer-content {
   padding: 20px;
+  min-height: calc(100vh - 128px);
+  box-sizing: border-box;
 }
 
 mat-drawer {
@@ -18,10 +20,6 @@ mat-drawer {
 .view-mode {
   display: flex;
   align-items: center;
-}
-
-.view-mode mat-slide-toggle {
-  margin-left: 5px;
 }
 
 .fa {
