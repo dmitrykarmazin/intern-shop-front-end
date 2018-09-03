@@ -1,8 +1,9 @@
 import { ReactiveFormsModule, FormsModule, FormGroup, Validators, FormBuilder, ValidatorFn, AbstractControl } from '@angular/forms';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import * as productsActions from './../../../shop/store/actions/products.action';
-import { Store, StoreModule } from '@ngrx/store';
+import { Store, StoreModule, combineReducers } from '@ngrx/store';
 import { ProductsComponent } from './products.component';
+import { reducers } from '../../../shop/store/reducers';
 import { getAllCategories } from '../../../shop/store/selectors/categories.selector';
 
 describe('ProductsComponent', () => {
@@ -15,7 +16,9 @@ describe('ProductsComponent', () => {
       imports: [
         ReactiveFormsModule,
         FormsModule,
-        StoreModule.forRoot({})
+        StoreModule.forRoot({
+         'shop': combineReducers(reducers)
+        })
       ],
       declarations: [ ProductsComponent ]
     })
