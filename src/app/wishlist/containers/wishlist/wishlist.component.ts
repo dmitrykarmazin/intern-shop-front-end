@@ -17,10 +17,12 @@ export class WishlistComponent {
 
   products$: Observable<Product[]>;
   wishCount$: Observable<number>;
+  loading$: Observable<boolean>;
 
   constructor(private store: Store<State>) {
     this.products$ = this.store.pipe(select(wishSelectors.getWishProducts));
     this.wishCount$ = this.store.pipe(select(wishSelectors.getWishCount));
+    this.loading$ = this.store.pipe(select(wishSelectors.getWishIsLoading));
   }
 
   addToCart($event: Product): void {

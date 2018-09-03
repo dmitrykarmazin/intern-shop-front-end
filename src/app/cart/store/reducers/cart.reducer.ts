@@ -24,28 +24,46 @@ export const initialCartState: CartState = {
 export function reducer( state: CartState = initialCartState, action: fromCart.Actions): CartState {
     switch (action.type) {
         case fromCart.ADD_TO_CART: {
-            const id: string = action.payload['product'].id;
-            const prevQuantity: number = state.products[id] ? state.products[id].quantity : 0;
-            const newQuantity: number = prevQuantity + action.payload['quantity'];
+          const id: string = action.payload['product'].id;
+          const prevQuantity: number = state.products[id] ? state.products[id].quantity : 0;
+          const newQuantity: number = prevQuantity + action.payload['quantity'];
 
-            const additionalSum: number = action.payload['quantity'] * Number(action.payload['product'].price);
+          const additionalSum: number = action.payload['quantity'] * Number(action.payload['product'].price);
+          const searchId: string = state.ids.find((ids: string) => ids === id);
 
+          // check adding duplicate product
+          if (searchId === id) {
             return {
-                ...state,
-                isEmpty: false,
-                ids: [...state.ids, id],
-                products: {
-                    ...state.products,
-                    [id]: {
-                        ...state.products[id],
-                        product: action.payload['product'],
-                        quantity: newQuantity
-                    }
-                },
-                totalCount: state.totalCount + action.payload['quantity'],
-                totalSum: state.totalSum + additionalSum
+              ...state,
+              products: {
+                ...state.products,
+                [id]: {
+                  ...state.products[id],
+                  quantity: newQuantity
+                }
+              },
+              totalCount: state.totalCount + action.payload['quantity'],
+              totalSum: state.totalSum + additionalSum
             };
+          } else {
+            return {
+              ...state,
+              isEmpty: false,
+              ids: [...state.ids, id],
+              products: {
+                ...state.products,
+                [id]: {
+                  ...state.products[id],
+                  product: action.payload['product'],
+                  quantity: newQuantity
+                }
+              },
+              totalCount: state.totalCount + action.payload['quantity'],
+              totalSum: state.totalSum + additionalSum
+            };
+          }
         }
+
         case fromCart.DECREASE: {
             const id: string = <string>action.payload;
 
