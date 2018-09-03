@@ -18,6 +18,10 @@
     color: red;
 }
 
+.app-in-wish-list {
+    color: rgb(199, 32, 68);
+}
+
 .app-grid-item .mat-card-md-image {
     margin: 0 auto 8px auto;
     display: block;

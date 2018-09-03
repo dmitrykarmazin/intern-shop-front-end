@@ -8,7 +8,7 @@ import * as fromStore from '../../store';
 import * as fromProductsSelectors from '../../store/selectors/products.selector';
 import * as fromCategoriesSelectors from '../../store/selectors/categories.selector';
 import { AddToCart } from '../../../cart/store/actions/cart.action';
-import { WishAddNew } from '../../../wishlist/store/actions/wish.action';
+import { WishAddNew, WishRemoteProduct } from '../../../wishlist/store/actions/wish.action';
 import { getWishIds } from '../../../wishlist/store/selectors/wish.selector';
 
 @Component({
@@ -25,7 +25,7 @@ export class ShopPageComponent implements OnInit {
   filters$: Observable<FiltersObject>;
   loadingProducts$: Observable<boolean>;
   loadingCategories$: Observable<boolean>;
-  wisheIds$: Observable<string[]>;
+  wishIds$: Observable<string[]>;
 
   constructor(private store: Store<fromStore.ShopState>) {
     this.loadingProducts$ = this.store.pipe(select(fromProductsSelectors.getProductsLoading));
@@ -34,7 +34,7 @@ export class ShopPageComponent implements OnInit {
     this.products$ = this.store.pipe(select(fromProductsSelectors.getAllProducts));
     this.categories$ = this.store.pipe(select(fromCategoriesSelectors.getAllCategories));
     this.viewMode$ = this.store.pipe(select(fromProductsSelectors.getProductsViewMode));
-    this.wisheIds$ = this.store.pipe(select(getWishIds));
+    this.wishIds$ = this.store.pipe(select(getWishIds));
   }
 
   ngOnInit(): void {
@@ -68,5 +68,9 @@ export class ShopPageComponent implements OnInit {
 
   addToWish($event: Product): void {
     this.store.dispatch(new WishAddNew($event));
+  }
+
+  removeFromWish($event: string): void {
+    this.store.dispatch(new WishRemoteProduct($event));
   }
 }
