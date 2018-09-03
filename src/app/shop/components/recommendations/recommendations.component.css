@@ -58,7 +58,6 @@ h2 {
 
 .leftRs:hover, .rightRs:hover {
     background: #8080803b;
-        -webkit-transition: all 0.1s linear;
     transition: all 0.1s linear;
 }
 
