@@ -1,6 +1,9 @@
 .app-wish-list {
-    margin: 20px auto;
+    margin: 0 auto;
     max-width: 980px;
+    min-height: calc(100vh - 148px);
+    height: auto;
+    padding-top: 20px;
 }
 
 .app-wish-list__list {

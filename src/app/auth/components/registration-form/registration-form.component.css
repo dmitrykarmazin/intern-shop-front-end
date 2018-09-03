@@ -18,3 +18,8 @@ mat-form-field{
 .password_group mat-form-field {
   width: 45%;
 }
+
+form {
+  min-height: calc(100vh - 128px);
+  height: auto;
+}
