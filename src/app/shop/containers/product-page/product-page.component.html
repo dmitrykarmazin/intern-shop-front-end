@@ -1,11 +1,6 @@
-<div *ngIf="(loading$ | async)" class="spinner-overlay">
-  <mat-progress-spinner
-        class="example-margin"
-        color="primary"
-        mode="indeterminate"
-        value="30">
-  </mat-progress-spinner>
-</div> 
+<div *ngIf="(loading$ | async) " class="wrap-spinner">
+  <mat-spinner strokeWidth="10" [diameter]="150"></mat-spinner>
+</div>
 <div *ngIf="!(loading$ | async)" class="product-containner">
   <div *ngIf="product" class="product-details">
     <div *ngIf="product && product.thumbnail" class="product-image">
@@ -17,7 +12,7 @@
         <div class="count-block">
           <button mat-button (click)="decrease()">-</button>
           <mat-form-field class="count-wrapper">
-            <input 
+            <input
               [(ngModel)]="count"
               matInput type="text"
               (keypress)="numberOnly($event)">
@@ -44,5 +39,5 @@
       </p>
     </div>
   </div>
-  <app-recommendations></app-recommendations>
+  <app-recommendations [products$]="products$"></app-recommendations>
 </div>

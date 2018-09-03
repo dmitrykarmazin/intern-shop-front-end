@@ -1,0 +1,13 @@
+
+.main {
+  height: calc(100vh - 100px);
+}
+
+app-header {
+  height: 50px;
+}
+
+app-footer {
+  height: 50px;
+}
+
