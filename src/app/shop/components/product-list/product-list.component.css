@@ -4,6 +4,7 @@
 
 .app-product-list__link{
     text-decoration: none;
+    width: 100%;
 }
 
 .app-product-list__ul {
