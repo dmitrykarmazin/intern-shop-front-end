@@ -63,11 +63,12 @@ export class ProductPageComponent implements OnInit {
       quantity: this.count
     }));
   }
-  numberOnly(event: KeyboardEvent): any {
-    const currMount: string = this.count + event.key;
-    if (!currMount.match(this.regex)) {
-      event.preventDefault();
+
+  handleInput(event: KeyboardEvent): number {
+    if (+event.target['value'] > this.product.stock) {
+      return this.count = this.product.stock;
     }
+    return this.count = +event.target['value'];
   }
 
   private subscribeToRouting(): void {

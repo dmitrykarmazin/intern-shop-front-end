@@ -1,6 +1,6 @@
 <div *ngIf="((viewMode$ | async) === 'list')" class="app-list-item">
   <mat-card>
-    <img mat-card-md-image src="{{product.thumbnail}}" alt="{{product.title}}">
+    <img mat-card-md-image src="{{product?.thumbnail}}" alt="{{product.title}}">
     <mat-card-header> 
       <mat-card-title>
         <a [routerLink]="['', 'shop', 'products', product.id]">
