@@ -2,9 +2,10 @@
 // `ng build ---prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment: { production: boolean, api_url: string } = {
+export const environment: { production: boolean, api_url: string, url_not_found_img: string, } = {
   production: false,
-  api_url: 'http://localhost:8000'
+  api_url: 'http://localhost:8000',
+  url_not_found_img: 'https://cdn.browshot.com/static/images/not-found.png',
 };
 
 /*

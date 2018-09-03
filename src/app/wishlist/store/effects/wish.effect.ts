@@ -67,10 +67,10 @@ export class WishEffects {
         .pipe(
             switchMap((action: wishActions.WishRemoteProduct): any => {
                 return zip(
-                    this.store.pipe(select(wishSelectors.getWishProducts)),
+                    this.store.pipe(select(wishSelectors.getWishProductsInObject)),
                     this.store.pipe(select(getAuthenticatedUser))
                 ).pipe(
-                    switchMap((data: any) => {
+                    switchMap((data: [{[id: string]: Product}, User]) => {
                         if (data[1] !== null) {
                             delete data[0][action.payload];
 
@@ -131,7 +131,7 @@ export class WishEffects {
         );
     }
 
-    private removeWishlist(data: any, productId: string): Observable<any> {
+    private removeWishlist(data: [{[id: string]: Product}, User], productId: string): Observable<any> {
         return this.dataService.updateWishes(data[1], productToArray(data[0])).pipe(
             map((success: boolean) => {
                 if (success) {
