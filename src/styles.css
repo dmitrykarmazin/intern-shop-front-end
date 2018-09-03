@@ -11,10 +11,6 @@
   min-height: calc(100vh - 128px);
 }
 
-html, body {
-  min-height: calc(100vh - 128px);
-}
-
 .app-notification-text {
   color: green;
 }
