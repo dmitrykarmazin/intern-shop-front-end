@@ -45,7 +45,7 @@ export class ProductsService {
     }
   }
 
-  setStockFilter(filtersObj: FiltersObject): string{
+  setStockFilter(filtersObj: FiltersObject): string {
     let query: string;
     if (filtersObj && filtersObj.stock) {
       return query = `&stock=${filtersObj.stock}`;

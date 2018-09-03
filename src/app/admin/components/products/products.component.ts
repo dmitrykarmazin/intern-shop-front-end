@@ -4,7 +4,7 @@ import * as productsActions from './../../../shop/store/actions/products.action'
 import { Observable } from 'rxjs';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Category } from '../../../shared/models/category.model';
-import { FormGroup, Validators, FormBuilder, ValidatorFn } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import { getAllCategories } from '../../../shop/store/selectors/categories.selector';
 
@@ -20,6 +20,8 @@ export class ProductsComponent implements OnInit {
   addProductForm: FormGroup;
   addCategoryForm: FormGroup;
   product: Product;
+  regLink: RegExp = /^(http[s]?):\/\/.*$/g;
+  noDecimal: RegExp = /^\d+$/g;
 
   constructor(
     private fb: FormBuilder,
@@ -46,7 +48,7 @@ export class ProductsComponent implements OnInit {
       ]],
       stock: [1, [
         Validators.min(1),
-        Validators.pattern(/^[1-9]*[0-9]+$/)
+        Validators.pattern(this.noDecimal)
         // wholeNumbersValidator
       ]],
       price: [1, [
@@ -54,7 +56,7 @@ export class ProductsComponent implements OnInit {
       ]],
       thumbnail: ['', [
         Validators.required,
-        Validators.pattern(/^https?:\/\/.+$/)
+        Validators.pattern(this.regLink)
       ]]
     });
 
@@ -72,11 +74,22 @@ export class ProductsComponent implements OnInit {
   submitNewProduct(): void {
     this.product = this.addProductForm.value;
     this.store.dispatch(new productsActions.AddProductStart(this.product));
-    this.addProductForm.reset();
+    this.resetForm(this.addProductForm);
+    // this.addProductForm.reset();
   }
   submitNewCategory(): void {
      this.category = this.addCategoryForm.value;
      this.store.dispatch(new categoryActions.AddCategory(this.category));
      this.addCategoryForm.reset();
+  }
+
+  private resetForm(formGroup: FormGroup): void {
+    let control: AbstractControl = null;
+    formGroup.reset();
+    formGroup.markAsUntouched();
+    Object.keys(formGroup.controls).map((name: any) => {
+      control = formGroup.controls[name];
+      control.setErrors(null);
+    });
   }
 }
