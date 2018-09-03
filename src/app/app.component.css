@@ -1,6 +1,7 @@
-
-.main {
-  height: calc(100vh - 100px);
+::ng-deep app-root > .ng-star-inserted {
+    position: relative;
+    padding-bottom: 64px;
+    min-height: 100%;
 }
 
 app-header {
@@ -10,4 +11,3 @@ app-header {
 app-footer {
   height: 50px;
 }
-

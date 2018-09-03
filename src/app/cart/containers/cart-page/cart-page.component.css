@@ -76,5 +76,9 @@ button.mat-primary {
     margin-left: 30px;
 }
 
+.mat-toolbar.mat-toolbar-single-row {
+    background: none;
+  }
+
 
 
