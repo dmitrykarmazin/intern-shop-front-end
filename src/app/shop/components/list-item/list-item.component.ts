@@ -34,5 +34,4 @@ export class ListItemComponent {
       this.emitAddToWish.emit(this.product);
     }
   }
-
 }

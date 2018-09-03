@@ -21,3 +21,48 @@
 .app-in-wish-list {
     color: rgb(199, 32, 68);
 }
+
+.app-grid-item .mat-card-md-image {
+    margin: 0 auto 8px auto;
+    display: block;
+}
+
+.app-grid-item .mat-card-header .mat-card-subtitle:not(:first-child) {
+    margin-top: 0;
+}
+
+::ng-deep .app-grid-item .mat-card-header-text {
+    width: 100%;
+    text-align: center;
+}
+
+.app-grid-item .app-list-item__price {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.app-grid-item .mat-card-actions {
+    text-align: center;
+}
+
+.app-list-item .mat-card {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.app-list-item .mat-card {
+    position: relative;
+}
+
+.app-list-item .app-list-item__price {
+    position: absolute;
+    bottom: 30px;
+}
+
+.app-list-item .mat-card>.mat-card-actions:last-child {
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}

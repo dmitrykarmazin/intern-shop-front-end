@@ -9,6 +9,7 @@ import {
   AuthenticationErrorAction, AuthenticationSuccessAction, GetUserInfoFailAction,
   GetUserInfoSuccessAction, SignUpSuccessAction
 } from '../actions/auth.actions';
+import { Go } from '../../../store/actions/router.action';
 import { User } from '../../models/user';
 import { AppNotificationShow } from '../../../store/actions/notification.action';
 import { mergeMap } from 'rxjs/internal/operators';
@@ -58,7 +59,8 @@ export class AuthEffects {
       return this.authService.getUser(action['payload'].token).pipe(
        mergeMap((user: User) => [
          new GetUserInfoSuccessAction(user),
-         new AppNotificationShow({message: `User is logged in as "${user.login}"`, isError: false})
+         new AppNotificationShow({message: `User is logged in as "${user.login}"`, isError: false}),
+         new Go({path: ['', 'shop']})
        ]),
         catchError((error: Error) => of(new GetUserInfoFailAction(error)))
       );
@@ -73,7 +75,8 @@ export class AuthEffects {
       return this.authService.getUser(action['payload'].token).pipe(
         mergeMap((user: User) => [
           new GetUserInfoSuccessAction(user),
-          new AppNotificationShow({message: `"${user.login}" was successfully registered`, isError: false})
+          new AppNotificationShow({message: `"${user.login}" was successfully registered`, isError: false}),
+          new Go({path: ['', 'shop']})
           ]),
         catchError((error: Error) => of(new GetUserInfoFailAction(error)))
       );
@@ -89,7 +92,10 @@ export class AuthEffects {
       }
 
       return this.authService.getUser(action.payload).pipe(
-        map((user: User) => new GetUserInfoSuccessAction(user)),
+        mergeMap((user: User) => [
+          new GetUserInfoSuccessAction(user),
+          new Go({ path: ['', 'shop']})
+        ]),
         catchError((error: Error) => of(new GetUserInfoFailAction({error: error})))
       );
     })
@@ -98,7 +104,10 @@ export class AuthEffects {
   @Effect()
   signOut$: Observable<Action> = this.actions$.pipe(
     ofType(authActions.SIGN_OUT),
-    map(() => new AppNotificationShow({message: 'You are signed out', isError: false}))
+    mergeMap(() => [
+      new AppNotificationShow({message: 'You are signed out', isError: false}),
+      new Go({ path: ['', 'login']})
+    ])
   );
 
   @Effect() onFail$: Observable<Action> = this.actions$.pipe(

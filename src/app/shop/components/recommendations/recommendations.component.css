@@ -7,6 +7,8 @@ h4 {
     height: 236px;
     width: 170px;
     margin: 0 auto;
+    cursor: pointer;
+    outline: none;
 }
 
 h2 {
@@ -16,12 +18,10 @@ h2 {
 }
 
 .recommendations {
-    padding-top: 40px;
     padding-bottom: 40px;
-    width: 80%;
-    margin: 0 auto;
-    margin-bottom: 40px;
+    margin: 40px auto;
     position: relative;
+    max-width: 1200px;
 }
 
 .product-image {
@@ -58,7 +58,6 @@ h2 {
 
 .leftRs:hover, .rightRs:hover {
     background: #8080803b;
-        -webkit-transition: all 0.1s linear;
     transition: all 0.1s linear;
 }
 

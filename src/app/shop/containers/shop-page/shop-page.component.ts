@@ -17,6 +17,7 @@ import { getWishIds } from '../../../wishlist/store/selectors/wish.selector';
   styleUrls: ['./shop-page.component.css']
 })
 export class ShopPageComponent implements OnInit {
+
   products$: Observable<Product[]>;
   categories$: Observable<Category[]>;
   viewModeValue: boolean = false;
@@ -39,7 +40,7 @@ export class ShopPageComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(new fromStore.LoadProducts());
     this.store.dispatch(new fromStore.LoadCategories());
- }
+  }
 
   chooseViewMode(viewMode: string): void {
     if (viewMode === 'grid') {
@@ -51,6 +52,10 @@ export class ShopPageComponent implements OnInit {
   }
 
   filters(filters: FiltersObject): void {
+    this.store.dispatch(new fromStore.ApplyFilters(filters));
+  }
+
+  clearFilters(filters: FiltersObject): void {
     this.store.dispatch(new fromStore.ApplyFilters(filters));
   }
 

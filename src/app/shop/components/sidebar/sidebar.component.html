@@ -1,24 +1,24 @@
 <h3 class="title">Filters: </h3>
 
-<h4 class="title-self">Price: </h4>
-<form class="side-form">
+<form [formGroup]="form" class="side-form">
+  <h4 class="title-self full-width">Price: </h4>
   <mat-form-field class="half-width">
-    <input matInput placeholder="From" (change)="onFiltersChange(From.value, To.value, category, stock.value)" #From>
+    <input matInput placeholder="From" formControlName="from" (change)="onFiltersChange(form.value)">
   </mat-form-field>
   <mat-form-field class="half-width">
-    <input matInput placeholder="To" (change)="onFiltersChange(From.value, To.value, category, stock.value)" #To>
+    <input matInput placeholder="To" formControlName="to" (change)="onFiltersChange(form.value)">
   </mat-form-field>
 
   <h4 class="title-self">Category: </h4>
   <mat-form-field>
-    <mat-select placeholder="Category" *ngIf="!!(categories?.length | async)">
+    <mat-select placeholder="Category" *ngIf="!(categories$ | async)">
       <mat-option>
         No any categories
       </mat-option>
     </mat-select>
 
-    <mat-select placeholder="Category">
-      <mat-option *ngFor="let category of (categories$ | async)" (click)="getCategoryName(category.title)" (click)="onFiltersChange(From.value, To.value, category.title, stock.value)" [value]="category.id">
+    <mat-select placeholder="Category" formControlName="category" *ngIf="(categories$ | async)">
+      <mat-option *ngFor="let category of (categories$ | async)" (click)="onFiltersChange(form.value)" [value]="category.title">
         {{category.title}}
       </mat-option>
     </mat-select>
@@ -26,6 +26,10 @@
 
   <h4 class="title-self">Stock: </h4>
   <mat-form-field class="full-width">
-    <input matInput placeholder="Stock" (change)="onFiltersChange(From.value, To.value, category, stock.value)" #stock>
+    <input matInput placeholder="Stock" formControlName="stock" (change)="onFiltersChange(form.value)">
   </mat-form-field>
+
+  <div class="button-row">
+    <button mat-raised-button type="button" (click)="clearFilters()">ClearFilter</button>
+  </div>
 </form>
