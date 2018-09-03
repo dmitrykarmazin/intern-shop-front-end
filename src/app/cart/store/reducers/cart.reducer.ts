@@ -25,7 +25,7 @@ export function reducer( state: CartState = initialCartState, action: fromCart.A
     switch (action.type) {
         case fromCart.ADD_TO_CART: {
           const id: string = action.payload['product'].id;
-          let prevQuantity: number = state.products[id] ? state.products[id].quantity : 0;
+          const prevQuantity: number = state.products[id] ? state.products[id].quantity : 0;
           let newQuantity: number = prevQuantity + action.payload['quantity'];
           
           if (state.products[id]) {

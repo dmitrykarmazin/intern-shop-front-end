@@ -48,8 +48,6 @@ export class ProductPageComponent implements OnInit {
   increase(): void {
     if (this.count < this.product.stock) {
       this.count += 1;
-    } else {
-      this.count;
     }
   }
 
