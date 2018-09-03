@@ -1,3 +1,4 @@
+import { AdminModule } from './admin/admin.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -51,6 +52,7 @@ import { WishlistModule } from './wishlist/wishlist.module';
     ReactiveFormsModule,
     AuthModule,
     CartModule,
+    AdminModule,
     WishlistModule,
   ],
   providers: [

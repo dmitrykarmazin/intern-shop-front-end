@@ -1,3 +1,4 @@
+import { AdminModule } from './admin/admin.module';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ShopPageComponent } from './shop/containers/shop-page/shop-page.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'shop/products/:id', component: ProductPageComponent, canActivate: [fromGuards.AuthGuard] },
   { path: 'shop', component: ShopPageComponent, canActivate: [fromGuards.AuthGuard] },
   { path: 'cart', component: CartPageComponent, canActivate: [fromGuards.AuthGuard] },
+  { path: 'admin', loadChildren: (): any => AdminModule , canActivate: [fromGuards.AuthGuard]},
   { path: '**', redirectTo: 'shop', pathMatch: 'full' }
 ];
 
