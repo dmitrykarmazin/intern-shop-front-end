@@ -43,6 +43,8 @@
 
 .app-grid-item .mat-card-actions {
     text-align: center;
+    padding-top: 0;
+    padding-bottom: 15px;
 }
 
 .app-list-item .mat-card {
@@ -65,4 +67,13 @@
     bottom: 30px;
     padding-bottom: 0;
     margin-bottom: 0;
+}
+
+.app-list-item__stock {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.app-list-item .app-list-item__stock {
+    text-align: left;
 }
