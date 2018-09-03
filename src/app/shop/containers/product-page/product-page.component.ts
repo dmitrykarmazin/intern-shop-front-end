@@ -6,9 +6,8 @@ import { AddToCart } from './../../../cart/store/actions';
 import { Product } from '../../../shared/models/product.model';
 import * as fromStore from '../../store';
 import * as fromProductsSelectors from '../../store/selectors/products.selector';
-import { CartState, CartItem } from '../../../cart/store/reducers/cart.reducer';
+import { CartState } from '../../../cart/store/reducers/cart.reducer';
 import * as productsSelectors from '../../store/selectors';
-import * as cartSelectors from '../../../cart/store/selectors/cart.selector';
 
 @Component({
   selector: 'app-product-page',
@@ -23,8 +22,6 @@ export class ProductPageComponent implements OnInit {
   loading$: Observable<boolean>;
   product: Product;
   regex: RegExp = new RegExp(/^[0-9]+$/g);
-  totalCount$: Observable<{[key: string]: CartItem}>;
-  quantity: number;
 
   constructor(private route: ActivatedRoute,
               private store: Store<CartState>,
