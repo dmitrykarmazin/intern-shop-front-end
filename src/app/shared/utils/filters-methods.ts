@@ -14,24 +14,22 @@ export function setFilters(filtersObj: FiltersObject): string {
 }
 
 export function setPriceFilter(filtersObj: FiltersObject): string {
-  let query: string = '';
   if (filtersObj && filtersObj.price) {
     if (!filtersObj.price['from'] && !filtersObj.price['to']) {
-      return query = '';
+      return '';
     }
     if (filtersObj.price['from'] || filtersObj.price['to']) {
-      return query = `?price=${filtersObj.price['from']} to ${filtersObj.price['to']}`;
+      return `?price=${filtersObj.price['from']} to ${filtersObj.price['to']}`;
     }
   }
 }
 
 export function setCategoryFilter(filtersObj: FiltersObject): string {
-  let query: string = '';
   if (filtersObj && filtersObj.category) {
     if (filtersObj.price['from'] || filtersObj.price['to']) {
-      return query = `&category=${filtersObj.category}`;
+      return `&category=${filtersObj.category}`;
     } else {
-      return query = `?category=${filtersObj.category}`;
+      return `?category=${filtersObj.category}`;
     }
   } else {
     return '';
@@ -39,12 +37,11 @@ export function setCategoryFilter(filtersObj: FiltersObject): string {
 }
 
 export function setStockFilter(filtersObj: FiltersObject): string {
-  let query: string = '';
   if (filtersObj && filtersObj.stock) {
     if ((!filtersObj.price['from'] && !filtersObj.price['to']) && !filtersObj.category) {
-      return query = `?stock=${filtersObj.stock}`;
+      return `?stock=${filtersObj.stock}`;
     } else {
-      return query = `&stock=${filtersObj.stock}`;
+      return `&stock=${filtersObj.stock}`;
     }
   } else {
     return '';
