@@ -40,9 +40,8 @@ export function reducer(state: AuthState = initialState, action: Actions): AuthS
         ...state,
         isAuthorized: true,
         loading: false,
-        currentUser: {
-          token: action['payload'].token
-        },
+        token: action['payload'].token,
+        currentUser: action['payload'],
         error: null
       };
 
@@ -51,9 +50,8 @@ export function reducer(state: AuthState = initialState, action: Actions): AuthS
         ...state,
         isAuthorized: true,
         loading: false,
-        currentUser: {
-          token: action['payload'].token
-        },
+        token: action['payload'].token,
+        currentUser: action['payload'],
         error: null
       };
 
@@ -79,8 +77,10 @@ export function reducer(state: AuthState = initialState, action: Actions): AuthS
     }
 
     case fromActions.GET_USER_INFO: {
+
       return <AuthState>{
         ...state,
+        token: action['payload'],
         loading: true
       };
     }
@@ -95,6 +95,7 @@ export function reducer(state: AuthState = initialState, action: Actions): AuthS
     }
 
     case fromActions.GET_USER_INFO_SUCCESS: {
+
       return <AuthState>{
         ...state,
         loading: false,
@@ -107,10 +108,3 @@ export function reducer(state: AuthState = initialState, action: Actions): AuthS
       return state;
   }
 }
-
-// export const getIsAuthenticated: any = (state: AuthState): boolean => state.isAuthorized;
-// export const getIsAuthenticatedLoaded: any = (state: AuthState): boolean => state.loaded;
-// export const getAuthenticatedUser: any = (state: AuthState): any => state.currentUser;
-// export const getAuthenticationError: any = (state: AuthState): string => state.error;
-// export const getIsLoading: any = (state: AuthState): boolean => state.loading;
-// export const getUserInfo: any = (state: AuthState): any => state.currentUser;

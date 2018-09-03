@@ -30,9 +30,7 @@ export class ProductPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loading$ = this.store.pipe(
-      select(productsSelectors.getProductsLoading)
-    );
+    this.loading$ = this.store.pipe(select(productsSelectors.getProductsLoading));
     this.getProduct();
     this.store.dispatch(new fromStore.LoadProducts());
     this.subscribeToRouting();
@@ -40,7 +38,6 @@ export class ProductPageComponent implements OnInit {
 
   getProduct(): void {
     this.id = this.route.snapshot.params.id;
-
     this.store.pipe(
         select(productsSelectors.getAllProducts)
       ).subscribe((products: Product[]) => {

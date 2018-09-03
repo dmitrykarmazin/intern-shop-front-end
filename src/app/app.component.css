@@ -3,3 +3,11 @@
     padding-bottom: 64px;
     min-height: 100%;
 }
+
+app-header {
+  height: 50px;
+}
+
+app-footer {
+  height: 50px;
+}

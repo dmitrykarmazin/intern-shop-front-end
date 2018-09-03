@@ -1,8 +1,10 @@
 <div *ngIf="!(loading$ | async)">
   <app-header></app-header>
-  <router-outlet></router-outlet>
+  <div class="main">
+    <router-outlet></router-outlet>
+  </div>
   <app-footer></app-footer>
 </div>
-<div *ngIf="(loading$ | async)">
-  loading...
+<div *ngIf="(loading$ | async)" class="wrap-spinner">
+    <mat-spinner strokeWidth="10" [diameter]="150"></mat-spinner>
 </div>
